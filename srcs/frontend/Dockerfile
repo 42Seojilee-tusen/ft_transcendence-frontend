@@ -1,6 +1,6 @@
 FROM nginx:stable
 
-COPY ./nginx.conf /etc/nginx/sites-enabled/default/
+COPY ./nginx.conf /etc/nginx/conf.d/default.conf
 
 COPY ./entrypoint.sh /home/entrypoint.sh
 
