@@ -1,0 +1,17 @@
+services:
+  frontend:
+    init: true
+    build: ./srcs/frontend
+    image: frontend:42
+    container_name: frontend
+    env_file:
+      - .env
+    ports:
+      - "443:443"
+      - "80:80"
+    volumes:
+      - ./srcs/frontend/srcs:/usr/share/nginx/html
+
+networks:
+  ft_trancendence:
+
