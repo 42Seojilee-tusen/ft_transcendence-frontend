@@ -1,5 +1,5 @@
 import Component from "./core/Component.js";
-import createPages from "./pages/index.js";
+import createPages from "./pages/PageIndex.js";
 
 export default class App extends Component {
 	setup() {
@@ -10,11 +10,7 @@ export default class App extends Component {
 
 	template() {
 		return `
-		<header>
-			<a href="#">Home</a>
-			<a href="#/counter">Counter</a>
-		</header>
-		<main></main>
+		<main class="w-100 h-100"></main>
 		`;
 	}
 
@@ -24,10 +20,7 @@ export default class App extends Component {
 	
 		//라우트 페이지 설정
 		this.$state.routes.push({ fragment: '#/', component: pages.home });
-		this.$state.routes.push({
-		  fragment: '#/counter',
-		  component: pages.counter,
-		});
+		this.$state.routes.push({ fragment: '#/friend', component: pages.friend });
 	
 		//현재 URL 체크
 		const checkRoutes = () => {
