@@ -27,7 +27,7 @@ export default class Component {
 	setEvent() {} // 컴포넌트의 이벤트 설정
 	
 	setState(newState) { // 상태 변경 후 렌더링
-		this.$state = { ...this.$state, ...newState };
+		this.$state = { ...this.$state, ...newState }; // 같은 키가 있으면 업데이트 되고, 새로운 것은 생성, 부분 업데이트 구현 가능
 		this.render();
 	}
 
