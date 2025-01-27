@@ -21,6 +21,7 @@ export default class App extends Component {
 		//라우트 페이지 설정
 		this.$state.routes.push({ fragment: '#/', component: pages.home });
 		this.$state.routes.push({ fragment: '#/friend', component: pages.friend });
+		this.$state.routes.push({ fragment: '#/mypage', component: pages.counter });
 	
 		//현재 URL 체크
 		const checkRoutes = () => {
