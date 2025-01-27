@@ -26,3 +26,9 @@ body {
     border-color: #039349;
     color: #fff;
 }
+
+.bg-desert {
+	background-color: #F9E1BB;
+    border-color: #F9E1BB;
+	color: #fff;
+}

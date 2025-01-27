@@ -1,5 +1,6 @@
 import Component from "../core/Component.js";
-import Button from "../componenets/Button.js";
+import MoveButton from "../componenets/MoveButton.js";
+import ModalButton from "../componenets/ModalButton.js";
 
 export default class Home extends Component {
 	template() {
@@ -24,9 +25,9 @@ export default class Home extends Component {
 		const $multi = this.$target.querySelector('[data-component="multiButton"]');
 		const $friend = this.$target.querySelector('[data-component="friendButton"]');
 		const $mypage = this.$target.querySelector('[data-component="mypageButton"]');
-		new Button($local, {name: "로컬 플레이", href: "#/local", });
-		new Button($multi, {name: "멀티 플레이", href: "#/multi", });
-		new Button($friend, {name: "친구 관리", href: "#/friend", });
-		new Button($mypage, {name: "마이 페이지", href: "#/mypage", });
+		new MoveButton($local, {name: "로컬 플레이", href: "#/local", });
+		new ModalButton($multi, {name: "멀티 플레이" });
+		new MoveButton($friend, {name: "친구 관리", href: "#/friend", });
+		new MoveButton($mypage, {name: "마이 페이지", href: "#/mypage", });
 	}
 }
