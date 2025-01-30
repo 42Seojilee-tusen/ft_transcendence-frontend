@@ -1,7 +1,7 @@
 import Component from "../core/Component.js";
 import LoginButton from "../componenets/LoginButton.js";
 
-export default class Home extends Component {
+export default class Login extends Component {
 	template() {
 		return `
 		<div class="container-xxl vh-100 d-flex flex-column justify-content-center">
@@ -17,7 +17,9 @@ export default class Home extends Component {
 	}
 
 	mounted() {
-		const $local = this.$target.querySelector('[data-component="loginButton"]');
-		new LoginButton($local, {name: "42 OAuth Login", href: "#/", });
+		const $login = this.$target.querySelector('[data-component="loginButton"]');
+		new LoginButton($login, {name: "42 OAuth Login", href: "#/", });
 	}
 }
+
+// https://localhost/#/login/?code=dasjfklsdjfklasdjflkasd

@@ -29,6 +29,7 @@ export default class App extends Component {
 		this.$state.routes.push({ fragment: '#/login', component: pages.login });
 		this.$state.routes.push({ fragment: '#/friend', component: pages.friend });
 		this.$state.routes.push({ fragment: '#/mypage', component: pages.counter });
+		this.$state.routes.push({ fragment: '#/callback', component: pages.callback });
 	
 		//현재 URL 체크
 		const checkRoutes = () => {
@@ -45,13 +46,20 @@ export default class App extends Component {
 	
 		//URL 변경 이벤트
 		window.addEventListener('hashchange', checkRoutes);
-	
+
+		const urlParams = new URLSearchParams(window.location.search);
+		const path = window.location.pathname;
+		const code = urlParams.get('code');
+
 		if (!window.location.hash) {
 		  window.location.hash = '#/';
-		} if (!this.$state.isLogin) {
+		} 
+		if (!this.$state.isLogin && path === "/callback") {
+			window.location.hash = '#/callback';
+		} else if (!this.$state.isLogin) {
 			window.location.hash = '#/login';
 		}
-	
+
 		//초기 렌더링
 		checkRoutes();
 	}

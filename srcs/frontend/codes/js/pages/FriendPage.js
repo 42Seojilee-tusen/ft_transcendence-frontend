@@ -1,6 +1,6 @@
 import Component from "../core/Component.js";
 
-export default class CounterPage extends Component {
+export default class FriendPage extends Component {
 	template() {
 		return `
 		<h1>Friend Page</h1>
