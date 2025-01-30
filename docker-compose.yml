@@ -1,7 +1,7 @@
 services:
   frontend:
     init: true
-    build: ./frontend
+    build: ./srcs/frontend
     image: frontend:42
     container_name: frontend
     env_file:
@@ -10,7 +10,7 @@ services:
       - "443:443"
       - "80:80"
     volumes:
-      - ./frontend/codes:/usr/share/nginx/html
+      - ./srcs/frontend/codes:/usr/share/nginx/html
 
 networks:
   ft_trancendence:
