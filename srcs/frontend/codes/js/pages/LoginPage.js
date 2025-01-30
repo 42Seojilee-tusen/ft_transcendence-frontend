@@ -1,5 +1,5 @@
 import Component from "../core/Component.js";
-import MoveButton from "../componenets/MoveButton.js";
+import LoginButton from "../componenets/LoginButton.js";
 
 export default class Home extends Component {
 	template() {
@@ -18,6 +18,6 @@ export default class Home extends Component {
 
 	mounted() {
 		const $local = this.$target.querySelector('[data-component="loginButton"]');
-		new MoveButton($local, {name: "42 OAuth Login", href: "#/local", color: "btn-green" });
+		new LoginButton($local, {name: "42 OAuth Login", href: "#/local", });
 	}
 }
