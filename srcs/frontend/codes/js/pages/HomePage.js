@@ -25,9 +25,9 @@ export default class Home extends Component {
 		const $multi = this.$target.querySelector('[data-component="multiButton"]');
 		const $friend = this.$target.querySelector('[data-component="friendButton"]');
 		const $mypage = this.$target.querySelector('[data-component="mypageButton"]');
-		new MoveButton($local, {name: "로컬 플레이", href: "#/local", });
-		new ModalButton($multi, {name: "멀티 플레이" });
-		new MoveButton($friend, {name: "친구 관리", href: "#/friend", });
-		new MoveButton($mypage, {name: "마이 페이지", href: "#/mypage", });
+		new MoveButton($local, {name: "로컬 플레이", href: "#/local", color: "btn-green" });
+		new ModalButton($multi, {name: "멀티 플레이", color: "btn-green" });
+		new MoveButton($friend, {name: "친구 관리", href: "#/friend", color: "btn-green"});
+		new MoveButton($mypage, {name: "마이 페이지", href: "#/mypage", color: "btn-green"});
 	}
 }
