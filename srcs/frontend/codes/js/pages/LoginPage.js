@@ -18,6 +18,6 @@ export default class Home extends Component {
 
 	mounted() {
 		const $local = this.$target.querySelector('[data-component="loginButton"]');
-		new LoginButton($local, {name: "42 OAuth Login", href: "#/local", });
+		new LoginButton($local, {name: "42 OAuth Login", href: "#/", });
 	}
 }

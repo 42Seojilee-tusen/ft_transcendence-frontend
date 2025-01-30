@@ -12,9 +12,15 @@ export default class LoginButton extends Component {
 		const { buttonName } = this.$state;
 		const { buttonHref } = this.$state;
 		return `
-		<div class="container text-center d-flex flex-column justify-content-center">
+		<div id="login" class="container text-center d-flex flex-column justify-content-center">
 			<a href="${buttonHref}" class="btn fw-semibold btn-black w-100 fs-2 text-white">${buttonName}</a>
 		</div>
 		`;
+	}
+
+	setEvent() { 
+		this.addEvent('click', '#login', ({ target }) => {
+			localStorage.setItem("username", "sampleName");
+		});
 	}
 }
