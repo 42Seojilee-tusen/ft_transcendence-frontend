@@ -1,0 +1,21 @@
+
+body {
+	background-image: url('background.png');
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+/*.btn-success {*/
+button.btn {
+	background-color: #98D8AA;
+	color: #000;
+	margin: 10px;
+	width: 100%;
+	text-align: center;
+}
+
+[class^="col"] {
+	border: 5px solid black;
+	padding: 0px;
+}
