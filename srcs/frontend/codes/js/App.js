@@ -35,7 +35,7 @@ export default class App extends Component {
 		const checkRoutes = () => {
 			let currentRoute = this.$state.routes.find((route) => {
 				return route.fragment === window.location.hash;
-		  	});
+			});
 			if (!currentRoute) {
 				//redirect to home
 				window.location.href = './#';
@@ -43,24 +43,19 @@ export default class App extends Component {
 		  	}
 		  	currentRoute.component();
 		};
-	
+
 		//URL 변경 이벤트
 		window.addEventListener('hashchange', checkRoutes);
 
-		const urlParams = new URLSearchParams(window.location.search);
 		const path = window.location.pathname;
-		const code = urlParams.get('code');
 
-		if (!window.location.hash) {
-		  window.location.hash = '#/';
-		} 
+		let hashPath = "#/";
 		if (!this.$state.isLogin && path === "/callback") {
-			window.location.hash = '#/callback';
+			hashPath = '#/callback';
 		} else if (!this.$state.isLogin) {
-			window.location.hash = '#/login';
+			hashPath = '#/login';
 		}
 
-		//초기 렌더링
-		checkRoutes();
+		window.location.hash = hashPath;
 	}
 }

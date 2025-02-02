@@ -45,3 +45,17 @@ body {
     border-color: #F9E1BB;
 	color: #fff;
 }
+
+.left-panel {
+	height: 100vh;
+	overflow-y: auto;
+}
+.friend-item {
+	cursor: pointer;
+	padding: 10px;
+	border-bottom: 1px solid #ddd;
+	transition: background 0.2s;
+}
+.friend-item:hover {
+	background: #f8f9fa;
+}
