@@ -4,8 +4,11 @@ services:
     build: ./srcs/frontend
     image: frontend:42
     container_name: frontend
-    env_file:
-      - .env
+    environment:
+      DOMAIN_NAME: ${DOMAIN_NAME}
+      SSL_KEY: ${SSL_KEY}
+      SSL_CRT: ${SSL_CRT}
+
     ports:
       - "443:443"
       - "80:80"

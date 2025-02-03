@@ -38,18 +38,19 @@ export default class App extends Component {
 			});
 			if (!currentRoute) {
 				//redirect to home
-				window.location.href = './#';
+				window.location.hash = '#/';
 				currentRoute = this.$state.routes[0];
 		  	}
 		  	currentRoute.component();
 		};
 
-		//URL 변경 이벤트
-		window.addEventListener('hashchange', checkRoutes);
-
 		const path = window.location.pathname;
 
-		let hashPath = "#/";
+		let hashPath = window.location.hash;
+		
+		if (hashPath == "") {
+			hashPath = "#/";
+		}
 		if (!this.$state.isLogin && path === "/callback") {
 			hashPath = '#/callback';
 		} else if (!this.$state.isLogin) {
@@ -57,5 +58,10 @@ export default class App extends Component {
 		}
 
 		window.location.hash = hashPath;
+
+		//URL 변경 이벤트
+		window.addEventListener('hashchange', checkRoutes);
+
+		checkRoutes();
 	}
 }

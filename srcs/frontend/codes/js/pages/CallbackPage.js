@@ -51,11 +51,18 @@ export default class Callback extends Component {
 			});
 		})
 		.then(response => response.json())
-		.then(data => console.log("✅ POST 응답:", data))
+		.then(data => {
+			console.log("✅ POST 응답:", data);
+			sessionStorage.setItem("accessToken", data.access_token);
+			localStorage.setItem("username", "name");
+			console.log(sessionStorage.getItem("accessToken"));
+			window.location.replace("https://localhost")
+		})
 		.catch(error => console.error("❌ 오류 발생:", error));
 		
 		console.log("test");
 
 		// window.location.href = './#';
+		// then 처리는 나중에 async 함수 형식으로 변경할 수 있도록
 	}
 }

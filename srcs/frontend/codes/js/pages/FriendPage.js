@@ -1,4 +1,5 @@
 import Component from "../core/Component.js";
+import FriendDetail from "../componenets/FriendDetail.js"
 
 export default class FriendPage extends Component {
 	template() {
@@ -32,9 +33,11 @@ export default class FriendPage extends Component {
 			{ name: "한준호", age: 26, hobby: "등산" }
 		];
 	
-		const friendListEl = document.getElementById("friend-list");
-		const friendDetailsEl = document.getElementById("friend-details");
+		const $friendListEl = document.querySelector("#friend-list");
+		const $friendDetailsEl = document.querySelector("#friend-details");
 	
+		const friendDetailComponent = new FriendDetail($friendDetailsEl);
+
 		// 친구 목록 생성
 		friends.forEach((friend, index) => {
 			const friendItem = document.createElement("div");
@@ -44,14 +47,10 @@ export default class FriendPage extends Component {
 	
 			// 클릭 이벤트 추가
 			friendItem.addEventListener("click", () => {
-				friendDetailsEl.innerHTML = `
-					<h4>${friend.name}</h4>
-					<p><strong>나이:</strong> ${friend.age}세</p>
-					<p><strong>취미:</strong> ${friend.hobby}</p>
-				`;
+				friendDetailComponent.setFriend(friend);
 			});
 	
-			friendListEl.appendChild(friendItem);
+			$friendListEl.appendChild(friendItem);
 		});
 	}
 }
