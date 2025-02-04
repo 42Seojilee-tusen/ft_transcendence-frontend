@@ -45,9 +45,9 @@ export default class App extends Component {
 		};
 
 		const path = window.location.pathname;
-
-		let hashPath = window.location.hash;
 		
+		let hashPath = window.location.hash;
+
 		if (hashPath == "") {
 			hashPath = "#/";
 		}
@@ -65,3 +65,10 @@ export default class App extends Component {
 		checkRoutes();
 	}
 }
+
+/*
+로그인 -> oauth 인증
+서버한테 저를 증명 -> 액세스 토큰
+http://localhost/api/oauth/token
+
+*/

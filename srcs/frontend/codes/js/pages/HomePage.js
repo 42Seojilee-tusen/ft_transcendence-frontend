@@ -30,4 +30,5 @@ export default class Home extends Component {
 		new MoveButton($friend, {name: "친구 관리", href: "#/friend", color: "btn-green"});
 		new MoveButton($mypage, {name: "마이 페이지", href: "#/mypage", color: "btn-green"});
 	}
+
 }

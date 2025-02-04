@@ -558,3 +558,5 @@ WARNING 2025-02-03 06:54:48,486 log Bad Request: /api/oauth/token
 WARNING 2025-02-03 06:58:24,107 log Bad Request: /api/oauth/token
 WARNING 2025-02-03 07:00:11,726 log Bad Request: /api/oauth/token
 WARNING 2025-02-03 07:04:07,491 log Bad Request: /api/oauth/token
+WARNING 2025-02-03 08:10:28,858 log Bad Request: /api/oauth/token
+WARNING 2025-02-03 08:19:37,365 log Bad Request: /api/oauth/token

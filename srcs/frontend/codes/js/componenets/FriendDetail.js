@@ -12,8 +12,8 @@ export default class FriendDetail extends Component {
         return selectedFriend
             ? `
                 <h4>${selectedFriend.name}</h4>
-                <p><strong>나이:</strong> ${selectedFriend.age}세</p>
-                <p><strong>취미:</strong> ${selectedFriend.hobby}</p>
+                <p><strong>배틀 전적:</strong> ${selectedFriend.battle}</p>
+                <p><strong>토너먼트 전적:</strong> ${selectedFriend.tournament}</p>
             `
             : `<p>친구를 선택하세요.</p>`;
     }
