@@ -31,6 +31,7 @@ export default class FriendPage extends Component {
 			{ name: "정다혜", online: true, battle: [ 15, 14, 1 ], tournament: [ 5, 1, 1, 1, 1 ] },
 			{ name: "한준호", online: false, battle: [ 5, 2, 3 ], tournament: [ 2, 0, 1, 0, 1 ] },
 		];
+
 	
 		const $friendListEl = document.querySelector("#friend-list");
 		const $friendDetailsEl = document.querySelector("#friend-details");
