@@ -23,44 +23,53 @@ export default class App extends Component {
 	mounted() {
 		const $main = this.$target.querySelector('main');
 		const pages = createPages($main);
-	
+
 		//라우트 페이지 설정
 		this.$state.routes.push({ fragment: '#/', component: pages.home });
 		this.$state.routes.push({ fragment: '#/login', component: pages.login });
 		this.$state.routes.push({ fragment: '#/friend', component: pages.friend });
-		this.$state.routes.push({ fragment: '#/mypage', component: pages.counter });
+		this.$state.routes.push({ fragment: '#/mypage', component: pages.myPage });
 		this.$state.routes.push({ fragment: '#/callback', component: pages.callback });
-	
+		this.$state.routes.push({ fragment: '#/game', component: pages.game });
+
 		//현재 URL 체크
 		const checkRoutes = () => {
 			let currentRoute = this.$state.routes.find((route) => {
 				return route.fragment === window.location.hash;
-		  	});
+			});
 			if (!currentRoute) {
 				//redirect to home
-				window.location.href = './#';
+				window.location.hash = '#/';
 				currentRoute = this.$state.routes[0];
 		  	}
 		  	currentRoute.component();
 		};
-	
+
+		const path = window.location.pathname;
+
+		let hashPath = window.location.hash;
+
+		if (hashPath == "") {
+			hashPath = "#/";
+		}
+		if (!this.$state.isLogin && path === "/callback") {
+			hashPath = '#/callback';
+		} else if (!this.$state.isLogin) {
+			hashPath = '#/login';
+		}
+
+		window.location.hash = hashPath;
+
 		//URL 변경 이벤트
 		window.addEventListener('hashchange', checkRoutes);
 
-		const urlParams = new URLSearchParams(window.location.search);
-		const path = window.location.pathname;
-		const code = urlParams.get('code');
-
-		if (!window.location.hash) {
-		  window.location.hash = '#/';
-		} 
-		if (!this.$state.isLogin && path === "/callback") {
-			window.location.hash = '#/callback';
-		} else if (!this.$state.isLogin) {
-			window.location.hash = '#/login';
-		}
-
-		//초기 렌더링
 		checkRoutes();
 	}
 }
+
+/*
+로그인 -> oauth 인증
+서버한테 저를 증명 -> 액세스 토큰
+http://localhost/api/oauth/token
+
+*/

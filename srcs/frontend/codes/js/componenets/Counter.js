@@ -2,6 +2,7 @@ import Component from "../core/Component.js";
 
 export default class Counter extends Component {
 	setup() {
+		console.log("a");
 		this.$state = {
 			counter: 0,
 		};

@@ -17,9 +17,8 @@ export default class Login extends Component {
 	}
 
 	mounted() {
+		console.log("login");
 		const $login = this.$target.querySelector('[data-component="loginButton"]');
 		new LoginButton($login, {name: "42 OAuth Login", href: "#/", });
 	}
 }
-
-// https://localhost/#/login/?code=dasjfklsdjfklasdjflkasd
