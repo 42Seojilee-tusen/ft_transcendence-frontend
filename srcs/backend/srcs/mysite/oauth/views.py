@@ -70,7 +70,7 @@ def token(request):
             'refresh_token': str(refresh_token),
             'access_token': str(refresh_token.access_token),
             'two_factor_required': not bool(two_factor_secret_key)
-        })
+        }, status=200)
     return JsonResponse({'error': 'Method not allowed'}, status=405)
 
 def qrcode_image(request):

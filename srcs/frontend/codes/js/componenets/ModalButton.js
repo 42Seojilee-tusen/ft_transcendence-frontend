@@ -12,9 +12,7 @@ export default class ModalButton extends Component {
 		const { buttonName } = this.$state;
 		const { buttonColor } = this.$state;
 		return `
-		<div class="container text-center d-flex flex-column justify-content-center">
-			<button class="btn fw-semibold ${buttonColor} w-100 fs-2 text-dark" data-bs-toggle="modal" data-bs-target="#gameModal">${buttonName}</button>
-		</div>
+		<button class="btn fw-semibold ${buttonColor} w-100 fs-2 text-dark" data-bs-toggle="modal" data-bs-target="#gameModal">${buttonName}</button>
 
 		<div class="modal fade" id="gameModal" tabindex="-1" aria-labelledby="gameModalLabel" aria-hidden="true">
 			<div class="modal-dialog modal-dialog-centered">

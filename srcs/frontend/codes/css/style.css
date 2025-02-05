@@ -29,6 +29,8 @@ body {
 }
 
 .btn-green:active {
+	background-color: #039349 !important;
+    border-color: #039349 !important;
 	transform: scale(0.95); /* 클릭할 때 살짝 작아지는 효과 */
     transition: transform 0.1s;
 }

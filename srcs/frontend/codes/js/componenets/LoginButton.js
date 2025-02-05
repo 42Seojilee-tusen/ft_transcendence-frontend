@@ -18,10 +18,4 @@ export default class LoginButton extends Component {
 		</div>
 		`;
 	}
-
-	setEvent() { 
-		this.addEvent('click', '#login', ({ target }) => {
-			// localStorage.setItem("username", "sampleName");
-		});
-	}
 }

@@ -3,7 +3,7 @@ import createPages from "./pages/PageIndex.js";
 
 export default class App extends Component {
 	setup() {
-		const savedUsername = localStorage.getItem("username");
+		const savedUsername = sessionStorage.getItem("username");
 		let loginSaved = false;
 		if (savedUsername !== null) {
 			loginSaved = true;
@@ -34,31 +34,24 @@ export default class App extends Component {
 	
 		//현재 URL 체크
 		const checkRoutes = () => {
+			const path = window.location.pathname;
+			let hashPath = window.location.hash;
 			let currentRoute = this.$state.routes.find((route) => {
-				return route.fragment === window.location.hash;
+				return route.fragment === hashPath;
 			});
 			if (!currentRoute) {
 				//redirect to home
-				window.location.hash = '#/';
+				hashPath = '#/';
 				currentRoute = this.$state.routes[0];
-		  	}
+			}
+			if (!this.$state.isLogin && path === "/callback") {
+				hashPath = '#/callback';
+			} else if (!this.$state.isLogin) {
+				hashPath = '#/login';
+			}
+			window.location.hash = hashPath;
 		  	currentRoute.component();
 		};
-
-		const path = window.location.pathname;
-		
-		let hashPath = window.location.hash;
-
-		if (hashPath == "") {
-			hashPath = "#/";
-		}
-		if (!this.$state.isLogin && path === "/callback") {
-			hashPath = '#/callback';
-		} else if (!this.$state.isLogin) {
-			hashPath = '#/login';
-		}
-
-		window.location.hash = hashPath;
 
 		//URL 변경 이벤트
 		window.addEventListener('hashchange', checkRoutes);
