@@ -55,6 +55,7 @@ export default class Callback extends Component {
 				console.log(authCode);
 				const response = await fetch("https://localhost/api/oauth/token", {
 					method: "POST",
+					credentials: "include",
 					headers: {
 						"Accept": "application/json",
 						"X-CSRFToken": csrftoken,
@@ -78,7 +79,6 @@ export default class Callback extends Component {
 
 		function saveLoginState(accessToken) {
 			sessionStorage.setItem("accessToken", accessToken);
-			sessionStorage.setItem("username", "name"); // 사용자 정보 저장 (테스트용)
 			console.log("✅ 로그인 상태 저장 완료");
 		}
 

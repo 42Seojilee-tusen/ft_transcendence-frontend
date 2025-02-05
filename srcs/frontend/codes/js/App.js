@@ -3,9 +3,8 @@ import createPages from "./pages/PageIndex.js";
 
 export default class App extends Component {
 	setup() {
-		const savedUsername = sessionStorage.getItem("username");
 		let loginSaved = false;
-		if (savedUsername !== null) {
+		if (sessionStorage.getItem("accessToken") !== null) {
 			loginSaved = true;
 		}
 		this.$state = {
@@ -59,10 +58,3 @@ export default class App extends Component {
 		checkRoutes();
 	}
 }
-
-/*
-로그인 -> oauth 인증
-서버한테 저를 증명 -> 액세스 토큰
-http://localhost/api/oauth/token
-
-*/
