@@ -12,7 +12,12 @@ export default class Callback extends Component {
 	template() {
 		const { code } = this.$state;
 		return `
-		<div>callback: ${code}</div>
+		<div class="container-xxl vh-100 d-flex flex-column justify-content-center">
+			<div class="row">
+				<img src="../../img/chill.jpeg" alt="chill guy"></img>
+				<h1 style="text-align: center;">공 chill 노릇이군..<h1>
+			</div>
+		</div>
 		`;
 	}
 
@@ -51,11 +56,8 @@ export default class Callback extends Component {
 
 		async function fetchAccessToken(csrftoken, authCode) {
 			try {
-				console.log(csrftoken);
-				console.log(authCode);
 				const response = await fetch("https://localhost/api/oauth/token", {
 					method: "POST",
-					credentials: "include",
 					headers: {
 						"Accept": "application/json",
 						"X-CSRFToken": csrftoken,
@@ -70,7 +72,7 @@ export default class Callback extends Component {
 		
 				const data = await response.json();
 				console.log("✅ 액세스 토큰 응답:", data);
-				return data.access_token;
+				return data;
 			} catch (error) {
 				console.error("❌ 액세스 토큰 요청 실패:", error);
 				throw error;
@@ -85,10 +87,10 @@ export default class Callback extends Component {
 		async function loginWithOAuth(authCode) {
 			try {
 				const csrftoken = await fetchCsrfToken();
-		
-				const accessToken = await fetchAccessToken(csrftoken, authCode);
-		
-				saveLoginState(accessToken);
+				console.log(`csrf: ${csrftoken}`);
+				console.log(`code: ${authCode}`);
+				const tokenData = await fetchAccessToken(csrftoken, authCode);
+				saveLoginState(tokenData.access_token);
 		
 				window.location.replace("https://localhost");
 			} catch (error) {
