@@ -6,16 +6,16 @@ import MoveButton from "../componenets/MoveButton.js";
 export default class MyPage extends Component {
 	template() {
 		return `
-		<div class="container-fluid min-vw-100 min-vh-100">
-			<div class="row min-vh-100">
-				<div class="col-1 min-vh-100">
+		<div class="container-fluid min-vw-100">
+			<div class="row">
+				<div class="col-1">
 					<div data-component="backButton" class="mt-4 mt-md-5 mt-lg-5 mb-4 mb-md-5 mb-lg-5"></div>
 				</div>
-				<div id="myMatchHistory" class="col-7 min-vh-100 d-flex flex-column justify-content-center text-center">
+				<div id="myMatchHistory" class="col-7 d-flex flex-column justify-content-center text-center">
 				</div>
-				<div class="col-1 min-vh-100">
+				<div class="col-1">
 				</div>
-				<div id="myInfo" class="col-3 min-vh-100 d-flex flex-column justify-content-center text-center">
+				<div id="myInfo" class="col-3 d-flex flex-column justify-content-center text-center">
 				</div>
 			</div>
 		</div>
