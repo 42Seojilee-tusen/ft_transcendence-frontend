@@ -27,26 +27,54 @@ export default class MyMatchHistory extends Component {
 	mounted() {
 
 		const records = [
-			{ date: "25.02.01", type: "배틀", enemy: "seojilee", score: "4:2", winOrLose: "win"},
-			{ date: "25.02.02", type: "배틀", enemy: "seojilee", score: "2:4", winOrLose: "lose"},
-			{ date: "25.02.03", type: "토너먼트", enemy: [a, b, c], score: [3, 1, 2], winOrLose: "3"},
+			{ date: "25.02.01", type: "배틀", enemy: "seojilee", score: "4:2", winOrLose: "win" },
+			{ date: "25.02.02", type: "배틀", enemy: "seojilee", score: "2:4", winOrLose: "lose" },
+			{ date: "25.02.03", type: "토너먼트", enemy: '["a", "b", "c"]', score: '["3", "1", "2"]', winOrLose: "3" },
 		];
 
 		const $matchRecord = document.querySelector("#match-records");
 
 		// 목록 생성
-		friends.forEach((friend, index) => {
-			const friendItem = document.createElement("div");
-			friendItem.classList.add("list-group-item", "friend-item");
-			friendItem.textContent = friend.name;
-			friendItem.dataset.index = index;
+		records.forEach((record, index) => {
+			let type;
+			let score;
+			let rank;
+			if (record.type === "배틀")	{
+				type = "vs " + record.enemy;
+				score = record.score;
+				rank = record.winOrLose;
+			} else {
+				type = record.type;
+				let arrEnemy = JSON.parse(record.enemy);
+				let arrRank = JSON.parse(record.score);
+				score = `
+					${arrRank[0] + ". " + arrEnemy[0]}<br>
+					${arrRank[1] + ". " + arrEnemy[1]}<br>
+					${arrRank[2] + ". " + arrEnemy[2]}<br>
+				`;
+				rank = record.winOrLose + "등";
+			}
 
-			// 클릭 이벤트 추가
-			friendItem.addEventListener("click", () => {
-				friendDetailComponent.setFriend(friend);
-			});
-
-			$friendListEl.appendChild(friendItem);
+			const recordLayout = `
+				<div class="col-4 d-flex flex-column justify-content-center align-items-center">
+					<div>
+						${record.date}
+					</div>
+					<div>
+						${type}
+					</div>
+				</div>
+				<div class="col-4 d-flex flex-column justify-content-center align-items-center">
+					${score}
+				</div>
+				<div class="col-4 d-flex flex-column justify-content-center align-items-center">
+					${rank}
+				</div>
+			`;
+			const recordItem = document.createElement("div");
+			recordItem.classList.add("row", "m-1", "m-md-2", "m-lg-3");
+			recordItem.innerHTML = recordLayout;
+			$matchRecord.appendChild(recordItem);
 		});
 	}
 }
