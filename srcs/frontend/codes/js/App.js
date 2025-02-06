@@ -3,12 +3,12 @@ import createPages from "./pages/PageIndex.js";
 
 export default class App extends Component {
 	setup() {
-		let loginSaved = false;
-		if (sessionStorage.getItem("accessToken") !== null) {
-			loginSaved = true;
-		}
+		// let loginSaved = false;
+		// if (sessionStorage.getItem("accessToken") !== null) {
+		// 	loginSaved = true;
+		// }
 		this.$state = {
-		  isLogin: loginSaved,
+		  // isLogin: loginSaved,
 		  routes: [],
 		};
 	}
@@ -44,10 +44,9 @@ export default class App extends Component {
 				hashPath = '#/';
 				currentRoute = this.$state.routes[0];
 			}
-			if (!this.$state.isLogin && path === "/callback") {
+			if (path === "/callback") {
 				hashPath = '#/callback';
-			} else if (!this.$state.isLogin) {
-				hashPath = '#/login';
+				currentRoute = this.$state.routes[4];
 			}
 			window.location.hash = hashPath;
 		  	currentRoute.component();

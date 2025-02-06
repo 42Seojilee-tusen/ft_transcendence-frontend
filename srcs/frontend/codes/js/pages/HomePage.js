@@ -1,6 +1,7 @@
 import Component from "../core/Component.js";
 import MoveButton from "../componenets/MoveButton.js";
 import ModalButton from "../componenets/ModalButton.js";
+import { requestApi } from "../core/requestApi.js";
 
 export default class Home extends Component {
 	template() {
@@ -30,5 +31,4 @@ export default class Home extends Component {
 		new MoveButton($friend, {name: "친구 관리", href: "#/friend", color: "btn-green"});
 		new MoveButton($mypage, {name: "마이 페이지", href: "#/mypage", color: "btn-green"});
 	}
-
 }

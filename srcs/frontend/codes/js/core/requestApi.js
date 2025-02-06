@@ -17,20 +17,8 @@ async function refreshAccessToken() {
         return data.access_token;
     } catch (error) {
         console.error("❌ 액세스 토큰 갱신 실패:", error);
-        logoutUser(); // 🔥 리프레시 토큰도 만료된 경우 로그아웃
+        window.location.hash = "#/login";
     }
-}
-
-async function logoutUser() {
-    await fetch("https://localhost/api/users/auth", {
-        method: "PATCH",
-        credentials: "include",  // 🔥 서버에서 쿠키 삭제
-        headers: { "Accept": "application/json" }
-    });
-
-    sessionStorage.removeItem("accessToken");
-    console.log("✅ 로그아웃 완료. 세션 삭제됨.");
-    window.location.replace = "https://localhost"; // 로그인 페이지로 리디렉션
 }
 
 // ✅ API 요청을 보내면서 액세스 토큰을 자동 갱신하는 함수

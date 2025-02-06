@@ -91,10 +91,10 @@ export default class Callback extends Component {
 				console.log(`code: ${authCode}`);
 				const tokenData = await fetchAccessToken(csrftoken, authCode);
 				saveLoginState(tokenData.access_token);
-		
-				window.location.replace("https://localhost");
 			} catch (error) {
 				console.error("❌ 로그인 실패:", error);
+			} finally {
+				window.location.replace("https://localhost");
 			}
 		}
 

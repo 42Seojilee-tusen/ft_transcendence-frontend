@@ -12,7 +12,9 @@ export default class TwoFaPage extends Component {
 	template() {
 		return `
 		<div class="container vh-100 d-flex flex-column">
-			<div class="row d-flex flex-grow-1"></div>
+			<div class="row d-flex flex-grow-1">
+				<h1 class="col text-white d-flex align-items-center justify-content-center">2-Factor-authentication</h1>
+			</div>
 			<div class="row d-flex flex-grow-1">
 				<div class="col d-flex align-items-center justify-content-center"></div>
 				<div id="qrCode" class="col-5 d-flex align-items-center justify-content-center"></div>
