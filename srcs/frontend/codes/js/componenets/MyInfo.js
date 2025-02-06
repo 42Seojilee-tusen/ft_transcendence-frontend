@@ -4,16 +4,16 @@ export default class MyInfo extends Component {
 
 	template() {
 		return `
-		<div class="mt-4 mt-md-5 mt-lg-5 mb-4 mb-md-5 mb-lg-5">
+		<div class="my-2 my-md-3 my-lg-4">
 			<img src="../../img/testMyPage.jpeg" class="img-fluid w-100" alt="junhapar">
 		</div>
-		<div class="mb-4 mb-md-5 mb-lg-5 text-break">
+		<div class="my-2 my-md-3 my-lg-4">
 			junhapar
 		</div>
-		<div class="mb-4 mb-md-5 mb-lg-5 text-break">
+		<div class="my-2 my-md-3 my-lg-4">
 			junhapar@student.42seoul.kr
 		</div>
-		<div class="mb-4 mb-md-5 mb-lg-5">
+		<div class="my-2 my-md-3 my-lg-4">
 			개인정보 변경
 		</div>
 		`;

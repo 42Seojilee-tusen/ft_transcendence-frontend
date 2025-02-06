@@ -14,7 +14,7 @@ export default class MoveButton extends Component {
 		const { buttonHref } = this.$state;
 		const { buttonColor } = this.$state;
 		return `
-		<a href="${buttonHref}" class="btn fw-semibold ${buttonColor} w-100 fs-2 text-dark">${buttonName}</a>
+		<a href="${buttonHref}" class="btn fw-semibold ${buttonColor} w-100 fs-2 text-dark text-center">${buttonName}</a>
 		`;
 	}
 }

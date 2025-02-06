@@ -8,17 +8,17 @@ export default class MyMatchHistory extends Component {
 			전적
 			<div class="row m-0">
 				<div class="col">
-					<h6 class="m-1 text break">배틀</h5>
-					<h6 class="m-1 text break">100전 100승 0패</h5>
+					<h6 class="m-1">배틀</h5>
+					<h6 class="m-1">100전 100승 0패</h5>
 				</div>
 				<div class="col">
-					<h6 class="m-1 text break">토너먼트</h5>
-					<h6 class="m-1 text break">90경기 42/42/4/2 </h5>
+					<h6 class="m-1">토너먼트</h5>
+					<h6 class="m-1">90경기 42/42/4/2 </h5>
 				</div>
 			</div>
 		</div>
-		<div class="flex-grow-1 m-2 m-md-3 m-lg-4 text-break">
-			<div id="match-records" class="m-0 overflow-auto" style="max-height: 80vh;">
+		<div class="flex-grow-1 m-2 m-md-3 m-lg-4">
+			<div id="match-records" class="m-0 overflow-auto">
 			</div>
 		</div>
 		`;
@@ -84,10 +84,10 @@ export default class MyMatchHistory extends Component {
 
 			const recordLayout = `
 				<div class="col-4 d-flex flex-column justify-content-center align-items-center">
-					<div>
+					<div class="m-1">
 						${record.date}
 					</div>
-					<div>
+					<div class="m-1">
 						${type}
 					</div>
 				</div>
