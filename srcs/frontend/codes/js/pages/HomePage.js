@@ -1,6 +1,7 @@
 import Component from "../core/Component.js";
 import MoveButton from "../componenets/MoveButton.js";
 import ModalButton from "../componenets/ModalButton.js";
+import { requestApi } from "../core/requestApi.js";
 
 export default class Home extends Component {
 	template() {

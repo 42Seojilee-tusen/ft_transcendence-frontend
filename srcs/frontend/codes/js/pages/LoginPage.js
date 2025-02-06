@@ -21,5 +21,3 @@ export default class Login extends Component {
 		new LoginButton($login, {name: "42 OAuth Login", href: "#/", });
 	}
 }
-
-// https://localhost/#/login/?code=dasjfklsdjfklasdjflkasd

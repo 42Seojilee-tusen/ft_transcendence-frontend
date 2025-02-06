@@ -14,9 +14,7 @@ export default class MoveButton extends Component {
 		const { buttonHref } = this.$state;
 		const { buttonColor } = this.$state;
 		return `
-		<div class="container text-center d-flex flex-column justify-content-center">
-			<a href="${buttonHref}" class="btn fw-semibold ${buttonColor} w-100 fs-2 text-dark">${buttonName}</a>
-		</div>
+		<a href="${buttonHref}" class="btn fw-semibold ${buttonColor} w-100 fs-2 text-dark">${buttonName}</a>
 		`;
 	}
 }

@@ -3,13 +3,12 @@ import createPages from "./pages/PageIndex.js";
 
 export default class App extends Component {
 	setup() {
-		const savedUsername = localStorage.getItem("username");
-		let loginSaved = false;
-		if (savedUsername !== null) {
-			loginSaved = true;
-		}
+		// let loginSaved = false;
+		// if (sessionStorage.getItem("accessToken") !== null) {
+		// 	loginSaved = true;
+		// }
 		this.$state = {
-		  isLogin: loginSaved,
+		  // isLogin: loginSaved,
 		  routes: [],
 		};
 	}
@@ -30,37 +29,32 @@ export default class App extends Component {
 		this.$state.routes.push({ fragment: '#/friend', component: pages.friend });
 		this.$state.routes.push({ fragment: '#/mypage', component: pages.counter });
 		this.$state.routes.push({ fragment: '#/callback', component: pages.callback });
+		this.$state.routes.push({ fragment: '#/game', component: pages.game });
+		this.$state.routes.push({ fragment: '#/twofa', component: pages.twofa });
 	
 		//현재 URL 체크
 		const checkRoutes = () => {
+			const path = window.location.pathname;
+			let hashPath = window.location.hash;
 			let currentRoute = this.$state.routes.find((route) => {
-				return route.fragment === window.location.hash;
-		  	});
+				return route.fragment === hashPath;
+			});
 			if (!currentRoute) {
 				//redirect to home
-				window.location.href = './#';
+				hashPath = '#/';
 				currentRoute = this.$state.routes[0];
-		  	}
+			}
+			if (path === "/callback") {
+				hashPath = '#/callback';
+				currentRoute = this.$state.routes[4];
+			}
+			window.location.hash = hashPath;
 		  	currentRoute.component();
 		};
-	
+
 		//URL 변경 이벤트
 		window.addEventListener('hashchange', checkRoutes);
 
-		const urlParams = new URLSearchParams(window.location.search);
-		const path = window.location.pathname;
-		const code = urlParams.get('code');
-
-		if (!window.location.hash) {
-		  window.location.hash = '#/';
-		} 
-		if (!this.$state.isLogin && path === "/callback") {
-			window.location.hash = '#/callback';
-		} else if (!this.$state.isLogin) {
-			window.location.hash = '#/login';
-		}
-
-		//초기 렌더링
 		checkRoutes();
 	}
 }
