@@ -22,45 +22,13 @@ export default class Callback extends Component {
 	}
 
 	mounted() {
-		async function getCookie(name) {
-			const cookies = document.cookie.split("; ");
-			for (let cookie of cookies) {
-				let [key, value] = cookie.split("=");
-				if (key === name) return value;
-			}
-			return null;
-		}
-
-		async function fetchCsrfToken() {
-			try {
-				const response = await fetch("https://localhost/api/oauth/csrf", {
-					method: "GET",
-					credentials: "include",
-					headers: { "Accept": "application/json" }
-				});
-
-				if (!response.ok) {
-					throw new Error(`CSRF 토큰 요청 실패: ${response.statue}`);
-				}
-
-				await response.json(); // CSRF 토큰이 쿠키에 저장됨
-				const csrftoken = await getCookie("csrftoken");
-				if (!csrftoken) throw new Error("CSRF 토큰을 쿠키에서 찾을 수 없음");
-
-				return csrftoken;
-			} catch (error) {
-				console.error("❌ CSRF 토큰 가져오기 실패:", error);
-				throw error;
-			}
-		}
-
-		async function fetchAccessToken(csrftoken, authCode) {
+		async function requestFirstToken(authCode) {
 			try {
 				const response = await fetch("https://localhost/api/oauth/token", {
 					method: "POST",
 					headers: {
 						"Accept": "application/json",
-						"X-CSRFToken": csrftoken,
+						"Content-Type": "application/json",
 					},
 					body: JSON.stringify({ 'code' : authCode })
 				});
@@ -86,14 +54,11 @@ export default class Callback extends Component {
 
 		async function loginWithOAuth(authCode) {
 			try {
-				const csrftoken = await fetchCsrfToken();
-				console.log(`csrf: ${csrftoken}`);
-				console.log(`code: ${authCode}`);
-				const tokenData = await fetchAccessToken(csrftoken, authCode);
+				const tokenData = await requestFirstToken(authCode);
 				saveLoginState(tokenData.access_token);
+				window.location.href = "https://localhost/#/twofa";
 			} catch (error) {
 				console.error("❌ 로그인 실패:", error);
-			} finally {
 				window.location.replace("https://localhost");
 			}
 		}
