@@ -12,11 +12,11 @@ export default class MyPage extends Component {
 					<div class="row m-2 text-truncate" data-component="backButton">
 					</div>
 				</div>
-				<div id="myMatchHistory" class="col-7 d-flex flex-column align-content-center text-center text-break">
+				<div id="my-MatchHistories" class="col-7 d-flex flex-column align-content-center text-center text-break">
 				</div>
 				<div class="col-1">
 				</div>
-				<div id="myInfo" class="col-3 d-flex flex-column align-content-center text-center text-break">
+				<div id="my-Info" class="col-3 d-flex flex-column align-content-center text-center text-break">
 				</div>
 			</div>
 		</div>
@@ -24,11 +24,16 @@ export default class MyPage extends Component {
 	}
 
 	mounted() {
+		// backButton
 		const $homeBtn = document.querySelector('[data-component="backButton"]');
-		const $myInfo = document.querySelector('#myInfo');
-		const $myMatchHistory = document.querySelector('#myMatchHistory');
 		new MoveButton($homeBtn, {name: "<-", href:"#/", color:"btn-white"});
-		new MyInfo($myInfo);
+
+		// 전적 및 역대 경기 기록
+		const $myMatchHistory = document.querySelector('#my-MatchHistories');
 		new MyMatchHistory($myMatchHistory);
+
+		// 로그인한 유저의 image, name, email
+		const $myInfo = document.querySelector('#my-Info');
+		new MyInfo($myInfo);
 	}
 }

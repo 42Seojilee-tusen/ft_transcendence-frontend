@@ -1,11 +1,18 @@
 import Component from "../../core/Component.js";
-import MatchRecord from "./MatchRecord.js";
+import DetailMatchHistory from "./DetailMatchHistory.js";
 
 export default class MyMatchHistory extends Component {
 
+	setup() {
+		this.$state = {
+			histories: this.getHistories(),
+			//histories: this.$props,
+		}
+	}
+
 	template() {
 		return `
-		<div class="m-2 m-md-3 m-lg-4">
+		<div id="my-SimpleHistory" class="m-2 m-md-3 m-lg-4">
 			전적
 			<div class="row row-cols-2 m-0">
 				<div>
@@ -19,7 +26,7 @@ export default class MyMatchHistory extends Component {
 			</div>
 		</div>
 		<div class="flex-grow-1 m-2 m-md-3 m-lg-4">
-			<div id="match-records" class="m-0 overflow-auto">
+			<div id="my-DetailHistories" class="m-0 overflow-auto">
 			</div>
 		</div>
 		`;
@@ -27,83 +34,50 @@ export default class MyMatchHistory extends Component {
 
 	mounted() {
 
-		const records = [
-			{ date: "25.02.01", type: "배틀", enemy: "seojilee", score: "4:2", winOrLose: "win" },
-			{ date: "25.02.02", type: "배틀", enemy: "seojilee", score: "2:4", winOrLose: "lose" },
-			{ date: "25.02.03", type: "토너먼트", enemy: '["a", "b", "c"]', score: '["3", "1", "2"]', winOrLose: "3" },
-			{ date: "25.02.01", type: "배틀", enemy: "seojilee", score: "4:2", winOrLose: "win" },
-			{ date: "25.02.02", type: "배틀", enemy: "seojilee", score: "2:4", winOrLose: "lose" },
-			{ date: "25.02.03", type: "토너먼트", enemy: '["a", "b", "c"]', score: '["3", "1", "2"]', winOrLose: "3" },
-			{ date: "25.02.01", type: "배틀", enemy: "seojilee", score: "4:2", winOrLose: "win" },
-			{ date: "25.02.02", type: "배틀", enemy: "seojilee", score: "2:4", winOrLose: "lose" },
-			{ date: "25.02.03", type: "토너먼트", enemy: '["a", "b", "c"]', score: '["3", "1", "2"]', winOrLose: "3" },
-			{ date: "25.02.01", type: "배틀", enemy: "seojilee", score: "4:2", winOrLose: "win" },
-			{ date: "25.02.02", type: "배틀", enemy: "seojilee", score: "2:4", winOrLose: "lose" },
-			{ date: "25.02.03", type: "토너먼트", enemy: '["a", "b", "c"]', score: '["3", "1", "2"]', winOrLose: "3" },
-			{ date: "25.02.01", type: "배틀", enemy: "seojilee", score: "4:2", winOrLose: "win" },
-			{ date: "25.02.02", type: "배틀", enemy: "seojilee", score: "2:4", winOrLose: "lose" },
-			{ date: "25.02.03", type: "토너먼트", enemy: '["a", "b", "c"]', score: '["3", "1", "2"]', winOrLose: "3" },
-			{ date: "25.02.01", type: "배틀", enemy: "seojilee", score: "4:2", winOrLose: "win" },
-			{ date: "25.02.02", type: "배틀", enemy: "seojilee", score: "2:4", winOrLose: "lose" },
-			{ date: "25.02.03", type: "토너먼트", enemy: '["a", "b", "c"]', score: '["3", "1", "2"]', winOrLose: "3" },
-			{ date: "25.02.01", type: "배틀", enemy: "seojilee", score: "4:2", winOrLose: "win" },
-			{ date: "25.02.02", type: "배틀", enemy: "seojilee", score: "2:4", winOrLose: "lose" },
-			{ date: "25.02.03", type: "토너먼트", enemy: '["a", "b", "c"]', score: '["3", "1", "2"]', winOrLose: "3" },
-			{ date: "25.02.01", type: "배틀", enemy: "seojilee", score: "4:2", winOrLose: "win" },
-			{ date: "25.02.02", type: "배틀", enemy: "seojilee", score: "2:4", winOrLose: "lose" },
-			{ date: "25.02.03", type: "토너먼트", enemy: '["a", "b", "c"]', score: '["3", "1", "2"]', winOrLose: "3" },
-			{ date: "25.02.01", type: "배틀", enemy: "seojilee", score: "4:2", winOrLose: "win" },
-			{ date: "25.02.02", type: "배틀", enemy: "seojilee", score: "2:4", winOrLose: "lose" },
-			{ date: "25.02.03", type: "토너먼트", enemy: '["a", "b", "c"]', score: '["3", "1", "2"]', winOrLose: "3" },
-			{ date: "25.02.01", type: "배틀", enemy: "seojilee", score: "4:2", winOrLose: "win" },
-			{ date: "25.02.02", type: "배틀", enemy: "seojilee", score: "2:4", winOrLose: "lose" },
-			{ date: "25.02.03", type: "토너먼트", enemy: '["a", "b", "c"]', score: '["3", "1", "2"]', winOrLose: "3" },
-		];
+		// my histories array
+		const histories = this.$state.histories;
 
-		const $matchRecord = document.querySelector("#match-records");
+		// match History 생성
+		const $matchRecord = document.querySelector("#my-DetailHistories");
 
-		// 목록 생성
-		records.forEach((record, index) => {
-			let type;
-			let score;
-			let rank;
-			if (record.type === "배틀")	{
-				type = "vs " + record.enemy;
-				score = record.score;
-				rank = record.winOrLose;
-			} else {
-				type = record.type;
-				let arrEnemy = JSON.parse(record.enemy);
-				let arrRank = JSON.parse(record.score);
-				score = `
-					${arrRank[0] + ". " + arrEnemy[0]}<br>
-					${arrRank[1] + ". " + arrEnemy[1]}<br>
-					${arrRank[2] + ". " + arrEnemy[2]}<br>
-				`;
-				rank = record.winOrLose + "등";
-			}
-
-			const recordLayout = `
-				<div class="d-flex flex-column justify-content-center align-items-center">
-					<div class="m-1">
-						${record.date}
-					</div>
-					<div class="m-1">
-						${type}
-					</div>
-				</div>
-				<div class="d-flex flex-column justify-content-center align-items-center">
-					${score}
-				</div>
-				<div class="d-flex flex-column justify-content-center align-items-center">
-					${rank}
-				</div>
-			`;
-			const recordItem = document.createElement("div");
-			recordItem.classList.add("row", "row-cols-3", "m-1", "m-md-2", "m-lg-3");
-			recordItem.id = "match-record";
-			recordItem.innerHTML = recordLayout;
-			$matchRecord.appendChild(recordItem);
+		histories.forEach((record) => {
+			new DetailMatchHistory($matchRecord, record);
 		});
+	}
+
+	/* api 연동해서 부모로부터 props로 histories 받아올 시 삭제 할 function */
+	getHistories() {
+		return [
+			{ date: "25.02.01", type: "배틀", enemy: "seojilee", score: "4:2", winOrLose: "win" },
+			{ date: "25.02.02", type: "배틀", enemy: "seojilee", score: "2:4", winOrLose: "lose" },
+			{ date: "25.02.03", type: "토너먼트", enemy: '["a", "b", "c"]', score: '["3", "1", "2"]', winOrLose: "3" },
+			{ date: "25.02.04", type: "배틀", enemy: "seojilee", score: "4:2", winOrLose: "win" },
+			{ date: "25.02.05", type: "배틀", enemy: "seojilee", score: "2:4", winOrLose: "lose" },
+			{ date: "25.02.06", type: "토너먼트", enemy: '["a", "b", "c"]', score: '["3", "1", "2"]', winOrLose: "3" },
+			{ date: "25.02.07", type: "배틀", enemy: "seojilee", score: "4:2", winOrLose: "win" },
+			{ date: "25.02.08", type: "배틀", enemy: "seojilee", score: "2:4", winOrLose: "lose" },
+			{ date: "25.02.09", type: "토너먼트", enemy: '["a", "b", "c"]', score: '["3", "1", "2"]', winOrLose: "3" },
+			{ date: "25.02.10", type: "배틀", enemy: "seojilee", score: "4:2", winOrLose: "win" },
+			{ date: "25.02.11", type: "배틀", enemy: "seojilee", score: "2:4", winOrLose: "lose" },
+			{ date: "25.02.12", type: "토너먼트", enemy: '["a", "b", "c"]', score: '["3", "1", "2"]', winOrLose: "3" },
+			{ date: "25.02.13", type: "배틀", enemy: "seojilee", score: "4:2", winOrLose: "win" },
+			{ date: "25.02.14", type: "배틀", enemy: "seojilee", score: "2:4", winOrLose: "lose" },
+			{ date: "25.02.15", type: "토너먼트", enemy: '["a", "b", "c"]', score: '["3", "1", "2"]', winOrLose: "3" },
+			{ date: "25.02.16", type: "배틀", enemy: "seojilee", score: "4:2", winOrLose: "win" },
+			{ date: "25.02.17", type: "배틀", enemy: "seojilee", score: "2:4", winOrLose: "lose" },
+			{ date: "25.02.18", type: "토너먼트", enemy: '["a", "b", "c"]', score: '["3", "1", "2"]', winOrLose: "3" },
+			{ date: "25.02.19", type: "배틀", enemy: "seojilee", score: "4:2", winOrLose: "win" },
+			{ date: "25.02.20", type: "배틀", enemy: "seojilee", score: "2:4", winOrLose: "lose" },
+			{ date: "25.02.21", type: "토너먼트", enemy: '["a", "b", "c"]', score: '["3", "1", "2"]', winOrLose: "3" },
+			{ date: "25.02.22", type: "배틀", enemy: "seojilee", score: "4:2", winOrLose: "win" },
+			{ date: "25.02.23", type: "배틀", enemy: "seojilee", score: "2:4", winOrLose: "lose" },
+			{ date: "25.02.24", type: "토너먼트", enemy: '["a", "b", "c"]', score: '["3", "1", "2"]', winOrLose: "3" },
+			{ date: "25.02.25", type: "배틀", enemy: "seojilee", score: "4:2", winOrLose: "win" },
+			{ date: "25.02.26", type: "배틀", enemy: "seojilee", score: "2:4", winOrLose: "lose" },
+			{ date: "25.02.27", type: "토너먼트", enemy: '["a", "b", "c"]', score: '["3", "1", "2"]', winOrLose: "3" },
+			{ date: "25.02.28", type: "배틀", enemy: "seojilee", score: "4:2", winOrLose: "win" },
+			{ date: "25.02.29", type: "배틀", enemy: "seojilee", score: "2:4", winOrLose: "lose" },
+			{ date: "25.02.30", type: "토너먼트", enemy: '["a", "b", "c"]', score: '["3", "1", "2"]', winOrLose: "3" },
+		];
 	}
 }

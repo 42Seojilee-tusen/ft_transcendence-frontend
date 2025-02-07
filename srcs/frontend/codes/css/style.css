@@ -121,13 +121,18 @@ body {
     justify-content: center; /* 가운데 정렬 */
 }
 
-#match-records {
+#my-Info, #my-SimpleHistory, #my-DetailHistories{
+    background-color: #D9D9D9;
+}
+
+#my-DetailHistories {
     max-height: 84vh;
 }
 
-#match-record {
+#detailMatchHistory {
 	outline: 1px solid black;
 }
+
 .h3-clickable {
     cursor: pointer; /* ✅ 항상 클릭 가능하도록 설정 */
     user-select: none; /* ✅ 드래그 방지 (선택 방지) */
