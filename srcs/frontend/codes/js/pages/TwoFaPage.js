@@ -55,42 +55,47 @@ export default class TwoFaPage extends Component {
 	}
 
 	mounted() {
-		document.addEventListener("DOMContentLoaded", () => {
-			const inputs = document.querySelectorAll(".auth-input");
-		
-			inputs.forEach((input, index) => {
-				input.maxLength = 1;
-		
-				input.addEventListener("input", (e) => {
-					if (e.target.value && index < inputs.length - 1) {
-						inputs[index + 1].focus();
-					}
-				});
-		
-				input.addEventListener("keydown", (e) => {
-					if (e.key === "Backspace" && !e.target.value && index > 0) {
-						inputs[index - 1].focus();
-					}
-				});
+		const inputs = document.querySelectorAll(".auth-input");
+		inputs.forEach((input, index) => {
+			input.maxLength = 1;
+	
+			input.addEventListener("input", (e) => {
+				if (e.target.value && index < inputs.length - 1) {
+					inputs[index + 1].focus();
+				}
 			});
-		
-			inputs[inputs.length - 1].addEventListener("keyup", (e) => {
-				if (e.key === "Enter") {
-					const otpCode = Array.from(inputs).map(input => input.value).join("");
-					if (otpCode.length === 6) {
+	
+			input.addEventListener("keydown", (e) => {
+				if (e.key === "Backspace" && !e.target.value && index > 0) {
+					inputs[index - 1].focus();
+				}
+			});
+		});
+	
+		inputs[inputs.length - 1].addEventListener("keyup", async (e) => {
+			if (e.key === "Enter") {
+				const otpCode = Array.from(inputs).map(input => input.value).join("");
+				if (otpCode.length === 6) {
+					try {
 						console.log("✅ 서버로 전송:", otpCode);
-						requestApi("https://localhost/api/oauth/2fa", {
+						const response = await requestApi("https://localhost/api/oauth/2fa", {
 							method: "POST",
 							credentials: "include",
 							body: JSON.stringify({ "otp_code" : otpCode })
-						}).then(response => {
-							const data = response.json();
-							sessionStorage.setItem("accessToken", data.access_token);
-							window.location.replace("https://localhost");
 						});
+						console.log(response);
+						const data = await response.json();
+						if (!response.ok) {
+							throw new Error(`2fa 요청 실패: ${data.error || response.status}`);
+						}
+						sessionStorage.setItem("accessToken", data.access_token);
+						window.location.replace("https://localhost");
+					} catch (error) {
+						console.log(error);
+						alert(error);
 					}
 				}
-			});
+			}
 		});
 
 		async function qrRouteFind() {

@@ -132,7 +132,7 @@ body {
 
 .multi-line-text {
     font-weight: bold;  /* ✅ 글씨 두껍게 */
-    font-size: 2vw;  /* ✅ 글씨 크기 조절 */
+    font-size: clamp(16px, 2vw, 32px); /* ✅ 최소 16px, 최대 32px */
     color: black;  /* ✅ 색상 유지 */
     white-space: pre-line;  /* ✅ 줄바꿈 유지 */
 }
