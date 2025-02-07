@@ -20,7 +20,7 @@ export default class TwoFaPage extends Component {
 					<div>
 						<div id="qrcode" class="row"></div>
 						<div class="row">
-							<h3 id="qrReload" class="text-center text-white h3-clickable">QR CODE 요청<h3>
+							<p id="qrReload" class="text-center multi-line-text h3-clickable">QR CODE 요청<h3>
 						</div>
 					</div>
 				</div>
@@ -40,7 +40,15 @@ export default class TwoFaPage extends Component {
 				</div>
 				<div class="col d-flex align-items-center justify-content-center"></div>
 			</div>
-			<div class="row d-flex flex-grow-1"></div>
+			<div class="row d-flex flex-grow-1">
+				<div class="col d-flex align-items-center justify-content-center">
+					<p class="text-center multi-line-text">
+						인증앱에서 제공하는 코드 6자리를 입력하세요.<br>
+						만약 인증앱에 핑퐁게임이 등록되어 있지 않다면,<br>
+						QR CODE 요청을 클릭하여 등록 QR CODE를 발급 받으세요.<br>
+					<p>
+				</div>
+			</div>
 			<div class="row d-flex flex-grow-1"></div>
 		</div>
 		`;
@@ -68,10 +76,18 @@ export default class TwoFaPage extends Component {
 		
 			inputs[inputs.length - 1].addEventListener("keyup", (e) => {
 				if (e.key === "Enter") {
-					const code = Array.from(inputs).map(input => input.value).join("");
-					if (code.length === 6) {
-						console.log("✅ 서버로 전송:", code);
-						// fetch("서버URL", { method: "POST", body: JSON.stringify({ code }) })
+					const otpCode = Array.from(inputs).map(input => input.value).join("");
+					if (otpCode.length === 6) {
+						console.log("✅ 서버로 전송:", otpCode);
+						requestApi("https://localhost/api/oauth/2fa", {
+							method: "POST",
+							credentials: "include",
+							body: JSON.stringify({ "otp_code" : otpCode })
+						}).then(response => {
+							const data = response.json();
+							sessionStorage.setItem("accessToken", data.access_token);
+							window.location.replace("https://localhost");
+						});
 					}
 				}
 			});

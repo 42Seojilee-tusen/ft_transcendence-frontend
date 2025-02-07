@@ -1,6 +1,6 @@
-/* * {
+* {
 	outline: 1px solid black;
-} */
+}
 
 
 body {
@@ -128,4 +128,11 @@ body {
 
 .h3-clickable:hover {
     background-color: rgba(0, 0, 0, 0.1); /* 마우스 호버 시 배경 변경 */
+}
+
+.multi-line-text {
+    font-weight: bold;  /* ✅ 글씨 두껍게 */
+    font-size: 2vw;  /* ✅ 글씨 크기 조절 */
+    color: black;  /* ✅ 색상 유지 */
+    white-space: pre-line;  /* ✅ 줄바꿈 유지 */
 }
