@@ -1,6 +1,6 @@
 import Component from "../core/Component.js";
-import MyInfo from "../componenets/MyInfo.js";
-import MyMatchHistory from "../componenets/MyMatchHistory.js";
+import MyInfo from "../componenets/MyPage/MyInfo.js";
+import MyMatchHistory from "../componenets/MyPage/MyMatchHistory.js";
 import MoveButton from "../componenets/MoveButton.js";
 
 export default class MyPage extends Component {

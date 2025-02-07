@@ -1,4 +1,5 @@
-import Component from "../core/Component.js";
+import Component from "../../core/Component.js";
+import MatchRecord from "./MatchRecord.js";
 
 export default class MyMatchHistory extends Component {
 
@@ -6,12 +7,12 @@ export default class MyMatchHistory extends Component {
 		return `
 		<div class="m-2 m-md-3 m-lg-4">
 			전적
-			<div class="row m-0">
-				<div class="col">
+			<div class="row row-cols-2 m-0">
+				<div>
 					<h6 class="m-1">배틀</h5>
 					<h6 class="m-1">100전 100승 0패</h5>
 				</div>
-				<div class="col">
+				<div>
 					<h6 class="m-1">토너먼트</h5>
 					<h6 class="m-1">90경기 42/42/4/2 </h5>
 				</div>
@@ -83,7 +84,7 @@ export default class MyMatchHistory extends Component {
 			}
 
 			const recordLayout = `
-				<div class="col-4 d-flex flex-column justify-content-center align-items-center">
+				<div class="d-flex flex-column justify-content-center align-items-center">
 					<div class="m-1">
 						${record.date}
 					</div>
@@ -91,15 +92,16 @@ export default class MyMatchHistory extends Component {
 						${type}
 					</div>
 				</div>
-				<div class="col-4 d-flex flex-column justify-content-center align-items-center">
+				<div class="d-flex flex-column justify-content-center align-items-center">
 					${score}
 				</div>
-				<div class="col-4 d-flex flex-column justify-content-center align-items-center">
+				<div class="d-flex flex-column justify-content-center align-items-center">
 					${rank}
 				</div>
 			`;
 			const recordItem = document.createElement("div");
-			recordItem.classList.add("row", "m-1", "m-md-2", "m-lg-3");
+			recordItem.classList.add("row", "row-cols-3", "m-1", "m-md-2", "m-lg-3");
+			recordItem.id = "match-record";
 			recordItem.innerHTML = recordLayout;
 			$matchRecord.appendChild(recordItem);
 		});

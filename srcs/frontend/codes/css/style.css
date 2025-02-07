@@ -124,3 +124,7 @@ body {
 #match-records {
     max-height: 84vh;
 }
+
+#match-record {
+	outline: 1px solid black;
+}
