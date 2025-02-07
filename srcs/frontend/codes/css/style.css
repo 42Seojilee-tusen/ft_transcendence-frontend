@@ -1,6 +1,6 @@
-* {
+/* * {
 	outline: 1px solid black;
-}
+} */
 
 
 body {
@@ -94,7 +94,7 @@ body {
 }
 
 .auth-input {
-    width: 7vw;  /* 가로 크기 */
+    width: 5vw;  /* 가로 크기 */
     height: 5vh; /* 세로 크기 */
     font-size: max(16px, 2vw); /* 글자 크기 */
     text-align: center; /* 텍스트 중앙 정렬 */
@@ -105,8 +105,8 @@ body {
     box-sizing: border-box; /* 패딩 포함하여 크기 유지 */
     padding: 0;
 
-    max-width: 80px;
-    max-height: 80px;
+    max-width: 60px;
+    max-height: 50px;
     min-width: 40px;
     min-height: 40px;
 }
@@ -119,4 +119,13 @@ body {
     display: flex;
     gap: 3vw; /* 입력칸 사이 간격 */
     justify-content: center; /* 가운데 정렬 */
+}
+
+.h3-clickable {
+    cursor: pointer; /* ✅ 항상 클릭 가능하도록 설정 */
+    user-select: none; /* ✅ 드래그 방지 (선택 방지) */
+}
+
+.h3-clickable:hover {
+    background-color: rgba(0, 0, 0, 0.1); /* 마우스 호버 시 배경 변경 */
 }
