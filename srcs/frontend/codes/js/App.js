@@ -3,12 +3,7 @@ import createPages from "./pages/PageIndex.js";
 
 export default class App extends Component {
 	setup() {
-		// let loginSaved = false;
-		// if (sessionStorage.getItem("accessToken") !== null) {
-		// 	loginSaved = true;
-		// }
 		this.$state = {
-		  // isLogin: loginSaved,
 		  routes: [],
 		};
 	}
@@ -36,11 +31,14 @@ export default class App extends Component {
 		const checkRoutes = () => {
 			const path = window.location.pathname;
 			let hashPath = window.location.hash;
+			console.log(`current path: ${hashPath}`);
 			let currentRoute = this.$state.routes.find((route) => {
 				return route.fragment === hashPath;
 			});
+			if (currentRoute) {
+				currentRoute.component();
+			}
 			if (!currentRoute) {
-				//redirect to home
 				hashPath = '#/';
 				currentRoute = this.$state.routes[0];
 			}
@@ -49,7 +47,6 @@ export default class App extends Component {
 				currentRoute = this.$state.routes[4];
 			}
 			window.location.hash = hashPath;
-		  	currentRoute.component();
 		};
 
 		//URL 변경 이벤트

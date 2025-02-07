@@ -30,6 +30,10 @@ export default class Home extends Component {
 		new ModalButton($multi, {name: "멀티 플레이", color: "btn-green" });
 		new MoveButton($friend, {name: "친구 관리", href: "#/friend", color: "btn-green"});
 		new MoveButton($mypage, {name: "마이 페이지", href: "#/mypage", color: "btn-green"});
+		requestApi("https://localhost/api/users/", { // 임시 api => 이걸 이용해서 로그인 시간 유지
+			method: "GET",
+            credentials: "include",  // 🔥 쿠키 포함하여 요청
+		}).then(test => console.log(test));
 	}
 
 }
