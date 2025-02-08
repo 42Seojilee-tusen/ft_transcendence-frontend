@@ -46,6 +46,7 @@ export default class TwoFaPage extends Component {
 						인증앱에서 제공하는 코드 6자리를 입력하세요.<br>
 						만약 인증앱에 핑퐁게임이 등록되어 있지 않다면,<br>
 						QR CODE 요청을 클릭하여 등록 QR CODE를 발급 받으세요.<br>
+						QR CODE 재발급 시 이전에 등록된 QR CODE로는 로그인할 수 없습니다.<br>
 					<p>
 				</div>
 			</div>
@@ -56,18 +57,19 @@ export default class TwoFaPage extends Component {
 
 	mounted() {
 		const inputs = document.querySelectorAll(".auth-input");
+		inputs[0].focus();
 		inputs.forEach((input, index) => {
 			input.maxLength = 1;
 	
-			input.addEventListener("input", (e) => {
-				if (e.target.value && index < inputs.length - 1) {
-					inputs[index + 1].focus();
-				}
-			});
-	
 			input.addEventListener("keydown", (e) => {
+				if (!/^[0-9]$/.test(e.key) && e.key !== "Backspace") {
+					e.preventDefault(); // 숫자가 아니면 입력 차단
+				}
 				if (e.key === "Backspace" && !e.target.value && index > 0) {
 					inputs[index - 1].focus();
+				}
+				if (e.target.value && index < inputs.length - 1) {
+					inputs[index + 1].focus();
 				}
 			});
 		});
