@@ -47,15 +47,10 @@ export default class Callback extends Component {
 			}
 		}
 
-		function saveLoginState(accessToken) {
-			sessionStorage.setItem("accessToken", accessToken);
-			console.log("✅ 로그인 상태 저장 완료");
-		}
-
 		async function loginWithOAuth(authCode) {
 			try {
 				const tokenData = await requestFirstToken(authCode);
-				saveLoginState(tokenData.access_token);
+				sessionStorage.setItem("accessToken", tokenData.access_token);
 				window.location.href = "https://localhost/#/twofa";
 			} catch (error) {
 				console.error("❌ 로그인 실패:", error);
