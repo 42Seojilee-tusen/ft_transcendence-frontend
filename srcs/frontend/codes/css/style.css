@@ -56,8 +56,9 @@ body {
 }
 
 .left-panel {
-	height: 100vh;
-	overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    height: 100vh; /* 전체 화면 높이 */
 }
 
 .item-button {
