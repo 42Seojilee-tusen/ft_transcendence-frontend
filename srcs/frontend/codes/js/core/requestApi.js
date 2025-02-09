@@ -60,7 +60,6 @@ export async function requestApi(url, options = {}) {
                 }
             });
         }
-
         return response;
     } catch (error) {
         console.error("❌ api 요청 실패:", error);
