@@ -21,7 +21,6 @@ export default class App extends Component {
 		//라우트 페이지 설정
 		this.$state.routes.push({ fragment: '#/', component: pages.home });
 		this.$state.routes.push({ fragment: '#/login', component: pages.login });
-		this.$state.routes.push({ fragment: '#/friend', component: pages.friend });
 		this.$state.routes.push({ fragment: '#/mypage', component: pages.myPage });
 		this.$state.routes.push({ fragment: '#/callback', component: pages.callback });
 		this.$state.routes.push({ fragment: '#/game', component: pages.game });

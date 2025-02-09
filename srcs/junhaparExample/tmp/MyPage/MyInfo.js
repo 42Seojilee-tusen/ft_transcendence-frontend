@@ -5,10 +5,6 @@ export default class MyInfo extends Component {
 
 	template() {
 		return `
-		<div class="d-flex">
-			<div data-component="homeButton">
-			</div>
-		</div>
 		<div class="my-1 my-md-1 my-lg-2">
 			<img src="../../img/testMyPage.jpeg" class="img-fluid w-100" alt="junhapar">
 		</div>
@@ -26,15 +22,11 @@ export default class MyInfo extends Component {
 	}
 
 	mounted() {
-		// 홈 버튼
-		const $home = this.$target.querySelector('[data-component="homeButton"]');
-		new MoveButton($home, {name: "<-", href: "#/", color: "btn-white", fontSize: "fs-5" });
-
 		// 임시 버튼 생성
 		const $myMatchHistories = this.$target.querySelector('[data-component="myMatchHistoriesButton"]');
 		const $changeMyInfo = this.$target.querySelector('[data-component="changeMyInfoButton"]');
 
-		new MoveButton($myMatchHistories, {name: "내 경기 기록 보기", href: "#/friend", color: "btn-green", fontSize: "fs-4" });
-		new MoveButton($changeMyInfo, {name: "개인정보 변경", href: "#/friend", color: "btn-green", fontSize: "fs-4" });
+		new MoveButton($myMatchHistories, {name: "내 경기 기록 보기", href: "#/friend", color: "btn-green" });
+		new MoveButton($changeMyInfo, {name: "개인정보 변경", href: "#/friend", color: "btn-green" });
 	}
 }
