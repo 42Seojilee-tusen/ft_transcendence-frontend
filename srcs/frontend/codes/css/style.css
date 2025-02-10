@@ -35,8 +35,8 @@ body {
 }
 
 .btn-black {
-    /*background-color: #000000;*/
-    background-color: #fff;
+    background-color: #000000;
+    /*background-color: #fff;*/
     border-color: #000000;
 	transition: all 0.3s ease;
     color: #fff;
@@ -120,10 +120,6 @@ body {
     display: flex;
     gap: 3vw; /* 입력칸 사이 간격 */
     justify-content: center; /* 가운데 정렬 */
-}
-
-#my-Info, #my-SimpleHistory, #my-DetailHistories{
-    /*background-color: #D9D9D9;*/
 }
 
 #my-DetailHistories {
