@@ -137,3 +137,7 @@ body {
     color: black;  /* ✅ 색상 유지 */
     white-space: pre-line;  /* ✅ 줄바꿈 유지 */
 }
+
+.flex-grow-2 {
+    flex: 2 2 0% !important; /* !important로 우선순위 확보 */
+}
