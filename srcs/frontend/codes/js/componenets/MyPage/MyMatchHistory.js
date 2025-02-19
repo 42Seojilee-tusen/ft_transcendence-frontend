@@ -5,8 +5,15 @@ export default class MyMatchHistory extends Component {
 
 	setup() {
 		this.$state = {
-			histories: this.getHistories(),
-			//histories: this.$props,
+			// 임시 경기 기록
+			//histories: this.getHistories(),
+
+			// $props에 담긴 객체의 key value로 초기화
+			histories: requestApi("https://localhost/api/games/me", {
+				method: "GET",
+				credentials: "include",
+			}).then((response) => {return response.json()})
+			.then((response) => {return response}),
 		}
 	}
 
@@ -17,11 +24,11 @@ export default class MyMatchHistory extends Component {
 			<div class="row row-cols-2 m-0">
 				<div>
 					<h6 class="m-1">배틀</h5>
-					<h6 class="m-1">100전 100승 0패</h5>
+					<h6 id="matchHistory-battle" class="m-1">100전 100승 0패</h5>
 				</div>
 				<div>
 					<h6 class="m-1">토너먼트</h5>
-					<h6 class="m-1">90경기 42/42/4/2 </h5>
+					<h6 id="matchHistory-tournament" class="m-1">90경기 42/42/4/2 </h5>
 				</div>
 			</div>
 		</div>
@@ -34,15 +41,43 @@ export default class MyMatchHistory extends Component {
 
 	mounted() {
 
-		// my histories array
-		const histories = this.$state.histories;
+		// my battle history
+		setBattleHistory();
 
-		// match History 생성
-		const $matchRecord = document.querySelector("#my-DetailHistories");
+		// my tournament history
+		setTournamentHistory();
+
+		// 경기 기록들.
+			// my histories array
+		const histories = this.$state.histories.match_history;
+			// match History 생성
+		const $matchRecord = document.querySelector("div#my-DetailHistories");
 
 		histories.forEach((record) => {
 			new DetailMatchHistory($matchRecord, record);
 		});
+	}
+
+	setBattleHistory() {
+		const $battle = document.querySelector("div#my-SimpleHistory div#matchHistory-battle");
+		const history = this.$state.histories.total_match_history[0];
+
+		const totalGame = history.total_match;
+		const win = history.win;
+		const lose = history.lose;
+
+		$battle.innerText = `${totalGame}전 ${win}승 ${lose}패`;
+	}
+
+	setTournamentHistory() {
+		const $tournament = document.querySelector("div#my-SimpleHistory div#matchHistory-tournament");
+		const history = this.$state.histories.total_match_history[0];
+
+		const totalGame = history.total_match;
+		const win = history.win;
+		const lose = history.lose;
+
+		$tournament.innerText = `${totalGame}전 ${win}승 ${lose}패`;
 	}
 
 	/* api 연동해서 부모로부터 props로 histories 받아올 시 삭제 할 function */

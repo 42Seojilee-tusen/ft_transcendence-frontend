@@ -65,7 +65,7 @@ export default class MyInfo extends Component {
 		new MatchHistory($myMatchInfo, profile);
 		$myMatchHistoriesBTN.addEventListener("click", () => {
 			// 동작 중앙 + 우측 component
-			new MatchHistory($myMatchInfo, profile);
+			new MatchHistory($myMatchInfo, profile.username);
 		});
 	}
 

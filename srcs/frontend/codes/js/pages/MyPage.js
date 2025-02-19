@@ -9,7 +9,7 @@ export default class FriendPage extends Component {
 
 		this.$state = {
 			friends: this.getFriendsTemp(),
-			//friends: requestApi("https://localhost/api/users/auth/follows", {
+			//friends: requestApi("https://localhost/api/follows/me", {
 			//	method: "GET",
 			//	credentials: "include",  // 🔥 쿠키 포함하여 요청
 			//}).then((response) => {return response.json()}) // JSON 변환
@@ -67,16 +67,16 @@ export default class FriendPage extends Component {
 		const $friendMatchInfo = document.querySelector('[data-component="matchHistory"]');
 
 		// 친구 목록 생성
-		friends.forEach((friend, index) => {
+		friends.forEach((friendName, index) => {
 			const friendItem = document.createElement("div");
 			friendItem.classList.add("list-group-item", "friend-item");
-			friendItem.textContent = friend.name;
+			friendItem.textContent = friendName;
 			friendItem.dataset.index = index;
 
 			// 클릭 이벤트 추가
 			friendItem.addEventListener("click", () => {
 				// friend name으로 MatchHistory에서 경기기록 api 들고온 후 화면에 보여주기
-				new MatchHistory($friendMatchInfo, friend.name)
+				new MatchHistory($friendMatchInfo, friendName)
 			});
 
 			$friendListEl.appendChild(friendItem);
@@ -86,51 +86,15 @@ export default class FriendPage extends Component {
 
 	getFriendsTemp() {
 		return [
-			{ name: "김철수", online: true, battle: [ 10, 5, 5 ], tournament: [ 25, 10, 5, 5, 5 ] },
-			{ name: "이영희", online: true, battle: [ 4, 1, 3 ], tournament: [ 20, 5, 5, 5, 5 ] },
-			{ name: "박민수", online: false, battle: [ 5, 4, 1 ], tournament: [ 16, 2, 9, 4, 1 ] },
-			{ name: "정다혜", online: true, battle: [ 15, 14, 1 ], tournament: [ 5, 1, 1, 1, 1 ] },
-			{ name: "한준호", online: false, battle: [ 5, 2, 3 ], tournament: [ 2, 0, 1, 0, 1 ] },
-			{ name: "김철수", online: true, battle: [ 10, 5, 5 ], tournament: [ 25, 10, 5, 5, 5 ] },
-			//{ name: "이영희", online: true, battle: [ 4, 1, 3 ], tournament: [ 20, 5, 5, 5, 5 ] },
-			//{ name: "박민수", online: false, battle: [ 5, 4, 1 ], tournament: [ 16, 2, 9, 4, 1 ] },
-			//{ name: "정다혜", online: true, battle: [ 15, 14, 1 ], tournament: [ 5, 1, 1, 1, 1 ] },
-			//{ name: "한준호", online: false, battle: [ 5, 2, 3 ], tournament: [ 2, 0, 1, 0, 1 ] },
-			//{ name: "김철수", online: true, battle: [ 10, 5, 5 ], tournament: [ 25, 10, 5, 5, 5 ] },
-			//{ name: "이영희", online: true, battle: [ 4, 1, 3 ], tournament: [ 20, 5, 5, 5, 5 ] },
-			//{ name: "박민수", online: false, battle: [ 5, 4, 1 ], tournament: [ 16, 2, 9, 4, 1 ] },
-			//{ name: "정다혜", online: true, battle: [ 15, 14, 1 ], tournament: [ 5, 1, 1, 1, 1 ] },
-			//{ name: "한준호", online: false, battle: [ 5, 2, 3 ], tournament: [ 2, 0, 1, 0, 1 ] },
-			//{ name: "김철수", online: true, battle: [ 10, 5, 5 ], tournament: [ 25, 10, 5, 5, 5 ] },
-			//{ name: "이영희", online: true, battle: [ 4, 1, 3 ], tournament: [ 20, 5, 5, 5, 5 ] },
-			//{ name: "박민수", online: false, battle: [ 5, 4, 1 ], tournament: [ 16, 2, 9, 4, 1 ] },
-			//{ name: "정다혜", online: true, battle: [ 15, 14, 1 ], tournament: [ 5, 1, 1, 1, 1 ] },
-			//{ name: "한준호", online: false, battle: [ 5, 2, 3 ], tournament: [ 2, 0, 1, 0, 1 ] },
-			//{ name: "김철수", online: true, battle: [ 10, 5, 5 ], tournament: [ 25, 10, 5, 5, 5 ] },
-			//{ name: "이영희", online: true, battle: [ 4, 1, 3 ], tournament: [ 20, 5, 5, 5, 5 ] },
-			//{ name: "박민수", online: false, battle: [ 5, 4, 1 ], tournament: [ 16, 2, 9, 4, 1 ] },
-			//{ name: "정다혜", online: true, battle: [ 15, 14, 1 ], tournament: [ 5, 1, 1, 1, 1 ] },
-			//{ name: "한준호", online: false, battle: [ 5, 2, 3 ], tournament: [ 2, 0, 1, 0, 1 ] },
-			//{ name: "김철수", online: true, battle: [ 10, 5, 5 ], tournament: [ 25, 10, 5, 5, 5 ] },
-			//{ name: "이영희", online: true, battle: [ 4, 1, 3 ], tournament: [ 20, 5, 5, 5, 5 ] },
-			//{ name: "박민수", online: false, battle: [ 5, 4, 1 ], tournament: [ 16, 2, 9, 4, 1 ] },
-			//{ name: "정다혜", online: true, battle: [ 15, 14, 1 ], tournament: [ 5, 1, 1, 1, 1 ] },
-			//{ name: "한준호", online: false, battle: [ 5, 2, 3 ], tournament: [ 2, 0, 1, 0, 1 ] },
-			//{ name: "김철수", online: true, battle: [ 10, 5, 5 ], tournament: [ 25, 10, 5, 5, 5 ] },
-			//{ name: "이영희", online: true, battle: [ 4, 1, 3 ], tournament: [ 20, 5, 5, 5, 5 ] },
-			//{ name: "박민수", online: false, battle: [ 5, 4, 1 ], tournament: [ 16, 2, 9, 4, 1 ] },
-			//{ name: "정다혜", online: true, battle: [ 15, 14, 1 ], tournament: [ 5, 1, 1, 1, 1 ] },
-			//{ name: "한준호", online: false, battle: [ 5, 2, 3 ], tournament: [ 2, 0, 1, 0, 1 ] },
-			//{ name: "김철수", online: true, battle: [ 10, 5, 5 ], tournament: [ 25, 10, 5, 5, 5 ] },
-			//{ name: "이영희", online: true, battle: [ 4, 1, 3 ], tournament: [ 20, 5, 5, 5, 5 ] },
-			//{ name: "박민수", online: false, battle: [ 5, 4, 1 ], tournament: [ 16, 2, 9, 4, 1 ] },
-			//{ name: "정다혜", online: true, battle: [ 15, 14, 1 ], tournament: [ 5, 1, 1, 1, 1 ] },
-			//{ name: "한준호", online: false, battle: [ 5, 2, 3 ], tournament: [ 2, 0, 1, 0, 1 ] },
-			//{ name: "김철수", online: true, battle: [ 10, 5, 5 ], tournament: [ 25, 10, 5, 5, 5 ] },
-			//{ name: "이영희", online: true, battle: [ 4, 1, 3 ], tournament: [ 20, 5, 5, 5, 5 ] },
-			//{ name: "박민수", online: false, battle: [ 5, 4, 1 ], tournament: [ 16, 2, 9, 4, 1 ] },
-			//{ name: "정다혜", online: true, battle: [ 15, 14, 1 ], tournament: [ 5, 1, 1, 1, 1 ] },
-			//{ name: "한준호", online: false, battle: [ 5, 2, 3 ], tournament: [ 2, 0, 1, 0, 1 ] },
+			"test_name1",
+			"test_name2",
+			"test_name3",
+			"test_name4",
+			"test_name5",
+			"test_name6",
+			"test_name7",
+			"test_name8",
+			"test_name9",
 		];
 	}
 
