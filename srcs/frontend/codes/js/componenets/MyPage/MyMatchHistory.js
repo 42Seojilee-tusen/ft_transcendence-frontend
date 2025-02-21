@@ -1,5 +1,6 @@
 import Component from "../../core/Component.js";
 import DetailMatchHistory from "./DetailMatchHistory.js";
+import { requestApi } from "../core/requestApi.js";
 
 export default class MyMatchHistory extends Component {
 

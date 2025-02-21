@@ -8,7 +8,6 @@ services:
       DOMAIN_NAME: ${DOMAIN_NAME}
       SSL_KEY: ${SSL_KEY}
       SSL_CRT: ${SSL_CRT}
-      OAUTH_URI: ${OAUTH_URI}
     ports:
       - "443:443"
       - "80:80"
@@ -16,7 +15,6 @@ services:
       - ft_trancendence
     volumes:
       - ./srcs/frontend/codes:/usr/share/nginx/html
-
   backend:
     init: true
     build: ./srcs/backend
@@ -60,7 +58,7 @@ services:
       - ft_trancendence
     volumes:
       - ./srcs/database/srcs:/var/lib/postgresql/data
-
+  # 테스트할 땐 주석 해제
   redis:
     init: true
     image: redis:7
@@ -71,3 +69,4 @@ services:
 
 networks:
   ft_trancendence:
+

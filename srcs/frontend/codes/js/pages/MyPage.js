@@ -1,7 +1,7 @@
 import Component from "../core/Component.js";
 import MyInfo from "../componenets/MyPage/MyInfo.js"
-import FriendDetail from "../componenets/FriendDetail.js"
-import MatchHistory from "../componenets/MatchHistory.js";
+import MatchHistory from "../componenets/MyPage/MatchHistory.js";
+import AddFriendModalButton from "../componenets/MyPage/AddFriendModalButton.js";
 import { requestApi } from "../core/requestApi.js";
 
 export default class FriendPage extends Component {
@@ -39,8 +39,10 @@ export default class FriendPage extends Component {
 					</div>
 
 					<!-- 좌측 하단 친구 추가 -->
-					<div class="d-flex justify-content-center align-content-center text-center p-1 p-md-2 p-lg-3">
-						<div>유저 검색</div>
+					<div id="test" class="d-flex justify-content-center align-content-center text-center p-1 p-md-2 p-lg-3">
+						<div data-component="addFriendButton" class="btn btn-secondary my-1 fs-4" data-bs-toggle="modal" data-bs-target="#exampleModal">
+							유저 검색
+						</div>
 					</div>
 
 				</div>
@@ -60,7 +62,6 @@ export default class FriendPage extends Component {
 			// 최초 중앙 + 우측 componen는 위의 MyInfo에서 처리
 		const $myInfo = document.querySelector('#myPage-profile');
 		new MyInfo($myInfo);
-
 
 		const friends = this.$state.friends;
 		const $friendListEl = document.querySelector("#friend-list");
@@ -82,6 +83,11 @@ export default class FriendPage extends Component {
 			$friendListEl.appendChild(friendItem);
 		});
 
+		// 유저 검색 및 추가 버튼
+		const $addFriendBTN = this.$target.querySelector('[data-component="addFriendButton"]');
+		$addFriendBTN.addEventListener("click", () => {
+			new AddFriendModalButton($addFriendBTN);
+		});
 	}
 
 	getFriendsTemp() {

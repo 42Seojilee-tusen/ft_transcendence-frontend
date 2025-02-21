@@ -1,14 +1,27 @@
-import Component from "../core/Component.js";
-import DetailMatchHistory from "./MyPage/DetailMatchHistory.js";
+import Component from "../../core/Component.js";
+import DetailMatchHistory from "./DetailMatchHistory.js";
+import AdditionalMyInfo from "./AdditionalMyInfo.js";
+import DetailFriendInfo from "./DetailFriendInfo.js";
+import { requestApi } from "../../core/requestApi.js";
 
 export default class MatchHistory extends Component {
 
+	constructor($target, username) {
+		// username이 없으면 초기화를 중단하거나 별도의 처리
+		console.log(username);
+		if (username === undefined) {
+		  console.warn("MatchHistory: username is not provided.");
+		  return;
+		}
+		super($target, username);
+	  }
+
 	setup() {
-		const username = this.$props;
 		this.$state = {
+			username: this.$props,
 			histories: this.getHistories(),
 			// $props에 담긴 객체의 key value로 초기화
-			//histories: requestApi("https://localhost/api/games/me", {
+			//histories: requestApi("https://localhost/api/games/username", {
 			//	method: "GET",
 			//	credentials: "include",
 			//}).then((response) => {return response.json()})
@@ -20,7 +33,7 @@ export default class MatchHistory extends Component {
 		return `
 		<div class="row">
 			<!--중앙 통계 정보 -->
-			<div class="col-lg-4 p-4">
+			<div id="detailInfo" class="col-lg-4 p-4">
 			</div>
 
 			<!-- 우측 경기 정보 -->
@@ -50,15 +63,15 @@ export default class MatchHistory extends Component {
 	mounted() {
 
 	// < 중앙 경기 정보 >
-
+		this.setDetailInfo();
 
 	// < 우측 경기 정보 >
 		// 경기 기록 축약본
 			// my battle history
-		//setBattleHistory();
+		//this.setBattleHistory();
 
 			// my tournament history
-		//setTournamentHistory();
+		//this.setTournamentHistory();
 
 		// 경기 기록들.
 			// my histories array
@@ -70,6 +83,20 @@ export default class MatchHistory extends Component {
 		histories.forEach((record) => {
 			new DetailMatchHistory($matchRecord, record);
 		});
+	}
+
+	setDetailInfo() {
+		const $detailInfo = document.querySelector("div#detailInfo");
+		const $name = document.querySelector('div#myInfo-name').innerText;
+
+		// show circle graph with history about me
+		if ($name === this.$state.username) {
+			new AdditionalMyInfo($detailInfo);
+		}
+		// show friend profile
+		else {
+			new DetailFriendInfo($detailInfo);
+		}
 	}
 
 	setBattleHistory() {

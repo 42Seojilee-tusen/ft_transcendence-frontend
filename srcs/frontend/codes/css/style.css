@@ -145,3 +145,12 @@ body {
     color: black;  /* ✅ 색상 유지 */
     white-space: pre-line;  /* ✅ 줄바꿈 유지 */
 }
+
+#pieChart {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    /* 기본 배경 설정: 나중에 JS로 덮어쓰기 */
+    background: conic-gradient(green 0deg, green 0deg, red 0deg, red 360deg);
+    margin: 50px auto;
+}
