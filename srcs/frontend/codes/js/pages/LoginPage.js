@@ -1,7 +1,7 @@
 import Component from "../core/Component.js";
 import LoginButton from "../componenets/LoginButton.js";
 
-export default class Login extends Component {
+export default class LoginPage extends Component {
 	template() {
 		return `
 		<div class="container-xxl vh-100 d-flex flex-column justify-content-center">

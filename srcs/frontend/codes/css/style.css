@@ -141,3 +141,19 @@ body {
 .flex-grow-2 {
     flex: 2 2 0% !important; /* !important로 우선순위 확보 */
 }
+
+.top-side {
+    border-top: 2px solid;
+}
+
+.right-side {
+    border-right: 2px solid;
+}
+
+.bottom-side {
+    border-bottom: 2px solid;
+}
+
+.left-side {
+    border-left: 2px solid;
+}

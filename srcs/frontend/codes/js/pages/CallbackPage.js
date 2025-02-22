@@ -1,6 +1,6 @@
 import Component from "../core/Component.js";
 
-export default class Callback extends Component {
+export default class CallbackPage extends Component {
 	setup() {
 		const urlParams = new URLSearchParams(window.location.search);
 		const code = urlParams.get('code');
