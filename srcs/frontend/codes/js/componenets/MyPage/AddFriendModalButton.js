@@ -45,7 +45,7 @@ export default class AddFriendModalButton extends Component {
 		const friendList = document.querySelector('div#friendModal ul#friendList');
 
 		searchInput.addEventListener("input", () => {
-			this.filterFriends(searchInput, friendList);
+			//this.filterFriends(searchInput, friendList);
 		});
 	}
 
@@ -76,7 +76,7 @@ export default class AddFriendModalButton extends Component {
 	async fetchUsersName() {
 		try {
 			// need revise api url
-			const response = await requestApi("https://localhost/api/users/usernames/", {
+			const response = await requestApi("https://localhost/api/users/username/", {
 				method: "GET",
 				credentials: "include",
 			});
