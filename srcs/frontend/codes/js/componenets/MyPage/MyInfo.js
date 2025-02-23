@@ -8,6 +8,7 @@ export default class MyInfo extends Component {
 		super($target, $props);
 		this.fetchProfile();
 	}
+
 	setup() {
 		this.$state = {
 			profile: null,
@@ -72,4 +73,5 @@ export default class MyInfo extends Component {
 			console.error("Error fetching profile:", error);
 		}
 	}
+
 }
