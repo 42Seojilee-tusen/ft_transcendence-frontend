@@ -39,10 +39,7 @@ export default class FriendPage extends Component {
 					</div>
 
 					<!-- 좌측 하단 친구 추가 -->
-					<div id="test" class="d-flex justify-content-center align-content-center text-center p-1 p-md-2 p-lg-3">
-						<div data-component="addFriendButton" class="btn btn-secondary my-1 fs-4" data-bs-toggle="modal" data-bs-target="#exampleModal">
-							유저 검색
-						</div>
+					<div data-component="addFriendButton" class="d-flex justify-content-center align-content-center text-center p-1 p-md-2 p-lg-3">
 					</div>
 
 				</div>
@@ -85,9 +82,7 @@ export default class FriendPage extends Component {
 
 		// 유저 검색 및 추가 버튼
 		const $addFriendBTN = this.$target.querySelector('[data-component="addFriendButton"]');
-		$addFriendBTN.addEventListener("click", () => {
-			new AddFriendModalButton($addFriendBTN);
-		});
+		new AddFriendModalButton($addFriendBTN);
 	}
 
 	getFriendsTemp() {
