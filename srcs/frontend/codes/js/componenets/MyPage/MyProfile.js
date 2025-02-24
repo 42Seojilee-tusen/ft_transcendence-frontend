@@ -3,7 +3,7 @@ import MoveButton from "../MoveButton.js";
 import MatchHistory from "./MatchHistory.js";
 import { requestApi } from "../../core/requestApi.js";
 
-export default class MyInfo extends Component {
+export default class MyProfile extends Component {
 	constructor($target, $props) {
 		super($target, $props);
 		this.fetchProfile();
@@ -25,22 +25,22 @@ export default class MyInfo extends Component {
 		</div>
 
 		<!-- image -->
-		<div id="myInfo-image" class="my-1 my-md-1 my-lg-2">
+		<div class="my-1 my-md-1 my-lg-2">
 			${profile ? `<img src="https://localhost/api${profile.profile_image}" class="img-fluid w-100" alt="${profile.username}">` : '<div>Loading image...</div>'}
 		</div>
 
 		<!-- name -->
-		<div id="myInfo-name" class="my-1 my-md-1 my-lg-2 fs-4">
+		<div id="MyProfile-username" class="my-1 my-md-1 my-lg-2 fs-4">
 			${profile ? profile.username : 'Loading name...'}
 		</div>
 
 		<!-- email -->
-		<div id="myInfo-email" class="my-1 my-md-1 my-lg-2 fs-4">
+		<div class="my-1 my-md-1 my-lg-2 fs-4">
 			${profile ? profile.email : 'Loading email...'}
 		</div>
 
 		<!-- my match history -->
-		<div data-component="myMatchHistoriesButton" class="btn btn-primary my-1 my-md-2 my-lg-3 fs-3">
+		<div data-component="MyMatchHistoryBtn" class="btn btn-primary my-1 my-md-2 my-lg-3 fs-3">
 			내 경기 기록 보기
 		</div>
 		`;
@@ -53,11 +53,11 @@ export default class MyInfo extends Component {
 		new MoveButton($home, {name: "<-", href: "#/", color: "btn-white", fontSize: "fs-5" });
 
 		// 내 경기 기록 보기 버튼
-		const $myMatchHistoriesBTN = this.$target.querySelector('[data-component="myMatchHistoriesButton"]');
-		$myMatchHistoriesBTN.addEventListener("click", () => {
+		const $myMatchHistoryBtn = this.$target.querySelector('[data-component="MyMatchHistoryBtn"]');
+		$myMatchHistoryBtn.addEventListener("click", () => {
 			// 동작 중앙 + 우측 component
-			const $myMatchInfo = document.querySelector('[data-component="matchHistory"]');
-			new MatchHistory($myMatchInfo, this.$state.profile?.username);
+			const $myMatchHistory = document.querySelector('[data-component="MatchHistory"]');
+			new MatchHistory($myMatchHistory, this.$state.profile?.username);
 		});
 	}
 

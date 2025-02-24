@@ -1,20 +1,14 @@
 import Component from "../core/Component.js";
-import MyInfo from "../componenets/MyPage/MyInfo.js"
-import MatchHistory from "../componenets/MyPage/MatchHistory.js";
+import MyProfile from "../componenets/MyPage/MyProfile.js"
+import MyFollows from "../componenets/MyPage/MyFollows.js"
 import AddFriendModalButton from "../componenets/MyPage/AddFriendModalButton.js";
-import { requestApi } from "../core/requestApi.js";
 
-export default class FriendPage extends Component {
+export default class MyPage extends Component {
+	constructor($target, $props) {
+		super($target, $props);
+	}
+
 	setup() {
-
-		this.$state = {
-			friends: this.getFriendsTemp(),
-			//friends: requestApi("https://localhost/api/follows/me", {
-			//	method: "GET",
-			//	credentials: "include",  // 🔥 쿠키 포함하여 요청
-			//}).then((response) => {return response.json()}) // JSON 변환
-			//.then((response) => {return response.friend_list}) // response object에서 friend_list 추출
-		};
 	}
 
 	template() {
@@ -22,30 +16,24 @@ export default class FriendPage extends Component {
 		<div class="container-fluid">
 			<div class="row">
 				<!-- 좌측 -->
-				<div class="col-lg-3 d-flex flex-column bg-light left-panel p-3 pt-0">
+				<div class="col-lg-3 d-flex flex-column bg-light left-panel p-3 py-0">
 
-					<!-- 좌측 상단 내 정보 -->
-					<div id="myPage-profile" class="d-flex flex-column text-center text-break">
+					<!-- 좌측 상단 내 정보 Component -->
+					<div data-component="MyPage-MyProfile" class="d-flex flex-column text-center text-break">
 					</div>
 
-					<!-- 좌측 중단 친구 목록 text -->
-					<div class="text-center p-1 p-md-2 p-lg-3">
-						<h2 class="m-2">친구 목록</h2>
-					</div>
-
-					<!-- 좌측 중하단 친구 목록 -->
-					<div class="col friend-list-container" style="height: 40vh; overflow-y: auto;">
-						<div id="friend-list" class="list-group"></div>
+					<!-- 좌측 중하단 친구 목록 Component -->
+					<div data-component="MyPage-MyFollows" class="d-flex flex-column text-center text-break">
 					</div>
 
 					<!-- 좌측 하단 친구 추가 -->
-					<div data-component="addFriendButton" class="d-flex justify-content-center align-content-center text-center p-1 p-md-2 p-lg-3">
+					<div data-component="MyPage-AddFriendBtn" class="d-flex justify-content-center align-content-center text-center p-1 p-md-2 p-lg-3">
 					</div>
 
 				</div>
 
 				<!-- 중앙 + 우측 -->
-				<div data-component="matchHistory" class="col-lg-9 p-4">
+				<div data-component="MatchHistory" class="col-lg-9 p-4">
 				</div>
 			</div>
 		</div>
@@ -57,46 +45,17 @@ export default class FriendPage extends Component {
 		// 좌측 상단 정보
 			// 로그인한 유저의 image, name, email, match-history-btn, 정보변경-btn
 			// 최초 중앙 + 우측 componen는 위의 MyInfo에서 처리
-		const $myInfo = document.querySelector('#myPage-profile');
-		new MyInfo($myInfo);
+		const $myProfile = document.querySelector('[data-component="MyPage-MyProfile"]');
+		new MyProfile($myProfile);
 
-		const friends = this.$state.friends;
-		const $friendListEl = document.querySelector("#friend-list");
-		const $friendMatchInfo = document.querySelector('[data-component="matchHistory"]');
+		// 좌측 중하단 정보
+			// 친구 목록 list
+		const $myFollows = document.querySelector('[data-component="MyPage-MyFollows"]');
+		new MyFollows($myFollows);
 
-		// 친구 목록 생성
-		friends.forEach((friendName, index) => {
-			const friendItem = document.createElement("div");
-			friendItem.classList.add("list-group-item", "friend-item");
-			friendItem.textContent = friendName;
-			friendItem.dataset.index = index;
-
-			// 클릭 이벤트 추가
-			friendItem.addEventListener("click", () => {
-				// friend name으로 MatchHistory에서 경기기록 api 들고온 후 화면에 보여주기
-				new MatchHistory($friendMatchInfo, friendName)
-			});
-
-			$friendListEl.appendChild(friendItem);
-		});
-
-		// 유저 검색 및 추가 버튼
-		const $addFriendBTN = this.$target.querySelector('[data-component="addFriendButton"]');
-		new AddFriendModalButton($addFriendBTN);
+		// 좌측 하단 정보
+			// user 검색 및 추가 버튼 -> modal button 이용
+		const $addFriendBtn = this.$target.querySelector('[data-component="MyPage-AddFriendBtn"]');
+		new AddFriendModalButton($addFriendBtn);
 	}
-
-	getFriendsTemp() {
-		return [
-			"test_name1",
-			"test_name2",
-			"test_name3",
-			"test_name4",
-			"test_name5",
-			"test_name6",
-			"test_name7",
-			"test_name8",
-			"test_name9",
-		];
-	}
-
 }

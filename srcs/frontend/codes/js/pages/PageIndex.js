@@ -1,6 +1,5 @@
 import HomePage from "./HomePage.js";
 import MyPage from "./MyPage.js";
-//import FriendPage from "./FriendPage.js";
 import LoginPage from "./LoginPage.js";
 import CallbackPage from "./CallbackPage.js";
 import GamePage from "./GamePage.js";

@@ -1,16 +1,15 @@
 import Component from "../../core/Component.js";
 import DetailMatchHistory from "./DetailMatchHistory.js";
 import AdditionalMyInfo from "./AdditionalMyInfo.js";
-import DetailFriendInfo from "./DetailFriendInfo.js";
+import FriendProfile from "./FriendProfile.js";
 import { requestApi } from "../../core/requestApi.js";
 
 export default class MatchHistory extends Component {
 
 	constructor($target, username) {
 		// username이 없으면 초기화를 중단하거나 별도의 처리
-		console.log(username);
 		if (username === undefined) {
-		  console.warn("MatchHistory: username is not provided.");
+		  console.error("MatchHistory: username is not provided.");
 		  return;
 		}
 		super($target, username);
@@ -33,7 +32,7 @@ export default class MatchHistory extends Component {
 		return `
 		<div class="row">
 			<!--중앙 통계 정보 -->
-			<div id="detailInfo" class="col-lg-4 p-4">
+			<div data-component="AdditionalInfo" class="col-lg-4 d-flex flex-column justify-content-center align-content-center p-4">
 			</div>
 
 			<!-- 우측 경기 정보 -->
@@ -86,16 +85,16 @@ export default class MatchHistory extends Component {
 	}
 
 	setDetailInfo() {
-		const $detailInfo = document.querySelector("div#detailInfo");
-		const $name = document.querySelector('div#myInfo-name').innerText;
+		const $additionalInfo = document.querySelector('[data-component="AdditionalInfo"]');
+		const $name = document.querySelector('div#MyProfile-username').innerText;
 
 		// show circle graph with history about me
 		if ($name === this.$state.username) {
-			new AdditionalMyInfo($detailInfo);
+			new AdditionalMyInfo($additionalInfo);
 		}
 		// show friend profile
 		else {
-			new DetailFriendInfo($detailInfo);
+			new FriendProfile($additionalInfo, this.$state.username);
 		}
 	}
 

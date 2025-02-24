@@ -77,6 +77,24 @@ body {
     transition: transform 0.1s;
 }
 
+[data-component="MyPage-MyProfile"] {
+    height: 50vh;
+    overflow-y: auto;
+}
+
+[data-component="MyPage-MyFollows"] {
+    height: 40vh;
+    overflow-y: auto;
+}
+
+#MyFollows-FriendList {
+    height: 100%;
+}
+
+[data-component="MyPage-AddFriendBt"] {
+    height: 10vh;
+}
+
 .friend-item {
 	cursor: pointer;
 	padding: 10px;
