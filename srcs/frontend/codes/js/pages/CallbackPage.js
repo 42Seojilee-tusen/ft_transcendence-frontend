@@ -24,7 +24,7 @@ export default class CallbackPage extends Component {
 	mounted() {
 		async function requestFirstToken(authCode) {
 			try {
-				const response = await fetch("https://localhost/api/oauth/token", {
+				const response = await fetch("https://localhost/api/oauth/token/", {
 					method: "POST",
 					headers: {
 						"Accept": "application/json",
@@ -37,7 +37,7 @@ export default class CallbackPage extends Component {
 					const errorData = await response.json();
 					throw new Error(`액세스 토큰 요청 실패: ${errorData.error || response.status}`);
 				}
-		
+
 				const data = await response.json();
 				console.log("✅ 액세스 토큰 응답:", data);
 				return data;
