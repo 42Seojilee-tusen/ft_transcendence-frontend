@@ -6,13 +6,33 @@ import Game from "../game/Game.js";
 
 export default class GamePage extends Component {
 	setup() {
-
-		const tmpJson = {
+		let tmpJson = {};
+		// tmpJson = {
+		// 	"game_type": "battle",
+		// 	"game_state": "wait",
+		// 	"game_user": ["player1", "player2"],
+		// }
+		// tmpJson = {
+		// 	"game_type": "tournament",
+		// 	"game_state": "wait",
+		// 	"game_user": ["player1", "player2", "player3", "player4"],
+		// 	"now_player": ["player1", "player4"],
+		// }
+		// tmpJson = {
+		// 	"game_type": "battle",
+		// 	"game_state": "play",
+		// 	"now_player": ["player1", "player2"],
+		// 	"score": [3, 0],
+		// 	"ball": { "x": 4.5, "y": 7.3 },
+		// 	"left_bar": 20.3,
+		// 	"right_bar": 12.1,
+		// }
+		tmpJson = {
 			"game_type": "battle",
-			"game_state": "wait",
-			"game_user": ["player1", "player2"],
+			"game_state": "finish",
+			"now_player": ["player1", "player2"],
+			"result": [2, 5]
 		}
-
 		this.$state = { ...tmpJson }
 	}
 
@@ -57,14 +77,14 @@ export default class GamePage extends Component {
 		const $page = document.querySelector("#gameState");
 		if (this.$state.game_state === "wait") {
 			if (this.$state.game_type === "battle") {
-				new Battle($page);
+				new Battle($page, this.$state);
 			} else if (this.$state.game_type === "tournament") {
-				new Tournament($page);
+				new Tournament($page, this.$state);
 			}
 		} else if (this.$state.game_state === "start" || this.$state.game_state === "play") {
-			new Game($page);
+			new Game($page, this.$state);
 		} else if (this.$state.game_state === "finish") {
-			new Result($page);
+			new Result($page, this.$state);
 		}
 	}
 }

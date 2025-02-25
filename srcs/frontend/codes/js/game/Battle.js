@@ -3,16 +3,13 @@ import { requestApi } from "../core/requestApi.js";
 
 export default class Battle extends Component {
 	setup() {
-		// requestApi("https://localhost/api/users/hyeongsh", {
-		// 	method: "GET",
-		// 	credentials: "include",
-		// }).then(test => console.log(test.json()));
-
+		const player1Image = "../../img/profile.jpeg";
+		const player2Image = "../../img/profile.jpeg";
 		this.$state = {
-			player1Image: "../../img/1on1.png",
-			player1Name: "player1",
-			player2Image: "../../img/1on1.png",
-			player2Name: "player2",
+			player1Image: player1Image,
+			player1Name: this.$props.game_user[0],
+			player2Image: player2Image,
+			player2Name: this.$props.game_user[1],
 		};
 	}
 
@@ -32,7 +29,7 @@ export default class Battle extends Component {
 					/>
 					<h3 class="text-white mb-0">${this.$state.player1Name}</p>
 				</div>
-				<div class="col d-flex align-items-center justify-content-center"><h1 style="font-size: clamp(1rem, 5vw, 4rem);">VS</h1></div>
+				<div class="col d-flex align-items-center justify-content-center"><h1 class="text-white" style="font-size: clamp(1rem, 5vw, 4rem);">VS</h1></div>
 				<div class="col d-flex flex-column align-items-center justify-content-center">
 					<img
 						src=${this.$state.player2Image}
