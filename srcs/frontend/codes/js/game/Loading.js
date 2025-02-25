@@ -1,6 +1,6 @@
 import Component from "../core/Component.js";
 
-export default class LoadingPage extends Component {
+export default class Loading extends Component {
 	setup() {
 		this.$state = {
 		};
