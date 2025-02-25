@@ -1,6 +1,5 @@
 import HomePage from "./HomePage.js";
-import CounterPage from "./CounterPage.js";
-import FriendPage from "./FriendPage.js";
+import MyPage from "./MyPage.js";
 import LoginPage from "./LoginPage.js";
 import CallbackPage from "./CallbackPage.js";
 import GamePage from "./GamePage.js";
@@ -12,8 +11,7 @@ import TournamentPage from "./TournamentPage.js";
 export default (main) => {
 	const home = () => new HomePage(main);
 	const login = () => new LoginPage(main);
-	const counter = () => new CounterPage(main);
-	const friend = () => new FriendPage(main);
+	const myPage = () => new MyPage(main);
 	const callback = () => new CallbackPage(main);
 	const game = () => new GamePage(main);
 	const twofa = () => new TwoFaPage(main);
@@ -24,8 +22,7 @@ export default (main) => {
 	return {
 		home,
 		login,
-		counter,
-		friend,
+		myPage,
 		callback,
 		game,
 		twofa,

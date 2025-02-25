@@ -60,7 +60,7 @@ export default class TwoFaPage extends Component {
 		inputs[0].focus();
 		inputs.forEach((input, index) => {
 			input.maxLength = 1;
-	
+
 			input.addEventListener("keydown", (e) => {
 				if (!/^[0-9]$/.test(e.key) && e.key !== "Backspace") {
 					e.preventDefault(); // 숫자가 아니면 입력 차단
@@ -73,14 +73,14 @@ export default class TwoFaPage extends Component {
 				}
 			});
 		});
-	
+
 		inputs[inputs.length - 1].addEventListener("keyup", async (e) => {
 			if (e.key === "Enter") {
 				const otpCode = Array.from(inputs).map(input => input.value).join("");
 				if (otpCode.length === 6) {
 					try {
 						console.log("✅ 서버로 전송:", otpCode);
-						const response = await requestApi("https://localhost/api/oauth/2fa", {
+						const response = await requestApi("https://localhost/api/oauth/2fa/", {
 							method: "POST",
 							credentials: "include",
 							body: JSON.stringify({ "otp_code" : otpCode })
@@ -102,7 +102,7 @@ export default class TwoFaPage extends Component {
 
 		async function qrRouteFind() {
 			try {
-				const response = await requestApi("https://localhost/api/oauth/2fa", {
+				const response = await requestApi("https://localhost/api/oauth/2fa/", {
 					method: "GET",
             		credentials: "include",  // 🔥 쿠키 포함하여 요청
 				});
@@ -111,7 +111,7 @@ export default class TwoFaPage extends Component {
 					const errorData = await response.json();
 					throw new Error(`QR 코드 루트 탐색 실패: ${errorData.error || response.status}`);
 				}
-		
+
 				const data = await response.json();
 				console.log("✅ QR 코드 루트 응답:", data);
 				return data.two_factor_qr_code_image;

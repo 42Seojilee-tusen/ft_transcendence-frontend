@@ -1,7 +1,6 @@
 * {
-	outline: 1px solid black;
+	/*outline: 1px solid black;*/
 }
-
 
 body {
 	background-image: url("../img/background.png");
@@ -37,6 +36,7 @@ body {
 
 .btn-black {
     background-color: #000000;
+    /*background-color: #fff;*/
     border-color: #000000;
 	transition: all 0.3s ease;
     color: #fff;
@@ -75,6 +75,24 @@ body {
 .item-button:active {
     transform: scale(0.95); /* 클릭할 때 살짝 작아지는 효과 */
     transition: transform 0.1s;
+}
+
+[data-component="MyPage-MyProfile"] {
+    height: 50vh;
+    overflow-y: auto;
+}
+
+[data-component="MyPage-MyFollows"] {
+    height: 40vh;
+    overflow-y: auto;
+}
+
+#MyFollows-FriendList {
+    height: 100%;
+}
+
+[data-component="MyPage-AddFriendBt"] {
+    height: 10vh;
 }
 
 .friend-item {
@@ -122,6 +140,14 @@ body {
     justify-content: center; /* 가운데 정렬 */
 }
 
+#my-DetailHistories {
+    max-height: 84vh;
+}
+
+#detailMatchHistory {
+	outline: 1px solid black;
+}
+
 .h3-clickable {
     cursor: pointer; /* ✅ 항상 클릭 가능하도록 설정 */
     user-select: none; /* ✅ 드래그 방지 (선택 방지) */
@@ -136,4 +162,13 @@ body {
     font-size: clamp(16px, 2vw, 32px); /* ✅ 최소 16px, 최대 32px */
     color: black;  /* ✅ 색상 유지 */
     white-space: pre-line;  /* ✅ 줄바꿈 유지 */
+}
+
+#pieChart {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    /* 기본 배경 설정: 나중에 JS로 덮어쓰기 */
+    background: conic-gradient(green 0deg, green 0deg, red 0deg, red 360deg);
+    margin: 50px auto;
 }
