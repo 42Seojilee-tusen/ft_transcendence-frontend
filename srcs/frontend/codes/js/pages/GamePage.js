@@ -6,7 +6,7 @@ import Game from "../game/Game.js";
 
 export default class GamePage extends Component {
 	setup() {
-		let tmpJson = {};
+		let tmpJson;
 		// tmpJson = {
 		// 	"game_type": "battle",
 		// 	"game_state": "wait",
@@ -16,23 +16,23 @@ export default class GamePage extends Component {
 		// 	"game_type": "tournament",
 		// 	"game_state": "wait",
 		// 	"game_user": ["player1", "player2", "player3", "player4"],
-		// 	"now_player": ["player1", "player4"],
-		// }
-		// tmpJson = {
-		// 	"game_type": "battle",
-		// 	"game_state": "play",
-		// 	"now_player": ["player1", "player2"],
-		// 	"score": [3, 0],
-		// 	"ball": { "x": 4.5, "y": 7.3 },
-		// 	"left_bar": 20.3,
-		// 	"right_bar": 12.1,
+		// 	"now_player": ["player2", "player4"],
 		// }
 		tmpJson = {
 			"game_type": "battle",
-			"game_state": "finish",
+			"game_state": "play",
 			"now_player": ["player1", "player2"],
-			"result": [2, 5]
+			"score": [3, 0],
+			"ball": { "x": 160.2, "y": 100.3 },
+			"left_bar": 65.3,
+			"right_bar": 200.1,
 		}
+		// tmpJson = {
+		// 	"game_type": "battle",
+		// 	"game_state": "finish",
+		// 	"now_player": ["player1", "player2"],
+		// 	"result": [2, 5]
+		// }
 		this.$state = { ...tmpJson }
 	}
 
@@ -88,3 +88,11 @@ export default class GamePage extends Component {
 		}
 	}
 }
+
+
+/*
+websocket -> json을 사용해서 callback
+setState(json);
+
+
+*/
