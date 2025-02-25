@@ -55,6 +55,7 @@ export default class AddFriendModalButton extends Component {
 	filterFriends(searchInput, friendList) {
 		if (this.$state.usersNames === null)
 			return ;
+		console.log(this.$state.usersNames);
 
 		const $searchInput = searchInput.value;
 		friendList.innerHTML = "";

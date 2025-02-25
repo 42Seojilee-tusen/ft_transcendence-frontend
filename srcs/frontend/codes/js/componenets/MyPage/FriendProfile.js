@@ -91,7 +91,7 @@ export default class FriendProfile extends Component {
 	async fetchFollow(username, method) {
 		try {
 			// need revise api url
-			const response = await requestApi("https://localhost/api/follows/me", {
+			const response = await requestApi("https://localhost/api/follows/me/", {
 				method: method,
 				credentials: "include",
 				body: JSON.stringify({"username":username}),

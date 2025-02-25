@@ -57,10 +57,11 @@ export default class MyFollows extends Component {
 
 	async fetchFollows() {
 		try {
-			const response = await requestApi("https://localhost/api/follows/me", {
+			const response = await requestApi("https://localhost/api/follows/me/", {
 				method: "GET",
 				credentials: "include",
 			});
+			console.log(response);
 			const data = await response.json();
 			this.setState({ follows: data.friend_list });
 		} catch (error) {

@@ -24,7 +24,7 @@ export default class Callback extends Component {
 	mounted() {
 		async function requestFirstToken(authCode) {
 			try {
-				const response = await fetch("https://localhost/api/oauth/token", {
+				const response = await fetch("https://localhost/api/oauth/token/", {
 					method: "POST",
 					headers: {
 						"Accept": "application/json",
