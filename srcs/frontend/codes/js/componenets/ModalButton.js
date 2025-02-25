@@ -27,7 +27,7 @@ export default class ModalButton extends Component {
 								<div id="battle-card" class="card bg-desert text-center w-100 h-100" data-bs-dismiss="modal">
 									<div class="card-body item-button">
 										<img src="../../img/1on1.png" alt="Battle" class="img-fluid mb-3" style="height: 200px; object-fit: cover;">
-										<h5 class="card-title text-dark">배틀</h5>
+										<h5 class="card-title text-dark">1vs1 배틀</h5>
 									</div>
 								</div>
 							</div>
