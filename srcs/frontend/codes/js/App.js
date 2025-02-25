@@ -14,6 +14,7 @@ export default class App extends Component {
 		`;
 	}
 
+
 	mounted() {
 		const $main = this.$target.querySelector('main');
 		const pages = createPages($main);
@@ -25,14 +26,10 @@ export default class App extends Component {
 		this.$state.routes.push({ fragment: '#/callback', component: pages.callback });
 		this.$state.routes.push({ fragment: '#/game', component: pages.game });
 		this.$state.routes.push({ fragment: '#/twofa', component: pages.twofa });
-<<<<<<< HEAD
-
-=======
 		this.$state.routes.push({ fragment: '#/loading', component: pages.loading });
 		this.$state.routes.push({ fragment: '#/battle', component: pages.battle });
 		this.$state.routes.push({ fragment: '#/tournament', component: pages.tournament });
-	
->>>>>>> 8f4cccae8cf77c927537f0198ce3cd249b6805a1
+
 		//현재 URL 체크
 		const checkRoutes = () => {
 			const path = window.location.pathname;
