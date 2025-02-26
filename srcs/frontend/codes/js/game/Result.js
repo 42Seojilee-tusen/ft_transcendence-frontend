@@ -1,18 +1,13 @@
 import Component from "../core/Component.js";
-import { requestApi } from "../core/requestApi.js";
 
 export default class Result extends Component {
 	setup() {
-		const player1Name = this.$props.now_player[0];
-		const player2Name = this.$props.now_player[1];
-		const player1Image = "../../img/profile.jpeg";
-		const player2Image = "../../img/profile.jpeg";
 		this.$state = {
-			player1Image: player1Image,
-			player1Name: player1Name,
+			player1Image: this.$props.now_players[0].player_image,
+			player1Name: this.$props.now_players[0].player_name,
 			win1: this.$props.result[0] > this.$props.result[1],
-			player2Image: player2Image,
-			player2Name: player2Name,
+			player2Image: this.$props.now_players[1].player_image,
+			player2Name: this.$props.now_players[1].player_name,
 			win2: this.$props.result[1] > this.$props.result[0],
 			score: `${this.$props.result[0]} : ${this.$props.result[1]}`
 		};

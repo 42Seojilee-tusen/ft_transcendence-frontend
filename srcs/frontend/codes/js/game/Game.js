@@ -1,19 +1,21 @@
 import Component from "../core/Component.js";
-import { requestApi } from "../core/requestApi.js";
 
 export default class Game extends Component {
 	setup() {
-		const player1Image = "../../img/profile.jpeg";
-		const player2Image = "../../img/profile.jpeg";
+		let info;
+		if (this.$props.type === "game_wait") {
+			info = { time: this.$props.time, }
+		} else {
+			info = { game_state: this.$props.game_state, }
+		}
 		this.$state = {
-			player1Image: player1Image,
-			player1Name: this.$props.now_player[0],
-			player2Image: player2Image,
-			player2Name: this.$props.now_player[1],
+			type: this.$props.type,
+			player1Image: this.$props.now_players[0].player_image,
+			player1Name: this.$props.now_players[0].player_name,
+			player2Image: this.$props.now_players[1].player_image,
+			player2Name: this.$props.now_players[1].player_name,
 			score: `${this.$props.score[0]} : ${this.$props.score[1]}`,
-			ball: { x: this.$props.ball.x, y: this.$props.ball.y },
-			leftBar: this.$props.left_bar,
-			rightBar: this.$props.right_bar,
+			...info
 		};
 	}
 
@@ -46,7 +48,9 @@ export default class Game extends Component {
 				<div class="col d-flex flex-column align-items-center justify-content-center"></div>
 			</div>
 			<div class="row d-flex flex-grow-2">
-				<canvas id="gameCanvas" class="mt-5 mb-5" width="480" height="320" style="background-color: lightgray;"></canvas>
+				<div class="col d-flex flex-column align-items-center justify-content-center mt-5 mb-5">
+					<canvas id="gameCanvas" width="800" height="500" style="background-color: darkgray;"></canvas>
+				</div>
 			</div>
 			<div class="row d-flex flex-grow-1">
 				<div class="col d-flex align-items-center justify-content-center"></div>
@@ -58,20 +62,26 @@ export default class Game extends Component {
 	mounted() {
 		const $canvas = document.querySelector("#gameCanvas");
 		const ctx = $canvas.getContext("2d");
-		ctx.beginPath();
-		ctx.rect(10, this.$state.leftBar, 10, 50);
-		ctx.fillStyle = "black";
-		ctx.fill();
-		ctx.closePath();
-		ctx.beginPath();
-		ctx.arc(this.$state.ball.x, this.$state.ball.y, 7, 0, Math.PI * 2, false);
-		ctx.fillStyle = "green";
-		ctx.fill();
-		ctx.closePath();
-		ctx.beginPath();
-		ctx.rect(460, this.$state.rightBar, 10, 50);
-		ctx.fillStyle = "black";
-		ctx.fill();
-		ctx.closePath();
+		if (this.$state.type === "game_wait") {
+			ctx.font = "30px Arial"; // 글꼴 및 크기 설정
+			ctx.fillStyle = "black"; // 텍스트 색상 설정
+			ctx.fillText(this.$state.time, 390, 250);
+		} else {
+			ctx.beginPath();
+			this.$state.game_state.paddles.forEach((paddle) => {
+				ctx.rect(paddle.x, paddle.y, paddle.xsize, paddle.ysize);	
+			})
+			ctx.fillStyle = "black";
+			ctx.fill();
+			ctx.closePath();
+
+			ctx.beginPath();
+			this.$state.game_state.balls.forEach((ball) => {
+				ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2, false);
+			})
+			ctx.fillStyle = "white";
+			ctx.fill();
+			ctx.closePath();
+		}
 	}
 }

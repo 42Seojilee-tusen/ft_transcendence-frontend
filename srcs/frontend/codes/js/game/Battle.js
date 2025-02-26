@@ -1,15 +1,12 @@
 import Component from "../core/Component.js";
-import { requestApi } from "../core/requestApi.js";
 
 export default class Battle extends Component {
 	setup() {
-		const player1Image = "../../img/profile.jpeg";
-		const player2Image = "../../img/profile.jpeg";
 		this.$state = {
-			player1Image: player1Image,
-			player1Name: this.$props.game_user[0],
-			player2Image: player2Image,
-			player2Name: this.$props.game_user[1],
+			player1Image: this.$props.game_users[0].player_image,
+			player1Name: this.$props.game_users[0].player_name,
+			player2Image: this.$props.game_users[1].player_image,
+			player2Name: this.$props.game_users[1].player_name,
 		};
 	}
 

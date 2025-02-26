@@ -22,34 +22,34 @@ export default class BattlePage extends Component {
 		// 	"time": 3,
 		// 	"score": [0, 0],
 		// }
-		tmpJson = {
-			"type": "game_update",
-			"now_players": [
-				{"player_name": "player1", "player_image": "../../img/profile.jpeg"},
-				{"player_name": "player2", "player_image": "../../img/profile.jpeg"},
-			],
-			"game_state": {
-				"paddles": [{
-					"y": 100,
-					"x": 100,
-					"ysize": 100,
-					"xsize": 100
-				},
-				{
-					"y": 600,
-					"x": 100,
-					"ysize": 100,
-					"xsize": 100
-				},
-			],
-				"balls": [{
-					"y": 100,
-					"x": 100,
-					"radius": 100,
-				}],
-			},
-			"score": [3, 0],
-		}
+		// tmpJson = {
+		// 	"type": "game_update",
+		// 	"now_players": [
+		// 		{"player_name": "player1", "player_image": "../../img/profile.jpeg"},
+		// 		{"player_name": "player2", "player_image": "../../img/profile.jpeg"},
+		// 	],
+		// 	"game_state": {
+		// 		"paddles": [{
+		// 			"y": 100,
+		// 			"x": 10,
+		// 			"ysize": 50,
+		// 			"xsize": 10
+		// 		},
+		// 		{
+		// 			"y": 200,
+		// 			"x": 780,
+		// 			"ysize": 50,
+		// 			"xsize": 10
+		// 		},
+		// 	],
+		// 		"balls": [{
+		// 			"y": 200,
+		// 			"x": 300,
+		// 			"radius": 10,
+		// 		}],
+		// 	},
+		// 	"score": [3, 0],
+		// }
 		// tmpJson = {
 		// 	"type": "ending",
 		// 	"now_players": [
@@ -77,9 +77,6 @@ export default class BattlePage extends Component {
 					<div class="col d-flex align-items-center justify-content-center"></div>
 					<div class="col-8 d-flex align-items-center justify-content-center">
 						<div class="row d-flex flex-grow-1">
-							<div class="col d-flex align-items-center justify-content-center">
-								<img src="../../img/offline.png" alt="offline" style="height: 300px;">
-							</div>
 							<div class="col d-flex align-items-center justify-content-center">
 								<img src="../../img/online.png" alt="online" style="height: 300px;">
 							</div>
