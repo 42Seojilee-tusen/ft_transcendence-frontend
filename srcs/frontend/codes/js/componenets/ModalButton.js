@@ -53,11 +53,11 @@ export default class ModalButton extends Component {
 
 		$battleCard.addEventListener("click", () => {
 			console.log("click battle");
-			window.location.hash = "#/game";
+			window.location.hash = "#/battle";
 		})
 		$tournarmentCard.addEventListener("click", () => {
 			console.log("click tournarment");
-			window.location.hash = "#/game";
+			window.location.hash = "#/tournament";
 		})
 	}
 }
