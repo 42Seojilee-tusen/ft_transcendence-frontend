@@ -25,7 +25,8 @@ export default class App extends Component {
 		this.$state.routes.push({ fragment: '#/mypage', component: pages.myPage });
 		this.$state.routes.push({ fragment: '#/callback', component: pages.callback });
 		this.$state.routes.push({ fragment: '#/twofa', component: pages.twofa });
-		this.$state.routes.push({ fragment: '#/game', component: pages.game });
+		this.$state.routes.push({ fragment: '#/battle', component: pages.battle });
+		this.$state.routes.push({ fragment: '#/tournament', component: pages.tournament });
 
 		//현재 URL 체크
 		const checkRoutes = () => {

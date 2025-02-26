@@ -1,25 +1,22 @@
 import Component from "../core/Component.js";
-import Battle from "../game/Battle.js";
 import Tournament from "../game/Tournament.js";
 import Result from "../game/Result.js";
 import Game from "../game/Game.js";
 
-export default class GamePage extends Component {
+export default class TournamentPage extends Component {
 	setup() {
 		let tmpJson;
 		// tmpJson = {
-		// 	"game_type": "battle",
 		// 	"game_state": "wait",
 		// 	"game_user": ["player1", "player2"],
 		// }
 		// tmpJson = {
 		// 	"game_type": "tournament",
 		// 	"game_state": "wait",
-		// 	"game_user": ["player1", "player2", "player3", "player4"],
+		// 	"game_users": [, "player2", "player3", "player4"],
 		// 	"now_player": ["player2", "player4"],
 		// }
 		tmpJson = {
-			"game_type": "battle",
 			"game_state": "play",
 			"now_player": ["player1", "player2"],
 			"score": [3, 0],
@@ -28,7 +25,7 @@ export default class GamePage extends Component {
 			"right_bar": 200.1,
 		}
 		// tmpJson = {
-		// 	"game_type": "battle",
+		// 	"game_type": "tournament",
 		// 	"game_state": "finish",
 		// 	"now_player": ["player1", "player2"],
 		// 	"result": [2, 5]
@@ -76,11 +73,7 @@ export default class GamePage extends Component {
 	mounted() {
 		const $page = document.querySelector("#gameState");
 		if (this.$state.game_state === "wait") {
-			if (this.$state.game_type === "battle") {
-				new Battle($page, this.$state);
-			} else if (this.$state.game_type === "tournament") {
-				new Tournament($page, this.$state);
-			}
+			new Tournament($page, this.$state);
 		} else if (this.$state.game_state === "start" || this.$state.game_state === "play") {
 			new Game($page, this.$state);
 		} else if (this.$state.game_state === "finish") {
@@ -88,11 +81,3 @@ export default class GamePage extends Component {
 		}
 	}
 }
-
-
-/*
-websocket -> json을 사용해서 callback
-setState(json);
-
-
-*/
