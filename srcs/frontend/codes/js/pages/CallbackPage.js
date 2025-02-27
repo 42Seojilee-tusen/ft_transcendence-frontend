@@ -10,12 +10,11 @@ export default class CallbackPage extends Component {
 	}
 
 	template() {
-		const { code } = this.$state;
 		return `
 		<div class="container-xxl vh-100 d-flex flex-column justify-content-center">
 			<div class="row">
 				<img src="../../img/chill.jpeg" alt="chill guy"></img>
-				<h1 style="text-align: center;">공 chill 노릇이군..<h1>
+				<h1 style="text-align: center;">공 chill 노릇이군..</h1>
 			</div>
 		</div>
 		`;
