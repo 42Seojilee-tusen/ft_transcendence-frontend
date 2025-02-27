@@ -15,7 +15,7 @@ async function refreshAccessToken() {
         }
 
         const data = await response.json();
-        sessionStorage.setItem("accessToken", data.access_token);  // ✅ 새 액세스 토큰 저장
+        await sessionStorage.setItem("accessToken", data.access_token);  // ✅ 새 액세스 토큰 저장
         console.log("✅ 새 액세스 토큰 발급 완료:", data.access_token);
         return data.access_token;
     } catch (error) {

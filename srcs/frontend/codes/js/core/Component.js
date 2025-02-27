@@ -12,7 +12,7 @@ export default class Component {
 	}
 
 	setup() {} // 컴포넌트의 state 설정
-
+    
 	mounted() {} // 컴포넌트가 마운트 되었을 때 처리
 
 	template() { // UI 구성
