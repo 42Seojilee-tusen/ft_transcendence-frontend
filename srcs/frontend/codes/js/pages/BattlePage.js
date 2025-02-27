@@ -1,108 +1,96 @@
 import Component from "../core/Component.js";
-import Battle from "../game/Battle.js";
-import Result from "../game/Result.js";
-import Game from "../game/Game.js";
+import BattleRender from "../game/BattleRender.js";
+import { WSS_PROTOCOL, HOST } from "../constants/ApiConstants.js";
+import {requestApi} from "../core/requestApi.js"
 
 export default class BattlePage extends Component {
 	setup() {
-		let tmpJson;
-		// tmpJson = {
-		// 	"type": "matching_on",
-		// 	"game_users": [
-		// 		{"player_name": "player1", "player_image": "../../img/profile.jpeg"},
-		// 		{"player_name": "player2", "player_image": "../../img/profile.jpeg"},
-		// 	],
-		// };
-		// tmpJson = {
-		// 	"type": "game_wait",
-		// 	"now_players": [
-		// 		{"player_name": "player1", "player_image": "../../img/profile.jpeg"},
-		// 		{"player_name": "player2", "player_image": "../../img/profile.jpeg"},
-		// 	],
-		// 	"time": 3,
-		// 	"score": [0, 0],
-		// }
-		// tmpJson = {
-		// 	"type": "game_update",
-		// 	"now_players": [
-		// 		{"player_name": "player1", "player_image": "../../img/profile.jpeg"},
-		// 		{"player_name": "player2", "player_image": "../../img/profile.jpeg"},
-		// 	],
-		// 	"game_state": {
-		// 		"paddles": [{
-		// 			"y": 100,
-		// 			"x": 10,
-		// 			"ysize": 50,
-		// 			"xsize": 10
-		// 		},
-		// 		{
-		// 			"y": 200,
-		// 			"x": 780,
-		// 			"ysize": 50,
-		// 			"xsize": 10
-		// 		},
-		// 	],
-		// 		"balls": [{
-		// 			"y": 200,
-		// 			"x": 300,
-		// 			"radius": 10,
-		// 		}],
-		// 	},
-		// 	"score": [3, 0],
-		// }
-		// tmpJson = {
-		// 	"type": "ending",
-		// 	"now_players": [
-		// 		{"player_name": "player1", "player_image": "../../img/profile.jpeg"}, 
-		// 		{"player_name": "player2", "player_image": "../../img/profile.jpeg"},
-		// 	],
-		// 	"result": [5, 3]
-		// }
-		this.$state = { ...tmpJson }
+		this.keysPressed = {};
 	}
-
 	template() {
 		return `
-		<div id="gameState" class="container-xxl vh-100 d-flex flex-column justify-content-center">
-			<div class="container vh-100 d-flex flex-column">
-				<div class="row d-flex flex-grow-1">
-					<h1 class="col text-white d-flex align-items-center justify-content-center">Loading...</h1>
-				</div>
-				<div class="row d-flex flex-grow-1">
-					<div class="col d-flex align-items-center justify-content-center"></div>
-					<div class="col d-flex align-items-center justify-content-center"></div>
-					<div class="col d-flex align-items-center justify-content-center"></div>
-				</div>
-				<div class="row d-flex flex-grow-1">
-					<div class="col d-flex align-items-center justify-content-center"></div>
-					<div class="col-8 d-flex align-items-center justify-content-center">
-						<div class="row d-flex flex-grow-1">
-							<div class="col d-flex align-items-center justify-content-center">
-								<img src="../../img/online.png" alt="online" style="height: 300px;">
-							</div>
-						</div>
-					</div>
-					<div class="col d-flex align-items-center justify-content-center"></div>
-				</div>
-				<div class="row d-flex flex-grow-1">
-					<div class="col d-flex align-items-center justify-content-center">
-					<h1 class="text-center text-white">상대를 기다리는 중입니다...<h1>
-					</div>
-				</div>
-				<div class="row d-flex flex-grow-1"></div>
-			</div>
-		</div>
+			<div id="battle-render"></div>
 		`;
 	}
 
 	mounted() {
-		const $page = document.querySelector("#gameState");
-		if (this.$state.type === "matching_on") {
-			new Battle($page, this.$state);
-		} else if (this.$state.type === "game_wait" || this.$state.type === "game_update") {
-			new Game($page, this.$state);
-		} else if (this.$state.type === "ending") {
-			new Result($page, this.$state);
+		const $parent = document.querySelector("#battle-render");
+		const battleRender = new BattleRender($parent);
+		requestApi("https://localhost/api/users/me/", { // 임시 api => 이걸 이용해서 로그인 시간 유지
+			method: "GET",
+			credentials: "include",  // 🔥 쿠키 포함하여 요청
+		}).then((response) => {
+			this.connectWebSocket(battleRender);
+			// 키 입력 이벤트 추가
+			window.addEventListener("keydown", (e) => this.handleKeyDown(e));
+			window.addEventListener("keyup", (e) => this.handleKeyUp(e));
+		}).catch((error) => {
+			window.location.hash = "#/login";
+		});
+	}
+
+	connectWebSocket(battleRender) {
+		const token = sessionStorage.getItem("accessToken");
+		this.chatSocket = new WebSocket(
+			WSS_PROTOCOL + HOST + `/api/ws/game/battle/?token=${token}`
+		);
+
+		this.chatSocket.onopen = () => {
+			console.log("WebSocket connection established");
+		};
+
+		this.chatSocket.onmessage = (e) => {
+			const data = JSON.parse(e.data);
+			console.log(data);
+			battleRender.changeState(data);
+		};
+
+		this.chatSocket.onclose = (e) => {
+			console.log("WebSocket connection closed", e);
+			this.chatSocket = null;
+		};
+
+		this.chatSocket.onerror = (error) => {
+			console.error("WebSocket error:", error);
+		};
+	}
+
+	handleKeyDown(e) {
+		if (!this.keysPressed[e.key]) {
+			this.keysPressed[e.key] = true;
+			this.sendMovePaddle(true);
 		}
+	}
+
+	handleKeyUp(e) {
+		if (this.keysPressed[e.key]) {
+			delete this.keysPressed[e.key];
+			this.sendMovePaddle(false);
+		}
+	}
+
+	sendMovePaddle(isMoving) {
+		if (!this.chatSocket || this.chatSocket.readyState !== WebSocket.OPEN) {
+			console.warn("WebSocket is not ready, cannot send message");
+			return;
+		}
+
+		let direction = 0;
+		if (this.keysPressed["w"] || this.keysPressed["ArrowUp"]) {
+			direction -= 1;
+		}
+		if (this.keysPressed["s"] || this.keysPressed["ArrowDown"]) {
+			direction += 1;
+		}
+
+		if (!isMoving) direction = 0;
+
+		const data = JSON.stringify({
+			type: "move_paddle",
+			direction: direction,
+		});
+
+		console.log("Sending WebSocket:", data);
+		this.chatSocket.send(data);
 	}
 }
