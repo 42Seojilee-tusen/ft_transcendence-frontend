@@ -1,21 +1,15 @@
 import Component from "../core/Component.js";
+import GameBoard from "./GameBoard.js";
 
 export default class Game extends Component {
 	setup() {
-		let info;
-		if (this.$props.type === "game_wait") {
-			info = { time: this.$props.time, }
-		} else {
-			info = { game_state: this.$props.game_state, }
-		}
 		this.$state = {
-			type: this.$props.type,
-			player1Image: this.$props.now_players[0].player_image,
-			player1Name: this.$props.now_players[0].player_name,
-			player2Image: this.$props.now_players[1].player_image,
-			player2Name: this.$props.now_players[1].player_name,
-			score: `${this.$props.score[0]} : ${this.$props.score[1]}`,
-			...info
+			type: "",
+			player1Image: "../../img/profile.jpeg",
+			player1Name: "player1",
+			player2Image: "../../img/profile.jpeg",
+			player2Name: "player2",
+			score: "0 : 0",
 		};
 	}
 
@@ -48,9 +42,7 @@ export default class Game extends Component {
 				<div class="col d-flex flex-column align-items-center justify-content-center"></div>
 			</div>
 			<div class="row d-flex flex-grow-2">
-				<div class="col d-flex flex-column align-items-center justify-content-center mt-5 mb-5">
-					<canvas id="gameCanvas" width="800" height="500" style="background-color: darkgray;"></canvas>
-				</div>
+				<div id="game-board" class="col d-flex flex-column align-items-center justify-content-center mt-5 mb-5"></div>
 			</div>
 			<div class="row d-flex flex-grow-1">
 				<div class="col d-flex align-items-center justify-content-center"></div>
@@ -60,28 +52,35 @@ export default class Game extends Component {
 	}
 
 	mounted() {
-		const $canvas = document.querySelector("#gameCanvas");
-		const ctx = $canvas.getContext("2d");
-		if (this.$state.type === "game_wait") {
-			ctx.font = "30px Arial"; // 글꼴 및 크기 설정
-			ctx.fillStyle = "black"; // 텍스트 색상 설정
-			ctx.fillText(this.$state.time, 390, 250);
-		} else {
-			ctx.beginPath();
-			this.$state.game_state.paddles.forEach((paddle) => {
-				ctx.rect(paddle.x, paddle.y, paddle.xsize, paddle.ysize);	
-			})
-			ctx.fillStyle = "black";
-			ctx.fill();
-			ctx.closePath();
+		const $parent = document.querySelector("#game-board");
+		const gameBoard = new GameBoard($parent);
+		this.$state.gameBoard = gameBoard;
+	}
 
-			ctx.beginPath();
-			this.$state.game_state.balls.forEach((ball) => {
-				ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2, false);
-			})
-			ctx.fillStyle = "white";
-			ctx.fill();
-			ctx.closePath();
+	updateImage(data) {
+		this.$state =  {
+			...this.$state,
+			type: data.type,
+			player1Image: `https://localhost/api${data.game_users[0].player_image}`,
+			player1Name: data.game_users[0].player_name,
+			player2Image: `https://localhost/api${data.game_users[1].player_image}`,
+			player2Name: data.game_users[1].player_name,
+		}
+	}
+
+	waitTime(data) {
+		if (this.$state.type !== "game_wait") {
+			this.setState({ type: data.type, score: `${data.scores[0]} : ${data.scores[1]}`, })
+		}
+		this.$state.gameBoard.updateBoard( { type: data.type, time: data.time } );
+	}
+
+	updateGame(data) {
+		if (this.$state.type !== "game_wait" && this.$state.type !== "game_update") {
+			this.setState({ type: data.type, })
+		} else {
+			this.$state.type = data.type;
+			this.$state.gameBoard.updateBoard( { type: data.type, game_state: data.game_state } );
 		}
 	}
 }

@@ -3,10 +3,10 @@ import Component from "../core/Component.js";
 export default class Battle extends Component {
 	setup() {
 		this.$state = {
-			player1Image: this.$props.game_users[0].player_image,
-			player1Name: this.$props.game_users[0].player_name,
-			player2Image: this.$props.game_users[1].player_image,
-			player2Name: this.$props.game_users[1].player_name,
+			player1Image: "../../img/profile.jpeg",
+			player1Name: "player1",
+			player2Image: "../../img/profile.jpeg",
+			player2Name: "player2",
 		};
 	}
 
@@ -42,5 +42,15 @@ export default class Battle extends Component {
 			</div>
 		</div>
 		`;
+	}
+
+	updateImage(data) {
+		this.setState( 
+		{
+			player1Image: `https://localhost/api${data.game_users[0].player_image}`,
+			player1Name: data.game_users[0].player_name,
+			player2Image: `https://localhost/api${data.game_users[1].player_image}`,
+			player2Name: data.game_users[1].player_name,
+		})
 	}
 }

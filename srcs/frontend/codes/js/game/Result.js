@@ -3,13 +3,14 @@ import Component from "../core/Component.js";
 export default class Result extends Component {
 	setup() {
 		this.$state = {
-			player1Image: this.$props.now_players[0].player_image,
-			player1Name: this.$props.now_players[0].player_name,
-			win1: this.$props.result[0] > this.$props.result[1],
-			player2Image: this.$props.now_players[1].player_image,
-			player2Name: this.$props.now_players[1].player_name,
-			win2: this.$props.result[1] > this.$props.result[0],
-			score: `${this.$props.result[0]} : ${this.$props.result[1]}`
+			type: "",
+			player1Image: "../../img/profile.jpeg",
+			player1Name: "player1",
+			player2Image: "../../img/profile.jpeg",
+			player2Name: "player2",
+			score: "0 : 0",
+			win1: false,
+			win2: false,
 		};
 	}
 
@@ -60,5 +61,27 @@ export default class Result extends Component {
 		} else {
 			$player2Image.classList.add("not-play");
 		}
+	}
+
+	updateImage(data) {
+		this.$state =  
+		{
+			...this.$state,
+			type: data.type,
+			player1Image: `https://localhost/api${data.game_users[0].player_image}`,
+			player1Name: data.game_users[0].player_name,
+			player2Image: `https://localhost/api${data.game_users[1].player_image}`,
+			player2Name: data.game_users[1].player_name,
+		}
+	}
+
+	finishGame(data) {
+		this.setState({
+			...this.$state,
+			type: data.type,
+			win1: data.result[0] > data.result[1],
+			win2: data.result[1] > data.result[0],
+			score: `${data.result[0]} : ${data.result[1]}`
+		})
 	}
 }
