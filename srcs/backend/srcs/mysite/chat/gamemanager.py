@@ -229,3 +229,6 @@ class GameManager:
             } for ball in self.balls],
             'scores': self.score
         }
+    
+    def get_scores(self):
+        self.score

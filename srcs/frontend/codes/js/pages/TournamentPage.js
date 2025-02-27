@@ -6,29 +6,59 @@ import Game from "../game/Game.js";
 export default class TournamentPage extends Component {
 	setup() {
 		let tmpJson;
-		// tmpJson = {
-		// 	"game_state": "wait",
-		// 	"game_user": ["player1", "player2"],
-		// }
-		// tmpJson = {
-		// 	"game_type": "tournament",
-		// 	"game_state": "wait",
-		// 	"game_users": [, "player2", "player3", "player4"],
-		// 	"now_player": ["player2", "player4"],
-		// }
 		tmpJson = {
-			"game_state": "play",
-			"now_player": ["player1", "player2"],
-			"score": [3, 0],
-			"ball": { "x": 160.2, "y": 100.3 },
-			"left_bar": 65.3,
-			"right_bar": 200.1,
-		}
+			"type": "matching_on",
+			"game_users": [
+				{"player_name": "player1", "player_image": "../../img/profile.jpeg"},
+				{"player_name": "player2", "player_image": "../../img/profile.jpeg"},
+				{"player_name": "player3", "player_image": "../../img/profile.jpeg"},
+				{"player_name": "player4", "player_image": "../../img/profile.jpeg"},
+			],
+		};
 		// tmpJson = {
-		// 	"game_type": "tournament",
-		// 	"game_state": "finish",
-		// 	"now_player": ["player1", "player2"],
-		// 	"result": [2, 5]
+		// 	"type": "game_wait",
+		// 	"now_players": [
+		// 		{"player_name": "player1", "player_image": "../../img/profile.jpeg"},
+		// 		{"player_name": "player2", "player_image": "../../img/profile.jpeg"},
+		// 	],
+		// 	"time": 3,
+		// 	"score": [0, 0],
+		// }
+		// tmpJson = {
+		// 	"type": "game_update",
+		// 	"now_players": [
+		// 		{"player_name": "player1", "player_image": "../../img/profile.jpeg"},
+		// 		{"player_name": "player2", "player_image": "../../img/profile.jpeg"},
+		// 	],
+		// 	"game_state": {
+		// 		"paddles": [{
+		// 			"y": 100,
+		// 			"x": 10,
+		// 			"ysize": 50,
+		// 			"xsize": 10
+		// 		},
+		// 		{
+		// 			"y": 200,
+		// 			"x": 780,
+		// 			"ysize": 50,
+		// 			"xsize": 10
+		// 		},
+		// 	],
+		// 		"balls": [{
+		// 			"y": 200,
+		// 			"x": 300,
+		// 			"radius": 10,
+		// 		}],
+		// 	},
+		// 	"score": [3, 0],
+		// }
+		// tmpJson = {
+		// 	"type": "ending",
+		// 	"now_players": [
+		// 		{"player_name": "player1", "player_image": "../../img/profile.jpeg"}, 
+		// 		{"player_name": "player2", "player_image": "../../img/profile.jpeg"},
+		// 	],
+		// 	"result": [5, 3]
 		// }
 		this.$state = { ...tmpJson }
 	}
@@ -72,11 +102,11 @@ export default class TournamentPage extends Component {
 
 	mounted() {
 		const $page = document.querySelector("#gameState");
-		if (this.$state.game_state === "wait") {
+		if (this.$state.type === "matching_on") {
 			new Tournament($page, this.$state);
-		} else if (this.$state.game_state === "start" || this.$state.game_state === "play") {
+		} else if (this.$state.type === "game_wait" || this.$state.type === "game_update") {
 			new Game($page, this.$state);
-		} else if (this.$state.game_state === "finish") {
+		} else if (this.$state.type === "finish") {
 			new Result($page, this.$state);
 		}
 	}
