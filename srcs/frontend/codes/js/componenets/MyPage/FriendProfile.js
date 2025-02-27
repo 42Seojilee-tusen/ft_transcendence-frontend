@@ -26,7 +26,7 @@ export default class FriendProfile extends Component {
 		</div>
 
 		<!-- name -->
-		<div id="MyProfile-username" class="my-1 my-md-1 my-lg-2 fs-4 text-center text-break">
+		<div id="friendProfile-username" class="my-1 my-md-1 my-lg-2 fs-4 text-center text-break">
 			${profile ? profile.username : 'Loading name...'}
 		</div>
 
@@ -67,6 +67,9 @@ export default class FriendProfile extends Component {
 			const response = await requestApi("https://localhost/api/follows/me", {
 				method: "GET",
 				credentials: "include",
+				headers: {
+					"Content-Type": "application/json",
+				},
 			});
 			const data = await response.json();
 			this.setState({ follows: data.friend_list });
@@ -80,6 +83,9 @@ export default class FriendProfile extends Component {
 			const response = await requestApi(`https://localhost/api/users/${this.$state.username}/`, {
 				method: "GET",
 				credentials: "include",
+				headers: {
+					"Content-Type": "application/json",
+				},
 			});
 			const data = await response.json();
 			this.setState({ profile: data });
@@ -94,13 +100,19 @@ export default class FriendProfile extends Component {
 			const response = await requestApi("https://localhost/api/follows/me/", {
 				method: method,
 				credentials: "include",
+				headers: {
+					"Content-Type": "application/json",
+				},
 				body: JSON.stringify({"username":username}),
 			});
 			const responseMsg = await response.json();
 
 			if (responseMsg.error === undefined) { // ADD friend SUCCESS !
 				// modal로 구현하기 넘 귀찮...
-				alert(`${username}를 친구 목록에 추가했어요!`)
+				if (method === "POST")
+					alert(`${username}를 친구 목록에 추가했어요!`)
+				else if (method === "DELETE")
+					alert(`${username}를 친구 목록에 삭제했어요!`)
 
 				// 되는지 모르겠네.
 				const $myFollows = document.querySelector('[data-component="MyPage-MyFollows"]');

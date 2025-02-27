@@ -172,3 +172,8 @@ body {
     background: conic-gradient(green 0deg, green 0deg, red 0deg, red 360deg);
     margin: 50px auto;
 }
+
+#detailHistories {
+    max-height: 80vh;
+    overflow-y: auto;
+}

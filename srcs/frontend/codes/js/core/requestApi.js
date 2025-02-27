@@ -1,10 +1,10 @@
 // ✅ 액세스 토큰 갱신 함수
 async function refreshAccessToken() {
     try {
-        const response = await fetch("https://localhost/api/oauth/token/refresh", {
+        const response = await fetch("https://localhost/api/oauth/token/refresh/", {
             method: "POST",
             credentials: "include",  // 🔥 쿠키 포함하여 요청
-            headers: { 
+            headers: {
                 "Accept": "application/json",
                 "Content-Type": "application/json",
             }
@@ -40,7 +40,6 @@ export async function requestApi(url, options = {}) {
                 ...options.headers,
                 "Authorization": `Bearer ${accessToken}`,
                 "Accept": "application/json",
-                "Content-Type": "application/json",
             }
         });
 
@@ -48,7 +47,7 @@ export async function requestApi(url, options = {}) {
         if (response.status === 401) {
             console.warn("⚠️ 액세스 토큰 만료됨. 새 토큰 요청...");
             accessToken = await refreshAccessToken();
-            
+
             // 🔥 새로운 액세스 토큰을 사용하여 요청 재시도
             response = await fetch(url, {
                 ...options,
@@ -56,7 +55,6 @@ export async function requestApi(url, options = {}) {
                     ...options.headers,
                     "Authorization": `Bearer ${accessToken}`,
                     "Accept": "application/json",
-                    "Content-Type": "application/json",
                 }
             });
         }

@@ -67,14 +67,6 @@ export default class AddFriendModalButton extends Component {
 			li.classList.add("list-group-item", "d-flex", "justify-content-between", "align-items-center");
 			li.textContent = name;
 
-			//const addButton = document.createElement("button");
-			//addButton.classList.add("btn", "btn-primary", "btn-sm");
-			//addButton.textContent = "추가";
-			//addButton.addEventListener("click", () => {
-			//	this.fetchFollows(name);
-			//});
-
-			//li.appendChild(addButton);
 			friendList.appendChild(li);
 
 			li.addEventListener("click", () => {
@@ -95,15 +87,17 @@ export default class AddFriendModalButton extends Component {
 
 	async fetchUsersNames() {
 		try {
-			// need revise api url
 			const response = await requestApi("https://localhost/api/users/usernames/", {
 				method: "GET",
 				credentials: "include",
+				headers: {
+					"Content-Type": "application/json",
+				},
 			});
 			const data = await response.json();
 			this.setState({ usersNames: data });
 		} catch (error) {
-			console.error("Error fetching users name:", error);
+			console.error("Error fetching /api/users/usernames/:", error);
 		}
 	}
 

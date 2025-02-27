@@ -1,0 +1,137 @@
+import Component from "../../core/Component.js";
+import MyProfile from "./MyProfile.js";
+import MatchHistory from "./MatchHistory.js";
+import FriendProfile from "./FriendProfile.js";
+import UpdateError from "./UpdateError.js";
+import { requestApi } from "../../core/requestApi.js";
+
+export default class ChangeNameModalButton extends Component {
+	setup() {
+		this.$state = {
+			profile: this.$props,
+		}
+	}
+
+	template() {
+		const profile = this.$state.profile;
+
+		// profile 값에 따라서 다른 template 반환
+		return `${
+			profile === null
+			? `
+				<div id="MyProfile-username" class="fs-4">
+					Loading name...
+				</div>
+			`
+			: `
+				<div id="MyProfile-username" class="btn fs-4" data-bs-toggle="modal" data-bs-target="#changeNameModal">
+					${profile.username}
+					<i class="bi bi-pencil"></i>
+				</div>
+				<div class="modal fade" id="changeNameModal" tabindex="-1" aria-labelledby="changeNameModalLabel" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="changeNameModalLabel">이름 변경</h5>
+								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+							</div>
+							<div class="modal-body">
+								<div>
+									<!-- 검색 입력 -->
+									<input type="text" id="changeNameInput" class="form-control" placeholder="변경할 이름">
+								</div>
+							</div>
+							<div class="modal-footer d-flex flex-column justify-content-center align-content-center text-center ">
+								<div data-component="updateError" class="text-danger text-center">
+								</div>
+								<div id="changeNameBtn" class="btn btn-secondary fs-4">
+									업데이트
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			`
+		}
+		`;
+	}
+
+	mounted() {
+		const profile = this.$state.profile;
+
+		if (profile !== null){
+			const $changeNameBtn = document.querySelector('div#changeNameModal div#changeNameBtn');
+			$changeNameBtn.addEventListener("click", () => {
+				const $name = document.querySelector('div#changeNameModal input#changeNameInput').value;
+				this.fetchUserName($name);
+			});
+		}
+	}
+
+	async fetchUserName(name) {
+		try {
+			const response = await requestApi("https://localhost/api/users/me/", {
+				method: "PATCH",
+				credentials: "include",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({"username":name}),
+			});
+			const data = await response.json();
+
+			if (data.error === undefined) {
+
+				// 모달 엘리먼트 가져오기
+				const changeNameModalEl = document.getElementById("changeNameModal");
+
+				// modal instance 가져오기
+				const modalInstance = bootstrap.Modal.getInstance(changeNameModalEl);
+
+				// 모달 숨기기
+				modalInstance.hide();
+
+				// My Profile 이름을 변경된 이름으로 update
+				const $myProfile = document.querySelector('[data-component="MyPage-MyProfile"]');
+				new MyProfile($myProfile);
+
+				// Match History의 이름을 변경된 이름으로 update
+					// 경기기록이 화면에 보여진 경우에만 update 할 수 있도록 해당 DOM이 있는지 확인
+				const isMatchHistoryExist = document.querySelector('[data-component="MatchHistory"] div#simpleHistory');
+				if (isMatchHistoryExist !== null)
+				{
+					const $matchHistory = document.querySelector('[data-component="MatchHistory"]');
+					const $userName = document.querySelector('#friendProfile-username').innerText;
+
+					// `
+					if ($userName === null)
+						new MatchHistory($matchHistory, name);
+					else {
+						new FriendProfile();
+						new MatchHistory($matchHistory, $userName);
+					}
+				}
+
+				// Success 메시지 띄워주기
+					// Toast 요소 선택
+				const toastEl = document.querySelector('.toast');
+					// toast-body 요소 선택 및 text 값 설정
+				document.querySelector('.toast-body').innerText = '이름을 성공적으로 변경하였습니다!';
+
+					// Toast 인스턴스 생성
+				const toast = new bootstrap.Toast(toastEl);
+					// Toast 표시
+				toast.show();
+			}
+			else {
+				// 오류 메시지 띄워주기
+				const $updateError = document.querySelector('div#changeNameModal [data-component="updateError"]');
+
+				new UpdateError($updateError, "name");
+			}
+
+		} catch (error) {
+			console.error("Error fetching /api/users/me/", error);
+		}
+	}
+}

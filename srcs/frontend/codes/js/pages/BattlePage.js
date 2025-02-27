@@ -6,6 +6,9 @@ export default class BattlePage extends Component {
 		requestApi("https://localhost/api/users/hyeongsh", {
 			method: "GET",
 			credentials: "include",
+				headers: {
+					"Content-Type": "application/json",
+				},
 		}).then(test => console.log(test.json()));
 		requestApi("https://localhost/api/users/choolee", {
 			method: "GET",

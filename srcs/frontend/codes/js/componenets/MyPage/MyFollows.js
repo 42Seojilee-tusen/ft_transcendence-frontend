@@ -60,6 +60,9 @@ export default class MyFollows extends Component {
 			const response = await requestApi("https://localhost/api/follows/me/", {
 				method: "GET",
 				credentials: "include",
+				headers: {
+					"Content-Type": "application/json",
+				},
 			});
 			console.log(response);
 			const data = await response.json();
