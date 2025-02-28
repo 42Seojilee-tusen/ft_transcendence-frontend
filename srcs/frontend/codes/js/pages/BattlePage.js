@@ -22,8 +22,10 @@ export default class BattlePage extends Component {
 		}).then((response) => {
 			this.connectWebSocket(battleRender);
 			// 키 입력 이벤트 추가
-			window.addEventListener("keydown", (e) => this.handleKeyDown(e));
-			window.addEventListener("keyup", (e) => this.handleKeyUp(e));
+			$parent.setAttribute("tabindex", "0");
+			$parent.addEventListener("keydown", (e) => this.handleKeyDown(e));
+			$parent.addEventListener("keyup", (e) => this.handleKeyUp(e));
+			$parent.focus();
 		}).catch((error) => {
 			window.location.hash = "#/login";
 		});
@@ -37,6 +39,7 @@ export default class BattlePage extends Component {
 
 		this.chatSocket.onopen = () => {
 			console.log("WebSocket connection established");
+			battleRender.initSocket(this.chatSocket);
 		};
 
 		this.chatSocket.onmessage = (e) => {
