@@ -99,7 +99,7 @@ export default class ChangeImageModalButton extends Component {
 					// Toast 요소 선택
 					const toastEl = document.querySelector('.toast');
 					// toast-body 요소 선택 및 text 값 설정
-				document.querySelector('.toast-body').innerText = '이름을 성공적으로 변경하였습니다!';
+				document.querySelector('.toast-body').innerText = '이미지를 성공적으로 변경하였습니다!';
 
 					// Toast 인스턴스 생성
 				const toast = new bootstrap.Toast(toastEl);
@@ -114,7 +114,7 @@ export default class ChangeImageModalButton extends Component {
 			}
 
 		} catch (error) {
-			console.error("Error fetching /api/users/me/", error);
+			console.error("Error fetching /api/users/me/:", error);
 		}
 	}
 }

@@ -131,7 +131,7 @@ export default class ChangeNameModalButton extends Component {
 			}
 
 		} catch (error) {
-			console.error("Error fetching /api/users/me/", error);
+			console.error("Error fetching /api/users/me/:", error);
 		}
 	}
 }

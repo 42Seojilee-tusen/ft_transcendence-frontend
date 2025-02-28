@@ -20,26 +20,90 @@ export default class AdditionalMyInfo extends Component {
 
 	template() {
 		return `
-			<div id="pieChart"></div>
+			<div class="d-flex flex-column justify-content-center align-content-center">
+				<canvas id="myBattleChart" class="my-1 my-md-2 my-lg-3"></canvas>
+				<canvas id="myTournamentChart" class="my-1 my-md-2 my-lg-3"></canvas>
+			</div>
 		`;
 	}
 
 	mounted() {
 		if (this.$state.histories !== null) {
-			const wins = 30;
-			const losses = 70;
-			const total = wins + losses;
+			const simpleHistory = this.$state.histories.total_match_history;
+			const $myBattleChart = document.querySelector('#myBattleChart');
+			const $myTournamentChart = document.querySelector('#myTournamentChart');
 
-			// 승리 비율에 해당하는 각도 계산 (360도 기준)
-			const winAngle = (wins / total) * 360;
+			const winBattle = simpleHistory[0].win;
+			const loseBattle = simpleHistory[0].lose;
+			const winTournament = simpleHistory[1].win;
+			const loseTournament = simpleHistory[1].lose;
 
-			// 그래프에 사용할 색상 (예: 승리=green, 패배=red)
-			const winColor = 'green';
-			const lossColor = 'red';
-
-			// CSS conic-gradient를 사용해 원형 그래프 배경 설정
-			const pieChart = document.querySelector('div#pieChart');
-			pieChart.style.background = `conic-gradient(${winColor} 0deg, ${winColor} ${winAngle}deg, ${lossColor} ${winAngle}deg, ${lossColor} 360deg)`;
+			new Chart($myBattleChart, {
+				type: 'doughnut',
+				data: {
+					labels: [
+						'Win',
+						'Lose',
+					],
+					datasets: [{
+						label: 'My Battle History',
+						data: [winBattle, loseBattle],
+						backgroundColor: [
+						'rgb(255, 99, 132)',
+						'rgb(54, 162, 235)'
+						],
+						hoverOffset: 4
+					}]
+				},
+				options: {
+					plugins: {
+					  legend: {
+						labels: {
+						  // 텍스트 색상 변경
+						  color: '#FFFFFF',
+						  // 텍스트 크기 및 스타일 변경
+						  font: {
+							size: 18,
+							family: 'Arial'
+						  }
+						}
+					  }
+					}
+				}
+			});
+			new Chart($myTournamentChart, {
+				type: 'doughnut',
+				data: {
+					labels: [
+						'Win',
+						'Lose',
+					],
+					datasets: [{
+						label: 'My Battle History',
+						data: [winTournament, loseTournament],
+						backgroundColor: [
+						'rgb(255, 99, 132)',
+						'rgb(54, 162, 235)'
+						],
+						hoverOffset: 4
+					}]
+				},
+				options: {
+					plugins: {
+					  legend: {
+						labels: {
+						  // 텍스트 색상 변경
+						  color: '#FFFFFF',
+						  // 텍스트 크기 및 스타일 변경
+						  font: {
+							size: 18,
+							family: 'Arial'
+						  }
+						}
+					  }
+					}
+				}
+			});
 		}
 	}
 

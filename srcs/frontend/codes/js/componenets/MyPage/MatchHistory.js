@@ -109,7 +109,7 @@ export default class MatchHistory extends Component {
 			const data = await response.json();
 			this.setState({histories : data });
 		} catch (error) {
-			console.error("Error fetching /api/games/${this.$state.username}/", error);
+			console.error("Error fetching /api/games/${this.$state.username}/:", error);
 		}
 	}
 }

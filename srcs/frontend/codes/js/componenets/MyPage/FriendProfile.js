@@ -48,11 +48,13 @@ export default class FriendProfile extends Component {
 			const $friendStatusBtn = document.querySelector('#friendStatusBtn');
 			const isFollowing = this.$state.follows.includes(this.$state.username);
 
+			// 이미 follow중인 친구라면 삭제 버튼 활성화
 			if (isFollowing === true){
 				$friendStatusBtn.innerText = "친구 삭제"
 				$friendStatusBtn.addEventListener("click", () => {
 					this.fetchFollow(this.$state.username, "DELETE");
 				});
+			// follow중인 친구가 아니라면 추가 버튼 활성화
 			} else {
 				$friendStatusBtn.innerText = "친구 추가"
 				$friendStatusBtn.addEventListener("click", () => {
@@ -64,7 +66,7 @@ export default class FriendProfile extends Component {
 
 	async fetchFollows() {
 		try {
-			const response = await requestApi("https://localhost/api/follows/me", {
+			const response = await requestApi("https://localhost/api/follows/me/", {
 				method: "GET",
 				credentials: "include",
 				headers: {
@@ -74,7 +76,7 @@ export default class FriendProfile extends Component {
 			const data = await response.json();
 			this.setState({ follows: data.friend_list });
 		} catch (error) {
-			console.error("Error fetching profile:", error);
+			console.error("Error fetching /api/follows/me/:", error);
 		}
 	}
 
@@ -90,7 +92,7 @@ export default class FriendProfile extends Component {
 			const data = await response.json();
 			this.setState({ profile: data });
 		} catch (error) {
-			console.error("Error fetching profile:", error);
+			console.error("Error fetching /api/users/${this.$state.username}/:", error);
 		}
 	}
 
@@ -108,32 +110,47 @@ export default class FriendProfile extends Component {
 			const responseMsg = await response.json();
 
 			if (responseMsg.error === undefined) { // ADD friend SUCCESS !
-				// modal로 구현하기 넘 귀찮...
+				// Success 메시지 띄워주기
+					// Toast 요소 선택
+				const toastEl = document.querySelector('.toast');
+					// toast-body 요소 선택 및 text 값 설정
 				if (method === "POST")
-					alert(`${username}를 친구 목록에 추가했어요!`)
+					document.querySelector('.toast-body').innerText = `${username}를 친구 목록에 추가했어요!`;
 				else if (method === "DELETE")
-					alert(`${username}를 친구 목록에 삭제했어요!`)
+					document.querySelector('.toast-body').innerText = `${username}를 친구 목록에서 삭제했어요!`;
 
-				// 되는지 모르겠네.
+					// Toast 인스턴스 생성
+				const toast = new bootstrap.Toast(toastEl);
+					// Toast 표시
+				toast.show();
+
+				// my follows update
 				const $myFollows = document.querySelector('[data-component="MyPage-MyFollows"]');
 				new MyFollows($myFollows);
+
+				// this.$state.follows update
+				this.fetchFollows();
 			}
 			else {
-				if (responseMsg.error === "User not found") { // error
-					alert(`${username}라는 유저는 존재하지 않습니다.`)
-				}
-				else if (responseMsg.error === "Same user") { // error
-					alert(`${username}라는 유저는 당신이에요!`)
-				}
-				else if (responseMsg.error === "Already friends") { // error
-					alert(`${username}라는 유저는 이미 친구입니다.`)
-				}
+				// error 메시지 띄워주기
+					// Toast 요소 선택
+				const toastEl = document.querySelector('.toast');
+					// toast-body 요소 선택 및 text 값 설정
+				if (responseMsg.error === "User not found")
+					document.querySelector('.toast-body').innerText = `${username}라는 유저는 존재하지 않습니다.`;
+				else if (responseMsg.error === "Same user")
+					document.querySelector('.toast-body').innerText = `${username}라는 유저는 당신이에요!`;
+				else if (responseMsg.error === "Already friends")
+					document.querySelector('.toast-body').innerText = `${username}라는 유저는 이미 친구입니다.`;
+
+					// Toast 인스턴스 생성
+				const toast = new bootstrap.Toast(toastEl);
+					// Toast 표시
+				toast.show();
 			}
 
-			this.fetchFollows();
-
 		} catch (error) {
-			console.error("Error fetching users name:", error);
+			console.error("Error fetching /api/follows/me/:", error);
 		}
 	}
 }

@@ -88,7 +88,7 @@ export default class MyProfile extends Component {
 			const data = await response.json();
 			this.setState({ profile: data });
 		} catch (error) {
-			console.error("Error fetching profile:", error);
+			console.error("Error fetching /api/users/me/:", error);
 		}
 	}
 }

@@ -1,7 +1,7 @@
 import Component from "../core/Component.js";
 import MyProfile from "../componenets/MyPage/MyProfile.js"
 import MyFollows from "../componenets/MyPage/MyFollows.js"
-import AddFriendModalButton from "../componenets/MyPage/AddFriendModalButton.js";
+import SearchUserModalButton from "../componenets/MyPage/SearchUserModalButton.js";
 
 export default class MyPage extends Component {
 	constructor($target, $props) {
@@ -70,6 +70,6 @@ export default class MyPage extends Component {
 		// 좌측 하단 정보
 			// user 검색 버튼 -> modal button 이용
 		const $addFriendBtn = this.$target.querySelector('[data-component="MyPage-AddFriendBtn"]');
-		new AddFriendModalButton($addFriendBtn);
+		new SearchUserModalButton($addFriendBtn);
 	}
 }
