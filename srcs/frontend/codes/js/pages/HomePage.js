@@ -3,7 +3,7 @@ import MoveButton from "../componenets/MoveButton.js";
 import ModalButton from "../componenets/ModalButton.js";
 import { requestApi } from "../core/requestApi.js";
 
-export default class Home extends Component {
+export default class HomePage extends Component {
 	template() {
 		return `
 		<div class="container-xxl vh-100 d-flex flex-column justify-content-center">
