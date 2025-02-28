@@ -1,4 +1,4 @@
-import Component from "../core/Component.js";
+import Component from "../../core/Component.js";
 import GameBoard from "./GameBoard.js";
 
 export default class Game extends Component {

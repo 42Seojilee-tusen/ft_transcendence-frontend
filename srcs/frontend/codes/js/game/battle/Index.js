@@ -1,6 +1,6 @@
-import Component from "../core/Component.js";
+import Component from "../../core/Component.js";
 
-export default class Battle extends Component {
+export default class Index extends Component {
 	setup() {
 		this.$state = {
 			player1Image: "../../img/profile.jpeg",

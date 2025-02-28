@@ -1,10 +1,10 @@
-import Component from "../core/Component.js";
-import Battle from "./Battle.js";
+import Component from "../../core/Component.js";
+import Index from "./Index.js";
 import Loading from "./Loading.js";
 import Result from "./Result.js";
 import Game from "./Game.js";
 
-export default class BattleRender extends Component {
+export default class GameRender extends Component {
 	template() {
 		return `
 		<div id="gameState" class="container-xxl vh-100 d-flex flex-column justify-content-center"></div>
@@ -13,14 +13,14 @@ export default class BattleRender extends Component {
 
 	mounted() {
 		const $page = document.querySelector("#gameState");
-		const $loading = new Loading($page, this.$state);
-		const $battle = new Battle($page, this.$state);
-		const $game = new Game($page, this.$state);
-		const $result = new Result($page, this.$state);
+		const $loading = new Loading($page);
+		const $index = new Index($page);
+		const $game = new Game($page);
+		const $result = new Result($page);
 
 		this.$state = {
 			loading: $loading,
-			battle: $battle,
+			index: $index,
 			game: $game,
 			result: $result,
 		}
@@ -30,10 +30,10 @@ export default class BattleRender extends Component {
 
 	changeState(data) {
 		if (data.type === "matching_on") {
-			this.$state.battle.updateImage(data);
+			this.$state.index.updateImage(data);
 			this.$state.game.updateImage(data);
 			this.$state.result.updateImage(data);
-			this.$state.battle.render();
+			this.$state.index.render();
 		} else if (data.type === "game_wait") {
 			this.$state.game.waitTime(data);
 		} else if (data.type === "game_update") {

@@ -1,6 +1,6 @@
-import Component from "../core/Component.js";
+import Component from "../../core/Component.js";
 
-export default class Game extends Component {
+export default class GameBoard extends Component {
 	setup() {
 		this.$state = {
 			type: "game_wait",

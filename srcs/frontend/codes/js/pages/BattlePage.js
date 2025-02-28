@@ -1,5 +1,5 @@
 import Component from "../core/Component.js";
-import BattleRender from "../game/BattleRender.js";
+import GameRender from "../game/battle/GameRender.js";
 import { WSS_PROTOCOL, HOST } from "../constants/ApiConstants.js";
 import {requestApi} from "../core/requestApi.js"
 
@@ -15,12 +15,12 @@ export default class BattlePage extends Component {
 
 	mounted() {
 		const $parent = document.querySelector("#battle-render");
-		const battleRender = new BattleRender($parent);
+		const gameRender = new GameRender($parent);
 		requestApi("https://localhost/api/users/me/", { // 임시 api => 이걸 이용해서 로그인 시간 유지
 			method: "GET",
 			credentials: "include",  // 🔥 쿠키 포함하여 요청
 		}).then((response) => {
-			this.connectWebSocket(battleRender);
+			this.connectWebSocket(gameRender);
 			// 키 입력 이벤트 추가
 			$parent.setAttribute("tabindex", "0");
 			$parent.addEventListener("keydown", (e) => this.handleKeyDown(e));
@@ -31,7 +31,7 @@ export default class BattlePage extends Component {
 		});
 	}
 
-	connectWebSocket(battleRender) {
+	connectWebSocket(gameRender) {
 		const token = sessionStorage.getItem("accessToken");
 		this.chatSocket = new WebSocket(
 			WSS_PROTOCOL + HOST + `/api/ws/game/battle/?token=${token}`
@@ -39,13 +39,13 @@ export default class BattlePage extends Component {
 
 		this.chatSocket.onopen = () => {
 			console.log("WebSocket connection established");
-			battleRender.initSocket(this.chatSocket);
+			gameRender.initSocket(this.chatSocket);
 		};
 
 		this.chatSocket.onmessage = (e) => {
 			const data = JSON.parse(e.data);
 			console.log(data);
-			battleRender.changeState(data);
+			gameRender.changeState(data);
 		};
 
 		this.chatSocket.onclose = (e) => {
