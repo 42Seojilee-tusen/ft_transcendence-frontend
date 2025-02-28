@@ -22,7 +22,9 @@ export default class AdditionalMyInfo extends Component {
 		return `
 			<div class="d-flex flex-column justify-content-center align-content-center">
 				<canvas id="myBattleChart" class="my-1 my-md-2 my-lg-3"></canvas>
+				<div class="text-center text-break mb-3 mb-md-4 mb-lg-5">Battle 기록</div>
 				<canvas id="myTournamentChart" class="my-1 my-md-2 my-lg-3"></canvas>
+				<div class="text-center text-break">Tournament 기록</div>
 			</div>
 		`;
 	}
@@ -79,7 +81,7 @@ export default class AdditionalMyInfo extends Component {
 						'Lose',
 					],
 					datasets: [{
-						label: 'My Battle History',
+						label: 'My Tournament History',
 						data: [winTournament, loseTournament],
 						backgroundColor: [
 						'rgb(255, 99, 132)',

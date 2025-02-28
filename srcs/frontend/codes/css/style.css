@@ -98,6 +98,10 @@ body::before {
     overflow-y: auto;
 }
 
+[data-component="MatchHistory"], [data-component="AdditionalInfo"] {
+    color: #faf0e6;
+}
+
 #MyFollows-FriendList {
     height: 100%;
 }
@@ -155,8 +159,8 @@ body::before {
     max-height: 84vh;
 }
 
-#detailMatchHistory {
-	outline: 1px solid black;
+#simpleHistory, #detailMatchHistory {
+	outline: 1px solid white;
 }
 
 .h3-clickable {
@@ -185,7 +189,7 @@ body::before {
 }
 
 #detailHistories {
-    max-height: 80vh;
+    max-height: 75vh;
     overflow-y: auto;
 }
 

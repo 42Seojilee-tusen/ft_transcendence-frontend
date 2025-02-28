@@ -100,15 +100,16 @@ export default class ChangeNameModalButton extends Component {
 				const isMatchHistoryExist = document.querySelector('[data-component="MatchHistory"] div#simpleHistory');
 				if (isMatchHistoryExist !== null)
 				{
+					const $friendProfile = document.querySelector('[data-component="AdditionalInfo"]');
 					const $matchHistory = document.querySelector('[data-component="MatchHistory"]');
-					const $userName = document.querySelector('#friendProfile-username').innerText;
+					const $userName = document.querySelector('#friendProfile-username');
 
-					// `
+					// friendProfile이 화면에 랜더링된 경우 $username은 존재
 					if ($userName === null)
 						new MatchHistory($matchHistory, name);
 					else {
-						new FriendProfile();
-						new MatchHistory($matchHistory, $userName);
+						new FriendProfile($friendProfile, $userName.innerText);
+						new MatchHistory($matchHistory, $userName.innerText);
 					}
 				}
 

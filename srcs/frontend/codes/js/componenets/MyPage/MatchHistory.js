@@ -26,16 +26,16 @@ export default class MatchHistory extends Component {
 		return `
 		<div class="row w-100">
 			<div class="col-lg-8 text-center p-4 w-100">
-				<div id="simpleHistory" class="m-2 m-md-3 m-lg-4">
+				<div id="simpleHistory" class="m-3 m-md-4 m-lg-5">
 					전적
 					<div class="row row-cols-2 m-0">
 						<div>
 							<h6 class="m-1">배틀</h5>
-							<h6 id="matchHistory-battle" class="m-1">100전 100승 0패</h5>
+							<h6 id="matchHistory-battle" class="m-1">Loading...</h5>
 						</div>
 						<div>
 							<h6 class="m-1">토너먼트</h5>
-							<h6 id="matchHistory-tournament" class="m-1">90경기 42/42/4/2 </h5>
+							<h6 id="matchHistory-tournament" class="m-1">Loading...</h5>
 						</div>
 					</div>
 				</div>
