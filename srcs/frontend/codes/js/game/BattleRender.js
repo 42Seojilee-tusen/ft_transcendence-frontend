@@ -40,6 +40,19 @@ export default class BattleRender extends Component {
 			this.$state.game.updateGame(data);
 		} else if (data.type === "ending") {
 			this.$state.result.finishGame(data);
+			setTimeout(() => {
+				if (this.$state.socket.readyState === WebSocket.OPEN) {
+					this.$state.socket.close();
+				}
+				window.location.hash = "#/";
+			}, 3000);
+		}
+	}
+
+	initSocket(socket) {
+		this.$state = {
+			...this.$state,
+			socket: socket,
 		}
 	}
 }
