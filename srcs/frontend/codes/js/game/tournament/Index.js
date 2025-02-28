@@ -126,16 +126,29 @@ export default class Index extends Component {
 		{
 			player1Image: `https://localhost/api${data.game_users[0].player_image}`,
 			player1Name: data.game_users[0].player_name,
-			nowPlay1: this.$props.now_player.includes(player1Name),
+			nowPlay1: data.now_player.includes(data.game_users[0].player_name),
+
 			player2Image: `https://localhost/api${data.game_users[1].player_image}`,
 			player2Name: data.game_users[1].player_name,
-			nowPlay2: this.$props.now_player.includes(player2Name),
+			nowPlay2: data.now_player.includes(data.game_users[1].player_name),
+
 			player3Image: `https://localhost/api${data.game_users[2].player_image}`,
 			player3Name: data.game_users[2].player_name,
-			nowPlay3: this.$props.now_player.includes(player3Name),
+			nowPlay3: data.now_player.includes(data.game_users[2].player_name),
+
 			player4Image: `https://localhost/api${data.game_users[3].player_image}`,
 			player4Name: data.game_users[3].player_name,
-			nowPlay4: this.$props.now_player.includes(player4Name),
+			nowPlay4: data.now_player.includes(data.game_users[3].player_name),
+		})
+	}
+
+	changePlayer(data) {
+		this.setState(
+		{
+			nowPlay1: data.now_player.includes(this.$state.player1Name),
+			nowPlay2: data.now_player.includes(this.$state.player2Name),
+			nowPlay3: data.now_player.includes(this.$state.player3Name),
+			nowPlay4: data.now_player.includes(this.$state.player4Name),
 		})
 	}
 }

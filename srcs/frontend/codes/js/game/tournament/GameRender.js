@@ -3,6 +3,7 @@ import Index from "./Index.js";
 import Loading from "./Loading.js";
 import Result from "./Result.js";
 import Game from "./Game.js";
+import Ending from "./Ending.js";
 
 export default class GameRender extends Component {
 	template() {
@@ -17,12 +18,14 @@ export default class GameRender extends Component {
 		const $index = new Index($page);
 		const $game = new Game($page);
 		const $result = new Result($page);
+		const $ending = new Ending($page);
 
 		this.$state = {
 			loading: $loading,
 			index: $index,
 			game: $game,
 			result: $result,
+			ending: $ending,
 		}
 		
 		$loading.render();
@@ -34,12 +37,18 @@ export default class GameRender extends Component {
 			this.$state.game.updateImage(data);
 			this.$state.result.updateImage(data);
 			this.$state.index.render();
+		} else if (data.type === "next_game") {
+			this.$state.index.changePlayer(data);
+			this.$state.game.changePlayer(data);
+			this.$state.result.changePlayer(data);
 		} else if (data.type === "game_wait") {
 			this.$state.game.waitTime(data);
 		} else if (data.type === "game_update") {
 			this.$state.game.updateGame(data);
-		} else if (data.type === "ending") {
+		} else if (data.type === "finish") {
 			this.$state.result.finishGame(data);
+		} else if (data.type === "ending") {
+			this.$state.ending.endGame(data);
 			setTimeout(() => {
 				if (this.$state.socket.readyState === WebSocket.OPEN) {
 					this.$state.socket.close();
