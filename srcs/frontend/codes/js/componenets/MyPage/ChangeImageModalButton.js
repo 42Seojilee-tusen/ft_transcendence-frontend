@@ -110,7 +110,7 @@ export default class ChangeImageModalButton extends Component {
 				// 오류 메시지 띄워주기
 				const $updateError = document.querySelector('div#changeImageModal [data-component="updateError"]');
 
-				new UpdateError($updateError, "image");
+				new UpdateError($updateError, "사용할 수 없는 이미지입니다.");
 			}
 
 		} catch (error) {

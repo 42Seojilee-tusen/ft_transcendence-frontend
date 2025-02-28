@@ -38,7 +38,7 @@ export default class ChangeNameModalButton extends Component {
 							<div class="modal-body">
 								<div>
 									<!-- 검색 입력 -->
-									<input type="text" id="changeNameInput" class="form-control" placeholder="변경할 이름">
+									<input type="text" id="changeNameInput" class="form-control" placeholder="변경할 이름을 입력해주세요.">
 								</div>
 							</div>
 							<div class="modal-footer d-flex flex-column justify-content-center align-content-center text-center ">
@@ -63,7 +63,16 @@ export default class ChangeNameModalButton extends Component {
 			const $changeNameBtn = document.querySelector('div#changeNameModal div#changeNameBtn');
 			$changeNameBtn.addEventListener("click", () => {
 				const $name = document.querySelector('div#changeNameModal input#changeNameInput').value;
-				this.fetchUserName($name);
+
+				// 변경할 이름에 특수문자 및 공백이 포함되는지 확인
+				const regex = /^[a-zA-Z0-9가-힣]+$/;
+				if (!regex.test($name)) {
+					// 사용할 수 없는 이름인 경우 에러 메시지
+					const $updateError = document.querySelector('div#changeNameModal [data-component="updateError"]');
+					new UpdateError($updateError, "특수문자 및 공백은 포함될 수 없습니다.");
+				}
+				else
+					this.fetchUserName($name);
 			});
 		}
 	}
@@ -128,7 +137,7 @@ export default class ChangeNameModalButton extends Component {
 				// 오류 메시지 띄워주기
 				const $updateError = document.querySelector('div#changeNameModal [data-component="updateError"]');
 
-				new UpdateError($updateError, "name");
+				new UpdateError($updateError, "사용할 수 없는 이름입니다.");
 			}
 
 		} catch (error) {
