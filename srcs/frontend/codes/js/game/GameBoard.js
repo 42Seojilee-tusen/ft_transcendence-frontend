@@ -32,7 +32,7 @@ export default class Game extends Component {
 		ctx.clearRect(0, 0, $canvas.width, $canvas.height);
 		ctx.font = "30px Arial"; // 글꼴 및 크기 설정
 		ctx.fillStyle = "white"; // 텍스트 색상 설정
-		ctx.fillText(this.$state.time, 390, 300);
+		ctx.fillText(this.$state.time, 390, 250);
 	}
 
 	updateGame() {
