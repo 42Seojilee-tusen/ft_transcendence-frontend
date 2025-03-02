@@ -57,40 +57,14 @@ export default class Game extends Component {
 		this.$state.gameBoard = gameBoard;
 	}
 
-	updateImage(data) {
-		this.$state =  {
-			...this.$state,
-			players: [
-				{
-					playerImage: `https://localhost/api${data.game_users[0].player_image}`,
-					playerName: data.game_users[0].player_name,
-				},
-				{
-					playerImage: `https://localhost/api${data.game_users[1].player_image}`,
-					playerName: data.game_users[1].player_name,
-				},
-				{
-					playerImage: `https://localhost/api${data.game_users[2].player_image}`,
-					playerName: data.game_users[2].player_name,
-				},
-				{
-					playerImage: `https://localhost/api${data.game_users[3].player_image}`,
-					playerName: data.game_users[3].player_name,
-				},
-			],
-		};
-		this.changePlayer(data);
-	}
-
 	changePlayer(data) {
-		const index1 = this.$state.players.findIndex(item => item.playerName === data.now_players[0]);
-		const index2 = this.$state.players.findIndex(item => item.playerName === data.now_players[1]);
 		this.$state = {
 			...this.$state,
-			player1Image: `https://localhost/api${this.$state.players[index1].playerImage}`,
-			player1Name: this.$state.players[index1].playerName,
-			player2Image: `https://localhost/api${this.$state.players[index2].playerImage}`,
-			player2Name: this.$state.players[index2].playerName,
+			player1Image: `https://localhost/api${data.now_players[0].player_image}`,
+			player1Name: data.now_players[0].player_name,
+
+			player2Image: `https://localhost/api${data.now_players[1].player_image}`,
+			player2Name: data.now_players[1].player_name,
 		};
 	}
 

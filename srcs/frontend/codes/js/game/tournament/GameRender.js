@@ -27,16 +27,13 @@ export default class GameRender extends Component {
 			result: $result,
 			ending: $ending,
 		}
-		
+
 		$loading.render();
 	}
 
 	changeState(data) {
 		if (data.type === "matching_on") {
 			this.$state.index.updateImage(data);
-			this.$state.game.updateImage(data);
-			this.$state.result.updateImage(data);
-			this.$state.index.render();
 		} else if (data.type === "next_game") {
 			this.$state.index.changePlayer(data);
 			this.$state.game.changePlayer(data);
