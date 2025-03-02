@@ -37,7 +37,10 @@ export default class App extends Component {
 				return route.fragment === hashPath;
 			});
 			if (currentRoute) {
-				currentRoute.component();
+				const $page = currentRoute.component();
+				window.addEventListener("popstate", () => {
+					$page.destroy();
+				});
 			}
 			if (!currentRoute) {
 				hashPath = '#/';

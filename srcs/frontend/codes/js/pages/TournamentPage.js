@@ -4,12 +4,20 @@ import { WSS_PROTOCOL, HOST } from "../constants/ApiConstants.js";
 import {requestApi} from "../core/requestApi.js"
 
 export default class TournamentPage extends Component {
+    destroy() {
+        if (this.chatSocket.readyState === WebSocket.OPEN) {
+            this.chatSocket.close();
+            console.log("WebSocket 닫음!");
+        }
+    }
+
 	setup() {
 		this.keysPressed = {};
 	}
+
 	template() {
 		return `
-			<div id="tournament-render"></div>
+		<div id="tournament-render"></div>
 		`;
 	}
 
@@ -29,6 +37,7 @@ export default class TournamentPage extends Component {
 		}).catch((error) => {
 			window.location.hash = "#/login";
 		});
+
 	}
 
 	connectWebSocket(gameRender) {

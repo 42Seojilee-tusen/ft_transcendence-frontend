@@ -4,6 +4,13 @@ import { WSS_PROTOCOL, HOST } from "../constants/ApiConstants.js";
 import {requestApi} from "../core/requestApi.js"
 
 export default class BattlePage extends Component {
+	destroy() {
+        if (this.chatSocket.readyState === WebSocket.OPEN) {
+            this.chatSocket.close();
+            console.log("WebSocket 닫음!");
+        }
+    }
+	
 	setup() {
 		this.keysPressed = {};
 	}
