@@ -33,38 +33,12 @@ export default class Ending extends Component {
 		`;
 	}
 
-	updateImage(data) {
-		this.$state =  {
-			...this.$state,
-			players: [
-				{
-					playerImage: `https://localhost/api${data.game_users[0].player_image}`,
-					playerName: data.game_users[0].player_name,
-				},
-				{
-					playerImage: `https://localhost/api${data.game_users[1].player_image}`,
-					playerName: data.game_users[1].player_name,
-				},
-				{
-					playerImage: `https://localhost/api${data.game_users[2].player_image}`,
-					playerName: data.game_users[2].player_name,
-				},
-				{
-					playerImage: `https://localhost/api${data.game_users[3].player_image}`,
-					playerName: data.game_users[3].player_name,
-				},
-			],
-		};
-		this.changePlayer(data);
-	}
-
 	endGame(data) {
-		const index = this.$state.players.findIndex(item => item.playerName === data.winner);
 		this.setState({
 			...this.$state,
 			type: data.type,
-			playerImage: `https://localhost/api${this.$state.players[index1].playerImage}`,
-			playerName: this.$state.players[index1].playerName,
+			playerImage: `https://localhost/api${data.winner.player_image}`,
+			playerName: this.$state.winner.player_name,
 		})
 	}
 }
