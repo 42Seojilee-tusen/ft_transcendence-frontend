@@ -122,8 +122,9 @@ export default class Index extends Component {
 	}
 
 	updateImage(data) {
-		this.setState(
-		{
+		this.$state = {
+			...this.$state,
+			
 			player1Image: `https://localhost/api${data.game_users[0].player_image}`,
 			player1Name: data.game_users[0].player_name,
 
@@ -135,7 +136,7 @@ export default class Index extends Component {
 
 			player4Image: `https://localhost/api${data.game_users[3].player_image}`,
 			player4Name: data.game_users[3].player_name,
-		})
+		};
 	}
 
 	changePlayer(data) {
