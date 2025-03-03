@@ -20,7 +20,7 @@ export default class TwoFaPage extends Component {
 					<div>
 						<div id="qrcode" class="row"></div>
 						<div class="row">
-							<p id="qrReload" class="text-center multi-line-text h3-clickable">QR CODE 요청<h3>
+							<p id="qrReload" class="text-center multi-line-text h3-clickable text-white">QR CODE 요청<h3>
 						</div>
 					</div>
 				</div>
@@ -42,7 +42,7 @@ export default class TwoFaPage extends Component {
 			</div>
 			<div class="row d-flex flex-grow-1">
 				<div class="col d-flex align-items-center justify-content-center">
-					<p class="text-center multi-line-text">
+					<p class="text-center multi-line-text text-white">
 						인증앱에서 제공하는 코드 6자리를 입력하세요.<br>
 						만약 인증앱에 핑퐁게임이 등록되어 있지 않다면,<br>
 						QR CODE 요청을 클릭하여 등록 QR CODE를 발급 받으세요.<br>

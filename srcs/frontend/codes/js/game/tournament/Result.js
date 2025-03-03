@@ -1,20 +1,16 @@
-import Component from "../core/Component.js";
-import { requestApi } from "../core/requestApi.js";
+import Component from "../../core/Component.js";
 
 export default class Result extends Component {
 	setup() {
-		const player1Name = this.$props.now_player[0];
-		const player2Name = this.$props.now_player[1];
-		const player1Image = "../../img/profile.jpeg";
-		const player2Image = "../../img/profile.jpeg";
 		this.$state = {
-			player1Image: player1Image,
-			player1Name: player1Name,
-			win1: this.$props.result[0] > this.$props.result[1],
-			player2Image: player2Image,
-			player2Name: player2Name,
-			win2: this.$props.result[1] > this.$props.result[0],
-			score: `${this.$props.result[0]} : ${this.$props.result[1]}`
+			type: "",
+			player1Image: "../../img/profile.jpeg",
+			player1Name: "player1",
+			player2Image: "../../img/profile.jpeg",
+			player2Name: "player2",
+			score: "0 : 0",
+			win1: false,
+			win2: false,
 		};
 	}
 
@@ -65,5 +61,26 @@ export default class Result extends Component {
 		} else {
 			$player2Image.classList.add("not-play");
 		}
+	}
+
+	changePlayer(data) {
+		this.$state = {
+			...this.$state,
+			player1Image: `https://localhost/api${data.now_players[0].player_image}`,
+			player1Name: data.now_players[0].player_name,
+
+			player2Image: `https://localhost/api${data.now_players[1].player_image}`,
+			player2Name: data.now_players[1].player_name,
+		};
+	}
+
+	finishGame(data) {
+		this.setState({
+			...this.$state,
+			type: data.type,
+			win1: data.result[0] > data.result[1],
+			win2: data.result[1] > data.result[0],
+			score: `${data.result[0]} : ${data.result[1]}`
+		})
 	}
 }
