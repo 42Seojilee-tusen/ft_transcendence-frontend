@@ -1,4 +1,5 @@
 import Component from "../../core/Component.js";
+import FriendProfile from "./FriendProfile.js";
 import MatchHistory from "./MatchHistory.js";
 import { requestApi } from "../../core/requestApi.js";
 
@@ -17,7 +18,6 @@ export default class MyFollows extends Component {
 	template() {
 
 		return `
-			<!-- 좌측 중단 친구 목록 text -->
 			<div class="text-center p-md-1 p-lg-2">
 				<h2 class="m-2">친구 목록</h2>
 			</div>
@@ -31,11 +31,11 @@ export default class MyFollows extends Component {
 
 	mounted() {
 		const follows = this.$state.follows;
+
 		if (follows !== null)
 		{
-			//const $friendListEl = document.querySelector("#friend-list");
-			const $friendListEl = document.querySelector("#MyFollows-FriendList");
-			const $friendMatchInfo = document.querySelector('[data-component="MatchHistory"]');
+			// DocumentFragment 생성
+			const fragment = document.createDocumentFragment();
 
 			// 친구 목록 생성
 			follows.forEach((friendName, index) => {
@@ -46,12 +46,20 @@ export default class MyFollows extends Component {
 
 				// 클릭 이벤트 추가
 				friendItem.addEventListener("click", () => {
-					// friend name으로 MatchHistory에서 경기기록 api 들고온 후 화면에 보여주기
-					new MatchHistory($friendMatchInfo, friendName)
+					// click 시 friend의 profile과 match history 화면 랜더링
+					const $friendProfile = document.querySelector('[data-component="AdditionalInfo"]');
+					const $friendMatchHisotry = document.querySelector('[data-component="MatchHistory"]');
+
+					new FriendProfile($friendProfile, friendName);
+					new MatchHistory($friendMatchHisotry, friendName);
 				});
 
-				$friendListEl.appendChild(friendItem);
+				fragment.appendChild(friendItem);
 			});
+
+			// DOC에 한 번에 추가
+			const $friendListEl = document.querySelector("#MyFollows-FriendList");
+			$friendListEl.replaceChildren(fragment);
 		}
 	}
 
@@ -60,12 +68,14 @@ export default class MyFollows extends Component {
 			const response = await requestApi("https://localhost/api/follows/me/", {
 				method: "GET",
 				credentials: "include",
+				headers: {
+					"Content-Type": "application/json",
+				},
 			});
-			console.log(response);
 			const data = await response.json();
 			this.setState({ follows: data.friend_list });
 		} catch (error) {
-			console.error("Error fetching profile:", error);
+			console.error("Error fetching /api/follows/me/:", error);
 		}
 	}
 }

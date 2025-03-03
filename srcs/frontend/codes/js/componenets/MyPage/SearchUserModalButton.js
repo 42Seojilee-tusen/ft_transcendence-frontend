@@ -1,16 +1,16 @@
 import Component from "../../core/Component.js";
-import MyFollows from "./MyFollows.js"
-import { requestApi } from "../../core/requestApi.js";
+import AdditionalMyInfo from "./AdditionalMyInfo.js";
+import FriendProfile from "./FriendProfile.js";
 import MatchHistory from "./MatchHistory.js";
+import { requestApi } from "../../core/requestApi.js";
 
-export default class AddFriendModalButton extends Component {
+export default class SearchUserModalButton extends Component {
 	constructor($target, $props) {
 		super($target, $props);
 		this.fetchUsersNames();
 	}
 
 	setup() {
-		// 샘플 친구 리스트
 		this.$state = {
 			usersNames: null,
 		}
@@ -47,6 +47,7 @@ export default class AddFriendModalButton extends Component {
 		const searchInput = document.querySelector('div#friendModal input#searchInput');
 		const friendList = document.querySelector('div#friendModal ul#friendList');
 
+		// input 값이 변경될 때마다 관련된 user를 시각화 할 수 있도록 함수 호출
 		searchInput.addEventListener("input", () => {
 			this.filterFriends(searchInput, friendList);
 		});
@@ -55,27 +56,22 @@ export default class AddFriendModalButton extends Component {
 	filterFriends(searchInput, friendList) {
 		if (this.$state.usersNames === null)
 			return ;
-		console.log(this.$state.usersNames);
 
+		// DocumentFragment 생성
+		const fragment = document.createDocumentFragment();
 		const $searchInput = searchInput.value;
-		friendList.innerHTML = "";
 
+		// api로 들고온 모든 user의 name중에서 searchInput가 동일한 형식의 이름을 배열 형태로 저장
 		const filtered = this.$state.usersNames.filter(name => name.includes($searchInput));
 
 		filtered.forEach(name => {
+			// element 초기화
 			const li = document.createElement("li");
 			li.classList.add("list-group-item", "d-flex", "justify-content-between", "align-items-center");
 			li.textContent = name;
 
-			//const addButton = document.createElement("button");
-			//addButton.classList.add("btn", "btn-primary", "btn-sm");
-			//addButton.textContent = "추가";
-			//addButton.addEventListener("click", () => {
-			//	this.fetchFollows(name);
-			//});
-
-			//li.appendChild(addButton);
-			friendList.appendChild(li);
+			// list 추가
+			fragment.appendChild(li);
 
 			li.addEventListener("click", () => {
 				// 모달 엘리먼트 가져오기
@@ -87,23 +83,38 @@ export default class AddFriendModalButton extends Component {
 				// 모달 숨기기
 				modalInstance.hide();
 
+				// 선택한 user의 profile 및 경기 기록 띄우기
+				const $myName = document.querySelector('#MyProfile-username').innerText.trim();
+				const $friendProfile = document.querySelector('[data-component="AdditionalInfo"]');
 				const $matchHisotry = document.querySelector('[data-component="MatchHistory"]');
+
+				if (name === $myName) {
+					const $myAdditionalInfo = document.querySelector('[data-component="AdditionalInfo"]');
+					new AdditionalMyInfo($myAdditionalInfo, name);
+				}
+				else
+					new FriendProfile($friendProfile, name);
 				new MatchHistory($matchHisotry, name);
 			});
 		});
+
+		// 이후에 DOM 한 번에 초기화
+		friendList.replaceChildren(fragment);
 	}
 
 	async fetchUsersNames() {
 		try {
-			// need revise api url
 			const response = await requestApi("https://localhost/api/users/usernames/", {
 				method: "GET",
 				credentials: "include",
+				headers: {
+					"Content-Type": "application/json",
+				},
 			});
 			const data = await response.json();
 			this.setState({ usersNames: data });
 		} catch (error) {
-			console.error("Error fetching users name:", error);
+			console.error("Error fetching /api/users/usernames/:", error);
 		}
 	}
 

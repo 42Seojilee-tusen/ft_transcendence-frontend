@@ -1,5 +1,8 @@
 import Component from "../../core/Component.js";
 import MoveButton from "../MoveButton.js";
+import ChangeImageModalButton from "./ChangeImageModalButton.js";
+import ChangeNameModalButton from "./ChangeNameModalButton.js";
+import AdditionalMyInfo from "./AdditionalMyInfo.js";
 import MatchHistory from "./MatchHistory.js";
 import { requestApi } from "../../core/requestApi.js";
 
@@ -12,6 +15,7 @@ export default class MyProfile extends Component {
 	setup() {
 		this.$state = {
 			profile: null,
+			history: null,
 		}
 	}
 
@@ -25,13 +29,11 @@ export default class MyProfile extends Component {
 		</div>
 
 		<!-- image -->
-		<div class="my-1 my-md-1 my-lg-2">
-			${profile ? `<img src="https://localhost/api${profile.profile_image}" class="img-fluid w-100" alt="${profile.username}">` : '<div>Loading image...</div>'}
+		<div data-component="MyProfile-ChangeImage" class="my-1 my-md-1 my-lg-2">
 		</div>
 
 		<!-- name -->
-		<div id="MyProfile-username" class="my-1 my-md-1 my-lg-2 fs-4">
-			${profile ? profile.username : 'Loading name...'}
+		<div data-component="MyProfile-ChangeName" class="my-1 my-md-1 my-lg-2">
 		</div>
 
 		<!-- email -->
@@ -52,11 +54,24 @@ export default class MyProfile extends Component {
 		const $home = this.$target.querySelector('[data-component="homeButton"]');
 		new MoveButton($home, {name: "<-", href: "#/", color: "btn-white", fontSize: "fs-5" });
 
+		// 이미지 변경 버튼
+		const $changeImageBtn = this.$target.querySelector('[data-component="MyProfile-ChangeImage"]');
+		new ChangeImageModalButton($changeImageBtn, this.$state.profile);
+
+		// 이름 변경 버튼
+		const $changeNameBtn = this.$target.querySelector('[data-component="MyProfile-ChangeName"]');
+		new ChangeNameModalButton($changeNameBtn, this.$state.profile);
+
 		// 내 경기 기록 보기 버튼
 		const $myMatchHistoryBtn = this.$target.querySelector('[data-component="MyMatchHistoryBtn"]');
 		$myMatchHistoryBtn.addEventListener("click", () => {
-			// 동작 중앙 + 우측 component
+			// 중앙 + 우측 component
+			const $myAdditionalInfo = document.querySelector('[data-component="AdditionalInfo"]');
 			const $myMatchHistory = document.querySelector('[data-component="MatchHistory"]');
+
+				// 중앙은 my history를 chart
+			new AdditionalMyInfo($myAdditionalInfo, this.$state.profile?.username);
+				// 우측은 my match history
 			new MatchHistory($myMatchHistory, this.$state.profile?.username);
 		});
 	}
@@ -66,12 +81,14 @@ export default class MyProfile extends Component {
 			const response = await requestApi("https://localhost/api/users/me/", {
 				method: "GET",
 				credentials: "include",
+				headers: {
+					"Content-Type": "application/json",
+				},
 			});
 			const data = await response.json();
 			this.setState({ profile: data });
 		} catch (error) {
-			console.error("Error fetching profile:", error);
+			console.error("Error fetching /api/users/me/:", error);
 		}
 	}
-
 }
