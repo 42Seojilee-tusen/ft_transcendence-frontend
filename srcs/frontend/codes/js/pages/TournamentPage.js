@@ -27,6 +27,9 @@ export default class TournamentPage extends Component {
 		requestApi("https://localhost/api/users/me/", { // 임시 api => 이걸 이용해서 로그인 시간 유지
 			method: "GET",
 			credentials: "include",  // 🔥 쿠키 포함하여 요청
+			headers: {
+				"Content-Type": "application/json",
+			},
 		}).then((response) => {
 			this.connectWebSocket(gameRender);
 			// 키 입력 이벤트 추가

@@ -83,6 +83,9 @@ export default class TwoFaPage extends Component {
 						const response = await requestApi("https://localhost/api/oauth/2fa/", {
 							method: "POST",
 							credentials: "include",
+							headers: {
+								"Content-Type": "application/json",
+							},
 							body: JSON.stringify({ "otp_code" : otpCode })
 						});
 						console.log(response);
@@ -105,6 +108,9 @@ export default class TwoFaPage extends Component {
 				const response = await requestApi("https://localhost/api/oauth/2fa/", {
 					method: "GET",
             		credentials: "include",  // 🔥 쿠키 포함하여 요청
+					headers: {
+						"Content-Type": "application/json",
+					},
 				});
 
 				if (!response.ok) {

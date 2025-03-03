@@ -31,10 +31,8 @@ export default class DetailMatchHistory extends Component {
 		};
 	}
 
-	/* 기존 render는 template을 통해서 parent의 innerText를 덮어씌웠지만
-	현재는 parent의 child를 연속적으로 추가해주는 기능 필요해서 overriding */
-	render() {
-		const layout = `
+	template() {
+		return `
 			<div class="d-flex flex-column justify-content-center align-items-center fs-5">
 				<div class="m-1">
 					${this.$state.date}
@@ -50,11 +48,16 @@ export default class DetailMatchHistory extends Component {
 				${this.$state.result}
 			</div>
 		`;
-		const historyElement = document.createElement("div");
-		historyElement.classList.add("row", "row-cols-3", "m-1", "m-md-2", "m-lg-3");
-		historyElement.id = "detailMatchHistory";
-		historyElement.innerHTML = layout;
-		this.$target.appendChild(historyElement);
 	}
 
+	/* 기존 render는 template을 통해서 parent의 innerText를 덮어씌웠지만 -> this.$target.innerHTML = this.template();
+	현재는 parent의 child를 연속적으로 추가해주는 기능 필요해서 overriding */
+	render() {
+		const historyElement = document.createElement("div");
+
+		historyElement.classList.add("row", "row-cols-3", "m-1", "m-md-2", "m-lg-3");
+		historyElement.id = "detailMatchHistory";
+		historyElement.innerHTML = this.template();
+		this.$target.appendChild(historyElement);
+	}
 }

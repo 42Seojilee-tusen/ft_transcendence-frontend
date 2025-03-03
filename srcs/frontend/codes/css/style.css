@@ -98,6 +98,10 @@ body::before {
     overflow-y: auto;
 }
 
+[data-component="MatchHistory"], [data-component="AdditionalInfo"] {
+    color: #faf0e6;
+}
+
 #MyFollows-FriendList {
     height: 100%;
 }
@@ -155,8 +159,8 @@ body::before {
     max-height: 84vh;
 }
 
-#detailMatchHistory {
-	outline: 1px solid black;
+#simpleHistory, #detailMatchHistory {
+	outline: 1px solid white;
 }
 
 .h3-clickable {
@@ -184,6 +188,11 @@ body::before {
     margin: 50px auto;
 }
 
+#detailHistories {
+    max-height: 75vh;
+    overflow-y: auto;
+}
+
 .flex-grow-2 {
     flex: 2 2 0% !important; /* !important로 우선순위 확보 */
 }
@@ -205,14 +214,14 @@ body::before {
 }
 
 .now-play {
-    max-width: 100%; 
-    height: auto; 
+    max-width: 100%;
+    height: auto;
     outline: 8px solid green;
 }
 
 .not-play {
-    max-width: 95%; 
-    height: auto; 
+    max-width: 95%;
+    height: auto;
     opacity: 0.5;
 }
 

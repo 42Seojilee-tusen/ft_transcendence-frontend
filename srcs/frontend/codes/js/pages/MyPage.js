@@ -1,7 +1,7 @@
 import Component from "../core/Component.js";
 import MyProfile from "../componenets/MyPage/MyProfile.js"
 import MyFollows from "../componenets/MyPage/MyFollows.js"
-import AddFriendModalButton from "../componenets/MyPage/AddFriendModalButton.js";
+import SearchUserModalButton from "../componenets/MyPage/SearchUserModalButton.js";
 
 export default class MyPage extends Component {
 	constructor($target, $props) {
@@ -26,14 +26,28 @@ export default class MyPage extends Component {
 					<div data-component="MyPage-MyFollows" class="d-flex flex-column text-center text-break">
 					</div>
 
-					<!-- 좌측 하단 친구 추가 -->
+					<!-- 좌측 하단 유저 검색 -->
 					<div data-component="MyPage-AddFriendBtn" class="d-flex justify-content-center align-content-center text-center p-1 p-md-2 p-lg-3">
 					</div>
 
 				</div>
 
-				<!-- 중앙 + 우측 -->
-				<div data-component="MatchHistory" class="col-lg-9 p-4">
+				<!-- 중앙 통계 정보 -->
+				<div data-component="AdditionalInfo" class="col-lg-3 d-flex flex-column justify-content-center align-content-center p-4">
+				</div>
+
+				<!-- 우측 경기 정보 -->
+				<div data-component="MatchHistory" class="col-lg-6 p-4">
+				</div>
+			</div>
+			<div class="toast-container position-fixed top-50 start-50 translate-middle p-3">
+				<div class="toast">
+					<div class="toast-header">
+						<strong class="me-auto">알림</strong>
+						<button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+					</div>
+					<div class="toast-body">
+					</div>
 				</div>
 			</div>
 		</div>
@@ -54,8 +68,8 @@ export default class MyPage extends Component {
 		new MyFollows($myFollows);
 
 		// 좌측 하단 정보
-			// user 검색 및 추가 버튼 -> modal button 이용
+			// user 검색 버튼 -> modal button 이용
 		const $addFriendBtn = this.$target.querySelector('[data-component="MyPage-AddFriendBtn"]');
-		new AddFriendModalButton($addFriendBtn);
+		new SearchUserModalButton($addFriendBtn);
 	}
 }
