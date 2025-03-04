@@ -28,7 +28,7 @@ export default class TwoFaPage extends Component {
 			</div>
 			<div class="row d-flex flex-grow-1">
 				<div class="col d-flex align-items-center justify-content-center"></div>
-				<div id="authNumber" class="col-8 d-flex align-items-center justify-content-center">
+				<div id="authNumber" class="col d-flex align-items-center justify-content-center">
 					<div id="auth-container">
 						<input type="text" class="auth-input" maxlength="1">
 						<input type="text" class="auth-input" maxlength="1">
