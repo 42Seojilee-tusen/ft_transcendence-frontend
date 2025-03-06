@@ -5,6 +5,9 @@ import {requestApi} from "../core/requestApi.js"
 
 export default class TournamentPage extends Component {
     destroy() {
+		if (this.chatSocket === null) {
+			return ;
+		}
         if (this.chatSocket.readyState === WebSocket.OPEN) {
             this.chatSocket.close();
             console.log("WebSocket 닫음!");
@@ -24,7 +27,7 @@ export default class TournamentPage extends Component {
 	mounted() {
 		const $parent = document.querySelector("#tournament-render");
 		const gameRender = new GameRender($parent);
-		requestApi(`https://${HOST}/api/users/me/`, { // 임시 api => 이걸 이용해서 로그인 시간 유지
+		requestApi(`https://` + HOST + `/api/users/me/`, { // 임시 api => 이걸 이용해서 로그인 시간 유지
 			method: "GET",
 			credentials: "include",  // 🔥 쿠키 포함하여 요청
 			headers: {
