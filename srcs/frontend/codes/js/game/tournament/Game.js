@@ -42,7 +42,9 @@ export default class Game extends Component {
 				<div class="col d-flex flex-column align-items-center justify-content-center"></div>
 			</div>
 			<div class="row d-flex flex-grow-2">
-				<div id="game-board" class="col d-flex flex-column align-items-center justify-content-center mt-5 mb-5"></div>
+				<div class="col d-flex align-items-center justify-content-center"></div>
+				<div id="game-board" class="col-8 d-flex flex-column align-items-center justify-content-center mt-5 mb-5"></div>
+				<div class="col d-flex align-items-center justify-content-center"></div>
 			</div>
 			<div class="row d-flex flex-grow-1">
 				<div class="col d-flex align-items-center justify-content-center"></div>

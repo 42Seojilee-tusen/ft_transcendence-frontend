@@ -12,9 +12,15 @@ export default class CallbackPage extends Component {
 	template() {
 		return `
 		<div class="container-xxl vh-100 d-flex flex-column justify-content-center">
-			<div class="row">
-				<img src="../../img/chill.jpeg" alt="chill guy"></img>
-				<h1 style="text-align: center;">공 chill 노릇이군..</h1>
+			<div class="row d-flex flex-grow-1">
+				<div class="col d-flex align-items-center justify-content-center"></div>
+				<div class="col d-flex align-items-center justify-content-center">
+					<div>
+						<img src="../../img/chill.jpeg" alt="chill guy" style="max-width: 100%; height: auto;"></img>
+						<h3 class="text-white" style="text-align: center;">공 chill 노릇이군..</h3>
+						</div>
+				</div>
+				<div class="col d-flex align-items-center justify-content-center"></div>
 			</div>
 		</div>
 		`;
