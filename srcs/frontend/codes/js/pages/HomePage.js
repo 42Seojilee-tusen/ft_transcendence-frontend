@@ -2,6 +2,7 @@ import Component from "../core/Component.js";
 import MoveButton from "../componenets/MoveButton.js";
 import ModalButton from "../componenets/ModalButton.js";
 import { requestApi } from "../core/requestApi.js";
+import { HOST } from "../constants/ApiConstants.js";
 
 export default class HomePage extends Component {
 	template() {
@@ -27,7 +28,7 @@ export default class HomePage extends Component {
 		new MoveButton($local, {name: "로컬 플레이", href: "#/local", color: "btn-green", fontSize: "fs-2" });
 		new ModalButton($multi, {name: "멀티 플레이", color: "btn-green", fontSize: "fs-2" });
 		new MoveButton($mypage, {name: "마이 페이지", href: "#/mypage", color: "btn-green", fontSize: "fs-2" });
-		requestApi(`https://${HOST}/api/users/me/`, { // 임시 api => 이걸 이용해서 로그인 시간 유지
+		requestApi(`https://`+ HOST + `/api/users/me/`, { // 임시 api => 이걸 이용해서 로그인 시간 유지
 			method: "GET",
             credentials: "include",  // 🔥 쿠키 포함하여 요청
 			headers: {

@@ -112,7 +112,7 @@ export default class AdditionalMyInfo extends Component {
 
 	async fetchMatchHistory() {
 		try {
-			const response = await requestApi(`https://${HOST}/api/games/${this.$state.username}/`, {
+			const response = await requestApi(`https://` + HOST + `/api/games/${this.$state.username}/`, {
 				method: "GET",
 				credentials: "include",
 				headers: {

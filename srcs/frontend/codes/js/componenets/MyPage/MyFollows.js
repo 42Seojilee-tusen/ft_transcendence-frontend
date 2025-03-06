@@ -66,7 +66,7 @@ export default class MyFollows extends Component {
 
 	async fetchFollows() {
 		try {
-			const response = await requestApi(`https://${HOST}/api/follows/me/`, {
+			const response = await requestApi(`https://` + HOST + `/api/follows/me/`, {
 				method: "GET",
 				credentials: "include",
 				headers: {

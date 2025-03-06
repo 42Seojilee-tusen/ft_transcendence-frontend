@@ -1,6 +1,6 @@
 import Component from "../../core/Component.js";
 import GameBoard from "./GameBoard.js";
-import { HOST } from "../../constants/ApiConstants";
+import { HOST } from "../../constants/ApiConstants.js";
 
 export default class Game extends Component {
 	setup() {
@@ -63,10 +63,10 @@ export default class Game extends Component {
 	changePlayer(data) {
 		this.$state = {
 			...this.$state,
-			player1Image: `https://${HOST}/api${data.now_players[0].player_image}`,
+			player1Image: `https://` + HOST + `/api${data.now_players[0].player_image}`,
 			player1Name: data.now_players[0].player_name,
 
-			player2Image: `https://${HOST}/api${data.now_players[1].player_image}`,
+			player2Image: `https://` + HOST + `/api${data.now_players[1].player_image}`,
 			player2Name: data.now_players[1].player_name,
 		};
 	}

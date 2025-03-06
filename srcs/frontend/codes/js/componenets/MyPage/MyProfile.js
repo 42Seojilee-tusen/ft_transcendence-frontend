@@ -79,7 +79,7 @@ export default class MyProfile extends Component {
 
 	async fetchProfile() {
 		try {
-			const response = await requestApi(`https://${HOST}/api/users/me/`, {
+			const response = await requestApi(`https://` + HOST + `/api/users/me/`, {
 				method: "GET",
 				credentials: "include",
 				headers: {
