@@ -73,14 +73,9 @@ export default class TwoFaPage extends Component {
 				}
 			});
 
-			input.addEventListener("compositionstart", (e) => {
-				e.preventDefault();
-			});
-
 			input.addEventListener("input", (e) => {
 				e.target.value = e.target.value.replace(/[^0-9]/g, "");
 			});
-			
 		});
 
 		inputs[inputs.length - 1].addEventListener("keyup", async (e) => {
