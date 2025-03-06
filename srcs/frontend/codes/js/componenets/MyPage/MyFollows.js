@@ -2,6 +2,7 @@ import Component from "../../core/Component.js";
 import FriendProfile from "./FriendProfile.js";
 import MatchHistory from "./MatchHistory.js";
 import { requestApi } from "../../core/requestApi.js";
+import { HOST } from "../../constants/ApiConstants.js";
 
 export default class MyFollows extends Component {
 	constructor($target, $props){
@@ -65,7 +66,7 @@ export default class MyFollows extends Component {
 
 	async fetchFollows() {
 		try {
-			const response = await requestApi("https://localhost/api/follows/me/", {
+			const response = await requestApi(`https://${HOST}/api/follows/me/`, {
 				method: "GET",
 				credentials: "include",
 				headers: {

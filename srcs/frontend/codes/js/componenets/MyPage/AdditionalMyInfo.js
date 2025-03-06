@@ -1,5 +1,6 @@
 import Component from "../../core/Component.js";
 import { requestApi } from "../../core/requestApi.js";
+import { HOST } from "../../constants/ApiConstants.js";
 
 export default class AdditionalMyInfo extends Component {
 	constructor($target, username) {
@@ -111,7 +112,7 @@ export default class AdditionalMyInfo extends Component {
 
 	async fetchMatchHistory() {
 		try {
-			const response = await requestApi(`https://localhost/api/games/${this.$state.username}/`, {
+			const response = await requestApi(`https://${HOST}/api/games/${this.$state.username}/`, {
 				method: "GET",
 				credentials: "include",
 				headers: {

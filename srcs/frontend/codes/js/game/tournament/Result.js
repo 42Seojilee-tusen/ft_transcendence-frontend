@@ -1,4 +1,5 @@
 import Component from "../../core/Component.js";
+import { HOST } from "../../constants/ApiConstants";
 
 export default class Result extends Component {
 	setup() {
@@ -66,10 +67,10 @@ export default class Result extends Component {
 	changePlayer(data) {
 		this.$state = {
 			...this.$state,
-			player1Image: `https://localhost/api${data.now_players[0].player_image}`,
+			player1Image: `https://${HOST}/api${data.now_players[0].player_image}`,
 			player1Name: data.now_players[0].player_name,
 
-			player2Image: `https://localhost/api${data.now_players[1].player_image}`,
+			player2Image: `https://${HOST}/api${data.now_players[1].player_image}`,
 			player2Name: data.now_players[1].player_name,
 		};
 	}

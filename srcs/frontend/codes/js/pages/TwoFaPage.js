@@ -1,5 +1,6 @@
 import Component from "../core/Component.js";
 import { requestApi } from "../core/requestApi.js";
+import { HOST } from "../../constants/ApiConstants.js";
 
 export default class TwoFaPage extends Component {
 	setup() {
@@ -84,7 +85,7 @@ export default class TwoFaPage extends Component {
 				if (otpCode.length === 6) {
 					try {
 						console.log("✅ 서버로 전송:", otpCode);
-						const response = await requestApi("https://localhost/api/oauth/2fa/", {
+						const response = await requestApi(`https://${HOST}/api/oauth/2fa/`, {
 							method: "POST",
 							credentials: "include",
 							headers: {
@@ -98,7 +99,7 @@ export default class TwoFaPage extends Component {
 							throw new Error(`2fa 요청 실패: ${data.error || response.status}`);
 						}
 						sessionStorage.setItem("accessToken", data.access_token);
-						window.location.replace("https://localhost");
+						window.location.replace(`https://${HOST}`);
 					} catch (error) {
 						console.log(error);
 						alert(error);
@@ -109,7 +110,7 @@ export default class TwoFaPage extends Component {
 
 		async function qrRouteFind() {
 			try {
-				const response = await requestApi("https://localhost/api/oauth/2fa/", {
+				const response = await requestApi(`https://${HOST}/api/oauth/2fa/`, {
 					method: "GET",
             		credentials: "include",  // 🔥 쿠키 포함하여 요청
 					headers: {
@@ -140,7 +141,7 @@ export default class TwoFaPage extends Component {
 					$qrcode.removeChild($beforeImage);
 				}
 				const img = document.createElement("img");
-				img.src = `https://localhost/api${route}`;
+				img.src = `https://${HOST}/api${route}`;
 				img.alt = "QR Image";
 				img.style = "width: 100%; height: auto;"
 				$qrcode.appendChild(img);

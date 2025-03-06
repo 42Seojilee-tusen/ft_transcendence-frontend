@@ -1,4 +1,5 @@
 import Component from "../core/Component.js";
+import { HOST } from "../../constants/ApiConstants.js";
 
 export default class CallbackPage extends Component {
 	setup() {
@@ -29,7 +30,7 @@ export default class CallbackPage extends Component {
 	mounted() {
 		async function requestFirstToken(authCode) {
 			try {
-				const response = await fetch("https://localhost/api/oauth/token/", {
+				const response = await fetch(`https://${HOST}/api/oauth/token/`, {
 					method: "POST",
 					headers: {
 						"Accept": "application/json",
@@ -56,10 +57,10 @@ export default class CallbackPage extends Component {
 			try {
 				const tokenData = await requestFirstToken(authCode);
 				sessionStorage.setItem("accessToken", tokenData.access_token);
-				window.location.href = "https://localhost/#/twofa";
+				window.location.href = `https://${HOST}/#/twofa`;
 			} catch (error) {
 				console.error("❌ 로그인 실패:", error);
-				window.location.replace("https://localhost");
+				window.location.replace(`https://${HOST}`);
 			}
 		}
 
