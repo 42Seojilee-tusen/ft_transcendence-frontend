@@ -1,2 +1,2 @@
 export const WSS_PROTOCOL = "wss://";
-export const HOST = "localhost";
+export const HOST = window.location.hostname;
