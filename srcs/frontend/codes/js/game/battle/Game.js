@@ -61,9 +61,9 @@ export default class Game extends Component {
 		this.$state =  {
 			...this.$state,
 			type: data.type,
-			player1Image: `https://` + HOST + `/api${data.game_users[0].player_image}`,
+			player1Image: `https://${HOST}/api${data.game_users[0].player_image}`,
 			player1Name: data.game_users[0].player_name,
-			player2Image: `https://` + HOST + `/api${data.game_users[1].player_image}`,
+			player2Image: `https://${HOST}/api${data.game_users[1].player_image}`,
 			player2Name: data.game_users[1].player_name,
 		}
 	}

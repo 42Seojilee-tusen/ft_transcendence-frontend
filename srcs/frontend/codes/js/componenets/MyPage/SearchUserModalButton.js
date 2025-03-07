@@ -105,7 +105,7 @@ export default class SearchUserModalButton extends Component {
 
 	async fetchUsersNames() {
 		try {
-			const response = await requestApi(`https://` + HOST + `/api/users/usernames/`, {
+			const response = await requestApi(`https://${HOST}/api/users/usernames/`, {
 				method: "GET",
 				credentials: "include",
 				headers: {

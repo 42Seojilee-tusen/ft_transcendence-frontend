@@ -3,7 +3,7 @@ import { HOST } from "../constants/ApiConstants.js";
 // ✅ 액세스 토큰 갱신 함수
 async function refreshAccessToken() {
     try {
-        const response = await fetch(`https://` + HOST + `/api/oauth/token/refresh/`, {
+        const response = await fetch(`https://${HOST}/api/oauth/token/refresh/`, {
             method: "POST",
             credentials: "include",  // 🔥 쿠키 포함하여 요청
             headers: {

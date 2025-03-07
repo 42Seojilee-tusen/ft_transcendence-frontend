@@ -37,7 +37,7 @@ export default class Ending extends Component {
 	endGame(data) {
 		this.setState({
 			type: data.type,
-			playerImage: `https://` + HOST + `/api${data.winner.player_image}`,
+			playerImage: `https://${HOST}/api${data.winner.player_image}`,
 			playerName: data.winner.player_name,
 		})
 	}
