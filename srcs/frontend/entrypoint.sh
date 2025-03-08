@@ -8,4 +8,8 @@ if [ ! -f $SSL_KEY ]; then
 	-subj "/C=KR/ST=Seoul/L=Gaepo/O=hyeognsh/CN=$DOMAIN_NAME"
 fi
 
+echo 'export const WSS_PROTOCOL = "wss://";' > /usr/share/nginx/html/js/constants/ApiConstants.js
+echo 'export const HOST = window.location.hostname;' >> /usr/share/nginx/html/js/constants/ApiConstants.js
+echo "export const OAUTH_URI = '$OAUTH_URI';" >> /usr/share/nginx/html/js/constants/ApiConstants.js
+
 nginx -g "daemon off;"
