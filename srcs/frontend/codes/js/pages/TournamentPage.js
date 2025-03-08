@@ -30,14 +30,14 @@ export default class TournamentPage extends Component {
 			headers: {
 				"Content-Type": "application/json",
 			},
-		}).then((response) => {
+		}).then(() => {
 			this.connectWebSocket(gameRender);
 			// 키 입력 이벤트 추가
 			$parent.setAttribute("tabindex", "0");
 			$parent.addEventListener("keydown", (e) => this.handleKeyDown(e));
 			$parent.addEventListener("keyup", (e) => this.handleKeyUp(e));
 			$parent.focus();
-		}).catch((error) => {
+		}).catch(() => {
 			window.location.hash = "#/login";
 		});
 
