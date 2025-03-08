@@ -228,5 +228,12 @@ body::before {
 canvas {
     width: 100%;  /* 부모 요소에 맞게 자동 조절 */
     height: auto; /* 화면 높이에 맞춤 */
+    max-height: 30vh;
     display: block; /* 공백 제거 */
+}
+
+div[data-component="MyPage-MyProfile"] img, div[data-component="AdditionalInfo"] img {
+    width: 100%;  /* 부모 요소에 맞게 자동 조절 */
+    height: auto; /* 화면 높이에 맞춤 */
+    max-height: 30vh;
 }

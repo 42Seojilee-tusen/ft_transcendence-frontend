@@ -22,8 +22,8 @@ export default class FriendProfile extends Component {
 		const profile = this.$state.profile;
 		return `
 		<!-- image -->
-		<div class="my-1 my-md-1 my-lg-2">
-			${profile ? `<img src="https://${HOST}/api${profile.profile_image}" class="img-fluid w-100" alt="${profile.username}">` : '<div>Loading image...</div>'}
+		<div class="d-flex justify-content-center align-content-center my-1 my-md-1 my-lg-2">
+			${profile ? `<img src="https://${HOST}/api${profile.profile_image}" class="img-fluid w-75" alt="${profile.username}">` : '<div>Loading image...</div>'}
 		</div>
 
 		<!-- name -->
@@ -38,7 +38,7 @@ export default class FriendProfile extends Component {
 
 		<!-- ON/OFF status -->
 		<div id="ActivityStatus" class="my-1 my-md-1 my-lg-2 fs-4 text-center text-break">
-			${profile ? profile.status : 'Loading status...'}
+			${profile ? (profile.is_online === true ? "온라인" : "오프라인") : 'Loading status...'}
 		</div>
 
 		<!-- 친구 추가 or 삭제 -->
