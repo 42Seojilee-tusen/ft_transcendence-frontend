@@ -35,6 +35,11 @@ export default class FriendProfile extends Component {
 			${profile ? profile.email : 'Loading email...'}
 		</div>
 
+		<!-- ON/OFF status -->
+		<div id="ActivityStatus" class="my-1 my-md-1 my-lg-2 fs-4 text-center text-break">
+			${profile ? profile.status : 'Loading status...'}
+		</div>
+
 		<!-- 친구 추가 or 삭제 -->
 		<div id="friendStatusBtn" class="btn btn-primary my-1 my-md-2 my-lg-3 fs-3">
 		</div>
