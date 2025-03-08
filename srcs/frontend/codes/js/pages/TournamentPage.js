@@ -59,7 +59,6 @@ export default class TournamentPage extends Component {
 
 		this.chatSocket.onmessage = (e) => {
 			const data = JSON.parse(e.data);
-			console.log(data);
 			gameRender.changeState(data);
 		};
 
@@ -85,6 +84,11 @@ export default class TournamentPage extends Component {
 			delete this.keysPressed[e.key];
 			this.sendMovePaddle(false);
 		}
+	}
+
+	handleFocusOut() {
+		this.keysPressed = {};
+		this.sendMovePaddle(false);
 	}
 
 	sendMovePaddle(isMoving) {

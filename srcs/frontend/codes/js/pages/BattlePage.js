@@ -38,6 +38,7 @@ export default class BattlePage extends Component {
 			$parent.setAttribute("tabindex", "0");
 			$parent.addEventListener("keydown", (e) => this.handleKeyDown(e));
 			$parent.addEventListener("keyup", (e) => this.handleKeyUp(e));
+			$parent.addEventListener("blur", () => this.handleFocusOut());
 			$parent.focus();
 		}).catch(() => {
 			window.location.hash = "#/login";
@@ -57,7 +58,6 @@ export default class BattlePage extends Component {
 
 		this.chatSocket.onmessage = (e) => {
 			const data = JSON.parse(e.data);
-			console.log(data);
 			gameRender.changeState(data);
 		};
 
@@ -85,6 +85,11 @@ export default class BattlePage extends Component {
 		}
 	}
 
+	handleFocusOut() {
+		this.keysPressed = {};
+		this.sendMovePaddle(false);
+	}
+
 	sendMovePaddle(isMoving) {
 		if (!this.chatSocket || this.chatSocket.readyState !== WebSocket.OPEN) {
 			console.warn("WebSocket is not ready, cannot send message");
@@ -93,10 +98,10 @@ export default class BattlePage extends Component {
 
 		let direction = 0;
 		if (this.keysPressed["w"] || this.keysPressed["ArrowUp"]) {
-			direction -= 1;
+			direction = -1;
 		}
 		if (this.keysPressed["s"] || this.keysPressed["ArrowDown"]) {
-			direction += 1;
+			direction = 1;
 		}
 
 		if (!isMoving) direction = 0;
