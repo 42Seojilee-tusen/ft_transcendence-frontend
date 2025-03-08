@@ -72,10 +72,12 @@ export default class BattlePage extends Component {
 	}
 
 	handleKeyDown(e) {
-		if (!this.keysPressed[e.key]) {
-			this.keysPressed[e.key] = true;
-			this.sendMovePaddle(true);
+		if (this.keysPressed[e.key]) {
+			return ;
 		}
+		this.keysPressed = {};
+		this.keysPressed[e.key] = true;
+		this.sendMovePaddle(true);
 	}
 
 	handleKeyUp(e) {
@@ -111,7 +113,6 @@ export default class BattlePage extends Component {
 			direction: direction,
 		});
 
-		console.log("Sending WebSocket:", data);
 		this.chatSocket.send(data);
 	}
 }

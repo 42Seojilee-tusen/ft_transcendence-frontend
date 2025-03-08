@@ -39,6 +39,7 @@ export default class TournamentPage extends Component {
 			$parent.setAttribute("tabindex", "0");
 			$parent.addEventListener("keydown", (e) => this.handleKeyDown(e));
 			$parent.addEventListener("keyup", (e) => this.handleKeyUp(e));
+			$parent.addEventListener("blur", () => this.handleFocusOut());
 			$parent.focus();
 		}).catch(() => {
 			window.location.hash = "#/login";
@@ -73,10 +74,12 @@ export default class TournamentPage extends Component {
 	}
 
 	handleKeyDown(e) {
-		if (!this.keysPressed[e.key]) {
-			this.keysPressed[e.key] = true;
-			this.sendMovePaddle(true);
+		if (this.keysPressed[e.key]) {
+			return ;
 		}
+		this.keysPressed = {};
+		this.keysPressed[e.key] = true;
+		this.sendMovePaddle(true);
 	}
 
 	handleKeyUp(e) {
@@ -99,10 +102,10 @@ export default class TournamentPage extends Component {
 
 		let direction = 0;
 		if (this.keysPressed["w"] || this.keysPressed["ArrowUp"]) {
-			direction -= 1;
+			direction = -1;
 		}
 		if (this.keysPressed["s"] || this.keysPressed["ArrowDown"]) {
-			direction += 1;
+			direction = 1;
 		}
 
 		if (!isMoving) direction = 0;
@@ -112,7 +115,6 @@ export default class TournamentPage extends Component {
 			direction: direction,
 		});
 
-		console.log("Sending WebSocket:", data);
 		this.chatSocket.send(data);
 	}
 }
