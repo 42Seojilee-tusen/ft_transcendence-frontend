@@ -28,6 +28,9 @@ export default class GameBoard extends Component {
 
 	waitTime() {
 		const $canvas = document.querySelector("#gameCanvas");
+		if ($canvas === null) {
+			return ;
+		}
 		const ctx = $canvas.getContext("2d");
 		ctx.clearRect(0, 0, $canvas.width, $canvas.height);
 		ctx.font = "30px Arial"; // 글꼴 및 크기 설정
@@ -38,6 +41,9 @@ export default class GameBoard extends Component {
 	updateGame() {
 		const gameState = this.$state.game_state;
 		const $canvas = document.querySelector("#gameCanvas");
+		if ($canvas === null) {
+			return ;
+		}
 		const ctx = $canvas.getContext("2d");
 		ctx.clearRect(0, 0, $canvas.width, $canvas.height);
 		ctx.beginPath();
