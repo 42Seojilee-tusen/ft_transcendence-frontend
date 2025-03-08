@@ -3,6 +3,7 @@ import AdditionalMyInfo from "./AdditionalMyInfo.js";
 import FriendProfile from "./FriendProfile.js";
 import MatchHistory from "./MatchHistory.js";
 import { requestApi } from "../../core/requestApi.js";
+import { HOST } from "../../constants/ApiConstants.js";
 
 export default class SearchUserModalButton extends Component {
 	constructor($target, $props) {
@@ -104,7 +105,7 @@ export default class SearchUserModalButton extends Component {
 
 	async fetchUsersNames() {
 		try {
-			const response = await requestApi("https://localhost/api/users/usernames/", {
+			const response = await requestApi(`https://${HOST}/api/users/usernames/`, {
 				method: "GET",
 				credentials: "include",
 				headers: {
@@ -117,7 +118,4 @@ export default class SearchUserModalButton extends Component {
 			console.error("Error fetching /api/users/usernames/:", error);
 		}
 	}
-
-
-
 }

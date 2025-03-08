@@ -1,4 +1,5 @@
 import Component from "../../core/Component.js";
+import { HOST } from "../../constants/ApiConstants.js";
 
 export default class Index extends Component {
 	setup() {
@@ -125,16 +126,16 @@ export default class Index extends Component {
 		this.$state = {
 			...this.$state,
 			
-			player1Image: `https://localhost/api${data.game_users[0].player_image}`,
+			player1Image: `https://${HOST}/api${data.game_users[0].player_image}`,
 			player1Name: data.game_users[0].player_name,
 
-			player2Image: `https://localhost/api${data.game_users[1].player_image}`,
+			player2Image: `https://${HOST}/api${data.game_users[1].player_image}`,
 			player2Name: data.game_users[1].player_name,
 
-			player3Image: `https://localhost/api${data.game_users[2].player_image}`,
+			player3Image: `https://${HOST}/api${data.game_users[2].player_image}`,
 			player3Name: data.game_users[2].player_name,
 
-			player4Image: `https://localhost/api${data.game_users[3].player_image}`,
+			player4Image: `https://${HOST}/api${data.game_users[3].player_image}`,
 			player4Name: data.game_users[3].player_name,
 		};
 	}
