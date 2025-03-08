@@ -44,7 +44,7 @@ services:
   #   depends_on:
   #     - database
 
-  #database:
+  # database:
   #  init: true
   #  image: postgres:latest
   #  container_name: ${POSTGRES_HOST}
@@ -59,14 +59,13 @@ services:
   #    - ft_trancendence
   #  volumes:
   #    - ./srcs/database/srcs:/var/lib/postgresql/data
-  # 테스트할 땐 주석 해제
-#  redis:
-#    init: true
-#    image: redis:7
-#    networks:
-#      - ft_trancendence
-#    ports:
-#      - 6379:6379
+  # redis:
+  #  init: true
+  #  image: redis:7
+  #  networks:
+  #    - ft_trancendence
+  #  ports:
+  #    - 6379:6379
 
 networks:
   ft_trancendence:

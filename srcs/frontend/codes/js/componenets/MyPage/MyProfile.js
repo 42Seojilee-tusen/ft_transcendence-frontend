@@ -5,6 +5,7 @@ import ChangeNameModalButton from "./ChangeNameModalButton.js";
 import AdditionalMyInfo from "./AdditionalMyInfo.js";
 import MatchHistory from "./MatchHistory.js";
 import { requestApi } from "../../core/requestApi.js";
+import { HOST } from "../../constants/ApiConstants.js";
 
 export default class MyProfile extends Component {
 	constructor($target, $props) {
@@ -78,7 +79,7 @@ export default class MyProfile extends Component {
 
 	async fetchProfile() {
 		try {
-			const response = await requestApi("https://localhost/api/users/me/", {
+			const response = await requestApi(`https://${HOST}/api/users/me/`, {
 				method: "GET",
 				credentials: "include",
 				headers: {

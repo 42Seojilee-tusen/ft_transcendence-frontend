@@ -1,29 +1,21 @@
-import Component from "../core/Component.js";
-import { requestApi } from "../core/requestApi.js";
+import Component from "../../core/Component.js";
+import { HOST } from "../../constants/ApiConstants.js";
 
-export default class Battle extends Component {
+export default class Index extends Component {
 	setup() {
-		const player1Name = this.$props.game_user[0];
-		const player2Name = this.$props.game_user[1];
-		const player3Name = this.$props.game_user[2];
-		const player4Name = this.$props.game_user[3];
-		const player1Image = "../../img/profile.jpeg";
-		const player2Image = "../../img/profile.jpeg";
-		const player3Image = "../../img/profile.jpeg";
-		const player4Image = "../../img/profile.jpeg";
 		this.$state = {
-			player1Image: player1Image,
-			player1Name: player1Name,
-			nowPlay1: this.$props.now_player.includes(player1Name),
-			player2Image: player2Image,
-			player2Name: player2Name,
-			nowPlay2: this.$props.now_player.includes(player2Name),
-			player3Image: player3Image,
-			player3Name: player3Name,
-			nowPlay3: this.$props.now_player.includes(player3Name),
-			player4Image: player4Image,
-			player4Name: player4Name,
-			nowPlay4: this.$props.now_player.includes(player4Name),
+			player1Image: "../../img/profile.jpeg",
+			player1Name: "player1",
+			player2Image: "../../img/profile.jpeg",
+			player2Name: "player2",
+			player3Image: "../../img/profile.jpeg",
+			player3Name: "player3",
+			player4Image: "../../img/profile.jpeg",
+			player4Name: "player4",
+			nowPlay1: true,
+			nowPlay2: true,
+			nowPlay3: false,
+			nowPlay4: false,
 		};
 	}
 
@@ -128,5 +120,33 @@ export default class Battle extends Component {
 		} else {
 			$player4Image.classList.add("not-play");
 		}
+	}
+
+	updateImage(data) {
+		this.$state = {
+			...this.$state,
+			
+			player1Image: `https://${HOST}/api${data.game_users[0].player_image}`,
+			player1Name: data.game_users[0].player_name,
+
+			player2Image: `https://${HOST}/api${data.game_users[1].player_image}`,
+			player2Name: data.game_users[1].player_name,
+
+			player3Image: `https://${HOST}/api${data.game_users[2].player_image}`,
+			player3Name: data.game_users[2].player_name,
+
+			player4Image: `https://${HOST}/api${data.game_users[3].player_image}`,
+			player4Name: data.game_users[3].player_name,
+		};
+	}
+
+	changePlayer(data) {
+		this.setState(
+		{
+			nowPlay1: data.now_players.some(player => player.player_name === this.$state.player1Name),
+			nowPlay2: data.now_players.some(player => player.player_name === this.$state.player2Name),
+			nowPlay3: data.now_players.some(player => player.player_name === this.$state.player3Name),
+			nowPlay4: data.now_players.some(player => player.player_name === this.$state.player4Name),
+		})
 	}
 }

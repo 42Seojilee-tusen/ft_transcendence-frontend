@@ -1,7 +1,9 @@
+import { HOST } from "../constants/ApiConstants.js";
+
 // ✅ 액세스 토큰 갱신 함수
 async function refreshAccessToken() {
     try {
-        const response = await fetch("https://localhost/api/oauth/token/refresh/", {
+        const response = await fetch(`https://${HOST}/api/oauth/token/refresh/`, {
             method: "POST",
             credentials: "include",  // 🔥 쿠키 포함하여 요청
             headers: {
@@ -57,6 +59,10 @@ export async function requestApi(url, options = {}) {
                     "Accept": "application/json",
                 }
             });
+        }
+        if (response.status === 403) {
+            console.warn("⚠️ 2FA 인증 실패. 로그인 재시도");
+            throw new Error(`2FA 인증 실패: ${response.status}`);
         }
         return response;
     } catch (error) {

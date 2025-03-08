@@ -1,15 +1,13 @@
-import Component from "../core/Component.js";
-import { requestApi } from "../core/requestApi.js";
+import Component from "../../core/Component.js";
+import { HOST } from "../../constants/ApiConstants.js";
 
-export default class Battle extends Component {
+export default class Index extends Component {
 	setup() {
-		const player1Image = "../../img/profile.jpeg";
-		const player2Image = "../../img/profile.jpeg";
 		this.$state = {
-			player1Image: player1Image,
-			player1Name: this.$props.game_user[0],
-			player2Image: player2Image,
-			player2Name: this.$props.game_user[1],
+			player1Image: "../../img/profile.jpeg",
+			player1Name: "player1",
+			player2Image: "../../img/profile.jpeg",
+			player2Name: "player2",
 		};
 	}
 
@@ -45,5 +43,15 @@ export default class Battle extends Component {
 			</div>
 		</div>
 		`;
+	}
+
+	updateImage(data) {
+		this.setState( 
+		{
+			player1Image: `https://${HOST}/api${data.game_users[0].player_image}`,
+			player1Name: data.game_users[0].player_name,
+			player2Image: `https://${HOST}/api${data.game_users[1].player_image}`,
+			player2Name: data.game_users[1].player_name,
+		})
 	}
 }

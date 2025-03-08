@@ -1,5 +1,6 @@
 import Component from "../core/Component.js";
 import { requestApi } from "../core/requestApi.js";
+import { HOST } from "../constants/ApiConstants.js";
 
 export default class TwoFaPage extends Component {
 	setup() {
@@ -16,19 +17,19 @@ export default class TwoFaPage extends Component {
 			</div>
 			<div class="row d-flex flex-grow-1">
 				<div class="col d-flex align-items-center justify-content-center"></div>
+				<div class="col d-flex align-items-center justify-content-center"></div>
 				<div class="col d-flex align-items-center justify-content-center">
 					<div>
-						<div id="qrcode" class="row"></div>
-						<div class="row">
-							<p id="qrReload" class="text-center multi-line-text h3-clickable">QR CODE 요청<h3>
-						</div>
+						<div id="qrcode"></div>
+						<p id="qrReload" class="text-center h3-clickable">QR CODE 요청</p>
 					</div>
 				</div>
+				<div class="col d-flex align-items-center justify-content-center"></div>
 				<div class="col d-flex align-items-center justify-content-center"></div>
 			</div>
 			<div class="row d-flex flex-grow-1">
 				<div class="col d-flex align-items-center justify-content-center"></div>
-				<div id="authNumber" class="col-8 d-flex align-items-center justify-content-center">
+				<div id="authNumber" class="col d-flex align-items-center justify-content-center">
 					<div id="auth-container">
 						<input type="text" class="auth-input" maxlength="1">
 						<input type="text" class="auth-input" maxlength="1">
@@ -42,12 +43,12 @@ export default class TwoFaPage extends Component {
 			</div>
 			<div class="row d-flex flex-grow-1">
 				<div class="col d-flex align-items-center justify-content-center">
-					<p class="text-center multi-line-text">
-						인증앱에서 제공하는 코드 6자리를 입력하세요.<br>
+					<p class="text-center text-white">
+						인증앱에서 제공하는 코드 6자리를 입력하세요.<br><br>
 						만약 인증앱에 핑퐁게임이 등록되어 있지 않다면,<br>
-						QR CODE 요청을 클릭하여 등록 QR CODE를 발급 받으세요.<br>
-						QR CODE 재발급 시 이전에 등록된 QR CODE로는 로그인할 수 없습니다.<br>
-					<p>
+						QR CODE 요청을 클릭하여 등록 QR CODE를 발급 받으세요.<br><br>
+						QR CODE 재발급 시 이전에 등록된 QR CODE로는 로그인할 수 없습니다.<br><br>
+					</p>
 				</div>
 			</div>
 			<div class="row d-flex flex-grow-1"></div>
@@ -72,6 +73,10 @@ export default class TwoFaPage extends Component {
 					inputs[index + 1].focus();
 				}
 			});
+
+			input.addEventListener("input", (e) => {
+				e.target.value = e.target.value.replace(/[^0-9]/g, "");
+			});
 		});
 
 		inputs[inputs.length - 1].addEventListener("keyup", async (e) => {
@@ -80,7 +85,7 @@ export default class TwoFaPage extends Component {
 				if (otpCode.length === 6) {
 					try {
 						console.log("✅ 서버로 전송:", otpCode);
-						const response = await requestApi("https://localhost/api/oauth/2fa/", {
+						const response = await requestApi(`https://${HOST}/api/oauth/2fa/`, {
 							method: "POST",
 							credentials: "include",
 							headers: {
@@ -94,7 +99,7 @@ export default class TwoFaPage extends Component {
 							throw new Error(`2fa 요청 실패: ${data.error || response.status}`);
 						}
 						sessionStorage.setItem("accessToken", data.access_token);
-						window.location.replace("https://localhost");
+						window.location.replace(`https://${HOST}`);
 					} catch (error) {
 						console.log(error);
 						alert(error);
@@ -105,7 +110,7 @@ export default class TwoFaPage extends Component {
 
 		async function qrRouteFind() {
 			try {
-				const response = await requestApi("https://localhost/api/oauth/2fa/", {
+				const response = await requestApi(`https://${HOST}/api/oauth/2fa/`, {
 					method: "GET",
             		credentials: "include",  // 🔥 쿠키 포함하여 요청
 					headers: {
@@ -136,8 +141,9 @@ export default class TwoFaPage extends Component {
 					$qrcode.removeChild($beforeImage);
 				}
 				const img = document.createElement("img");
-				img.src = `https://localhost/api${route}`;
+				img.src = `https://${HOST}/api${route}`;
 				img.alt = "QR Image";
+				img.style = "width: 100%; height: auto;"
 				$qrcode.appendChild(img);
 			} catch (error) {
 				console.error("❌ QR 실패:", error);

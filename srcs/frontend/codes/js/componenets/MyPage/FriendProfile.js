@@ -1,6 +1,7 @@
 import Component from "../../core/Component.js";
 import MyFollows from "./MyFollows.js";
 import { requestApi } from "../../core/requestApi.js";
+import { HOST } from "../../constants/ApiConstants.js";
 
 export default class FriendProfile extends Component {
 	constructor($target, $props) {
@@ -22,7 +23,7 @@ export default class FriendProfile extends Component {
 		return `
 		<!-- image -->
 		<div class="my-1 my-md-1 my-lg-2">
-			${profile ? `<img src="https://localhost/api${profile.profile_image}" class="img-fluid w-100" alt="${profile.username}">` : '<div>Loading image...</div>'}
+			${profile ? `<img src="https://${HOST}/api${profile.profile_image}" class="img-fluid w-100" alt="${profile.username}">` : '<div>Loading image...</div>'}
 		</div>
 
 		<!-- name -->
@@ -71,7 +72,7 @@ export default class FriendProfile extends Component {
 
 	async fetchFollows() {
 		try {
-			const response = await requestApi("https://localhost/api/follows/me/", {
+			const response = await requestApi(`https://${HOST}/api/follows/me/`, {
 				method: "GET",
 				credentials: "include",
 				headers: {
@@ -87,7 +88,7 @@ export default class FriendProfile extends Component {
 
 	async fetchFriendProfile() {
 		try {
-			const response = await requestApi(`https://localhost/api/users/${this.$state.username}/`, {
+			const response = await requestApi(`https://${HOST}/api/users/${this.$state.username}/`, {
 				method: "GET",
 				credentials: "include",
 				headers: {
@@ -104,7 +105,7 @@ export default class FriendProfile extends Component {
 	async fetchFollow(username, method) {
 		try {
 			// need revise api url
-			const response = await requestApi("https://localhost/api/follows/me/", {
+			const response = await requestApi(`https://${HOST}/api/follows/me/`, {
 				method: method,
 				credentials: "include",
 				headers: {

@@ -1,4 +1,5 @@
 import Component from "../core/Component.js";
+import { HOST } from "../constants/ApiConstants.js";
 
 export default class CallbackPage extends Component {
 	setup() {
@@ -10,12 +11,17 @@ export default class CallbackPage extends Component {
 	}
 
 	template() {
-		const { code } = this.$state;
 		return `
 		<div class="container-xxl vh-100 d-flex flex-column justify-content-center">
-			<div class="row">
-				<img src="../../img/chill.jpeg" alt="chill guy"></img>
-				<h1 style="text-align: center;">공 chill 노릇이군..<h1>
+			<div class="row d-flex flex-grow-1">
+				<div class="col d-flex align-items-center justify-content-center"></div>
+				<div class="col d-flex align-items-center justify-content-center">
+					<div>
+						<img src="../../img/chill.jpeg" alt="chill guy" style="max-width: 100%; height: auto;"></img>
+						<h3 class="text-white" style="text-align: center;">공 chill 노릇이군..</h3>
+						</div>
+				</div>
+				<div class="col d-flex align-items-center justify-content-center"></div>
 			</div>
 		</div>
 		`;
@@ -24,7 +30,7 @@ export default class CallbackPage extends Component {
 	mounted() {
 		async function requestFirstToken(authCode) {
 			try {
-				const response = await fetch("https://localhost/api/oauth/token/", {
+				const response = await fetch(`https://${HOST}/api/oauth/token/`, {
 					method: "POST",
 					headers: {
 						"Accept": "application/json",
@@ -51,10 +57,10 @@ export default class CallbackPage extends Component {
 			try {
 				const tokenData = await requestFirstToken(authCode);
 				sessionStorage.setItem("accessToken", tokenData.access_token);
-				window.location.href = "https://localhost/#/twofa";
+				window.location.href = `https://${HOST}/#/twofa`;
 			} catch (error) {
 				console.error("❌ 로그인 실패:", error);
-				window.location.replace("https://localhost");
+				window.location.replace(`https://${HOST}`);
 			}
 		}
 

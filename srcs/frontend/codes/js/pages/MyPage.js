@@ -55,7 +55,6 @@ export default class MyPage extends Component {
 	}
 
 	mounted() {
-
 		// 좌측 상단 정보
 			// 로그인한 유저의 image, name, email, match-history-btn, 정보변경-btn
 			// 최초 중앙 + 우측 componen는 위의 MyInfo에서 처리

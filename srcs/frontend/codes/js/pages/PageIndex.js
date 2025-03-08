@@ -3,7 +3,8 @@ import MyPage from "./MyPage.js";
 import LoginPage from "./LoginPage.js";
 import CallbackPage from "./CallbackPage.js";
 import TwoFaPage from "./TwoFaPage.js";
-import GamePage from "./GamePage.js";
+import BattlePage from "./BattlePage.js";
+import TournamentPage from "./TournamentPage.js";
 
 export default (main) => {
 	const home = () => new HomePage(main);
@@ -11,7 +12,8 @@ export default (main) => {
 	const myPage = () => new MyPage(main);
 	const callback = () => new CallbackPage(main);
 	const twofa = () => new TwoFaPage(main);
-	const game = () => new GamePage(main);
+	const battle = () => new BattlePage(main);
+	const tournament = () => new TournamentPage(main);
 
 	return {
 		home,
@@ -19,6 +21,7 @@ export default (main) => {
 		myPage,
 		callback,
 		twofa,
-		game,
+		battle,
+		tournament,
 	};
 };
