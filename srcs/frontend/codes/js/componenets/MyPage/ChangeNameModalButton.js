@@ -79,7 +79,7 @@ export default class ChangeNameModalButton extends Component {
 
 	async fetchUserName(name) {
 		try {
-			const response = await requestApi("https://localhost/api/users/me/", {
+			const response = await requestApi(`https://${HOST}/api/users/me/`, {
 				method: "PATCH",
 				credentials: "include",
 				headers: {

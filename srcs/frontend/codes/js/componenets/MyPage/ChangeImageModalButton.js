@@ -2,6 +2,7 @@ import Component from "../../core/Component.js";
 import MyProfile from "./MyProfile.js";
 import UpdateError from "./UpdateError.js";
 import { requestApi } from "../../core/requestApi.js";
+import { HOST } from "../../constants/ApiConstants.js";
 
 export default class ChangeImageModalButton extends Component {
 	setup() {
@@ -23,7 +24,7 @@ export default class ChangeImageModalButton extends Component {
 				`
 			: `
 				<div class="btn" data-bs-toggle="modal" data-bs-target="#changeImageModal">
-					<img src="https://localhost/api${profile.profile_image}" class="img-fluid w-100" alt="${profile.username}">
+					<img src="https://${HOST}/api${profile.profile_image}" class="img-fluid w-100" alt="${profile.username}">
 					<i class="bi bi-pencil"></i>
 				</div>
 				<div class="modal fade" id="changeImageModal" tabindex="-1" aria-labelledby="changeImageModalLabel" aria-hidden="true">
@@ -69,7 +70,7 @@ export default class ChangeImageModalButton extends Component {
 			const formData = new FormData();
     		formData.append('profile_image', image); // 'profile_image'는 백엔드에서 받을 필드 이름
 
-			const response = await requestApi("https://localhost/api/users/me/", {
+			const response = await requestApi(`https://${HOST}/api/users/me/`, {
 				method: "PATCH",
 				credentials: "include",
 				headers: {

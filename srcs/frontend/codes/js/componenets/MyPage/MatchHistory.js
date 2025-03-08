@@ -3,6 +3,7 @@ import DetailMatchHistory from "./DetailMatchHistory.js";
 import AdditionalMyInfo from "./AdditionalMyInfo.js";
 import FriendProfile from "./FriendProfile.js";
 import { requestApi } from "../../core/requestApi.js";
+import { HOST } from "../../constants/ApiConstants.js";
 
 export default class MatchHistory extends Component {
 
@@ -99,7 +100,7 @@ export default class MatchHistory extends Component {
 
 	async fetchMatchHistory() {
 		try {
-			const response = await requestApi(`https://localhost/api/games/${this.$state.username}/`, {
+			const response = await requestApi(`https://${HOST}/api/games/${this.$state.username}/`, {
 				method: "GET",
 				credentials: "include",
 				headers: {
