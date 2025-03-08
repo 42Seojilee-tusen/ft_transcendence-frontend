@@ -1,7 +1,5 @@
 import Component from "../../core/Component.js";
 import DetailMatchHistory from "./DetailMatchHistory.js";
-import AdditionalMyInfo from "./AdditionalMyInfo.js";
-import FriendProfile from "./FriendProfile.js";
 import { requestApi } from "../../core/requestApi.js";
 import { HOST } from "../../constants/ApiConstants.js";
 
