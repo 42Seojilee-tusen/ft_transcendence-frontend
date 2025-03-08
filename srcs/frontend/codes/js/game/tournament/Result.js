@@ -28,6 +28,7 @@ export default class Result extends Component {
 						src=${this.$state.player1Image}
 						alt="Sample Image"
 						class="img-fluid mb-2"
+						style="max-width: 100%; height: 50%;"
 					/>
 					<h3 class="text-white mb-0">${this.$state.player1Name}</p>
 				</div>
@@ -38,6 +39,7 @@ export default class Result extends Component {
 						src=${this.$state.player2Image}
 						alt="Sample Image"
 						class="img-fluid mb-2"
+						style="max-width: 100%; height: 50%;"
 					/>
 					<h3 class="text-white mb-0">${this.$state.player2Name}</p>
 				</div>
