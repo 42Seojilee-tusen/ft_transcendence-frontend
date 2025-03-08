@@ -68,7 +68,7 @@ export default class App extends Component {
 	connectOnline() {
 		let token = sessionStorage.getItem("accessToken");
 		if (token == null) {
-			requestApi("https://localhost/api/users/me/", { // 임시 api => 이걸 이용해서 로그인 시간 유지
+			requestApi(`https://${HOST}/api/users/me/`, { // 임시 api => 이걸 이용해서 로그인 시간 유지
 				method: "GET",
 				credentials: "include",  // 🔥 쿠키 포함하여 요청
 				headers: {
@@ -93,6 +93,23 @@ export default class App extends Component {
 					this.$state.socket = null;
 				};
 			});
+		} else {
+			if (this.$state.socket !== null) {
+				return ;
+			}
+			console.log("websocket 생성");
+			this.$state.socket = new WebSocket(
+				WSS_PROTOCOL + HOST + `/api/ws/online/?token=${token}`
+			);
+
+			this.$state.socket.onopen = () => {
+				console.log("connect WebSocket connection established");
+			};
+
+			this.$state.socket.onclose = (e) => {
+				console.log("connect WebSocket connection closed", e);
+				this.$state.socket = null;
+			};
 		}
 	}
 }
