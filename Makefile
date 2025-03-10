@@ -14,6 +14,6 @@ clean:
 	docker compose -f $(COMPOSE_FILE) down
 
 fclean:
-	docker compose -f $(COMPOSE_FILE) down -v --rmi all
+	docker compose -f $(COMPOSE_FILE) down -v
 
 .PHONY: all up re clean fclean

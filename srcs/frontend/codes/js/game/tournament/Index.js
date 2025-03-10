@@ -53,8 +53,7 @@ export default class Index extends Component {
 						id="player1Image"
 						src=${this.$state.player1Image}
 						alt="Sample Image1"
-						class="img-fluid mb-2"
-						style="max-width: 100%; height: 50%;"
+						class="img-fluid mb-2 profile-img"
 					/>
 					<h3 class="text-white mb-2">${this.$state.player1Name}</h3>
 				</div>
@@ -64,8 +63,7 @@ export default class Index extends Component {
 						id="player2Image"
 						src=${this.$state.player2Image}
 						alt="Sample Image2"
-						class="img-fluid mb-2"
-						style="max-width: 100%; height: 50%;"
+						class="img-fluid mb-2 profile-img"
 					/>
 					<h3 class="text-white mb-2">${this.$state.player2Name}</h3>
 				</div>
@@ -75,8 +73,7 @@ export default class Index extends Component {
 						id="player3Image"
 						src=${this.$state.player3Image}
 						alt="Sample Image3"
-						class="img-fluid mb-2"
-						style="max-width: 100%; height: 50%;"
+						class="img-fluid mb-2 profile-img"
 					/>
 					<h3 class="text-white mb-2">${this.$state.player3Name}</h3>
 				</div>
@@ -86,8 +83,7 @@ export default class Index extends Component {
 						id="player4Image"
 						src=${this.$state.player4Image}
 						alt="Sample Image4"
-						class="img-fluid mb-2"
-						style="max-width: 100%; height: 50%;"
+						class="img-fluid mb-2 profile-img"
 					/>
 					<h3 class="text-white mb-2">${this.$state.player4Name}</h3>
 				</div>

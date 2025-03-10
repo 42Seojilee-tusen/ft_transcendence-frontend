@@ -22,8 +22,7 @@ export default class Ending extends Component {
 						id="playerImage"
 						src=${this.$state.playerImage}
 						alt="Sample Image"
-						class="img-fluid mb-2 now-play"
-						style="max-width: 100%; height: 50%;"
+						class="img-fluid mb-2 now-play profile-img"
 					/>
 					<h3 class="text-white mb-0">${this.$state.playerName}</p>
 				</div>

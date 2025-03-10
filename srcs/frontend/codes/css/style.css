@@ -230,3 +230,9 @@ canvas {
     height: auto; /* 화면 높이에 맞춤 */
     display: block; /* 공백 제거 */
 }
+
+.profile-img {
+    width: 100%;
+    aspect-ratio: 1/1; 
+    object-fit: cover;
+}
