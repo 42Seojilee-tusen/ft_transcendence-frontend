@@ -4,6 +4,7 @@ import MatchHistory from "./MatchHistory.js";
 import FriendProfile from "./FriendProfile.js";
 import UpdateError from "./UpdateError.js";
 import { requestApi } from "../../core/requestApi.js";
+import { HOST } from "../../constants/ApiConstants.js";
 
 export default class ChangeNameModalButton extends Component {
 	setup() {
