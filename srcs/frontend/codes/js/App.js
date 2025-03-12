@@ -90,6 +90,8 @@ export default class App extends Component {
 				console.log("connect WebSocket connection closed", e);
 				this.$state.socket = null;
 			};
+		}).catch(() => {
+			console.log("websocket error");
 		});
 	}
 }
