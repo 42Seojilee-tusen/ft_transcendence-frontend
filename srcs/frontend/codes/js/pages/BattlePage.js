@@ -38,6 +38,7 @@ export default class BattlePage extends Component {
 			$parent.setAttribute("tabindex", "0");
 			$parent.addEventListener("keydown", (e) => this.handleKeyDown(e));
 			$parent.addEventListener("keyup", (e) => this.handleKeyUp(e));
+			$parent.addEventListener("blur", () => this.handleFocusOut());
 			$parent.focus();
 		}).catch(() => {
 			window.location.hash = "#/login";
@@ -57,7 +58,6 @@ export default class BattlePage extends Component {
 
 		this.chatSocket.onmessage = (e) => {
 			const data = JSON.parse(e.data);
-			console.log(data);
 			gameRender.changeState(data);
 		};
 
@@ -72,10 +72,12 @@ export default class BattlePage extends Component {
 	}
 
 	handleKeyDown(e) {
-		if (!this.keysPressed[e.key]) {
-			this.keysPressed[e.key] = true;
-			this.sendMovePaddle(true);
+		if (this.keysPressed[e.key]) {
+			return ;
 		}
+		this.keysPressed = {};
+		this.keysPressed[e.key] = true;
+		this.sendMovePaddle(true);
 	}
 
 	handleKeyUp(e) {
@@ -83,6 +85,11 @@ export default class BattlePage extends Component {
 			delete this.keysPressed[e.key];
 			this.sendMovePaddle(false);
 		}
+	}
+
+	handleFocusOut() {
+		this.keysPressed = {};
+		this.sendMovePaddle(false);
 	}
 
 	sendMovePaddle(isMoving) {
@@ -93,10 +100,10 @@ export default class BattlePage extends Component {
 
 		let direction = 0;
 		if (this.keysPressed["w"] || this.keysPressed["ArrowUp"]) {
-			direction -= 1;
+			direction = -1;
 		}
 		if (this.keysPressed["s"] || this.keysPressed["ArrowDown"]) {
-			direction += 1;
+			direction = 1;
 		}
 
 		if (!isMoving) direction = 0;
@@ -106,7 +113,6 @@ export default class BattlePage extends Component {
 			direction: direction,
 		});
 
-		console.log("Sending WebSocket:", data);
 		this.chatSocket.send(data);
 	}
 }

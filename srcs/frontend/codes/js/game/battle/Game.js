@@ -24,8 +24,7 @@ export default class Game extends Component {
 					<img
 						src=${this.$state.player1Image}
 						alt="Sample Image"
-						class="img-fluid mb-2"
-						style="max-width: 100%; height: auto;"
+						class="img-fluid mb-2 profile-img"
 					/>
 					<h3 class="text-white mb-2">${this.$state.player1Name}</h3>
 				</div>
@@ -35,8 +34,7 @@ export default class Game extends Component {
 					<img
 						src=${this.$state.player2Image}
 						alt="Sample Image"
-						class="img-fluid mb-2"
-						style="max-width: 100%; height: auto;"
+						class="img-fluid mb-2 profile-img"
 					/>
 					<h3 class="text-white mb-2">${this.$state.player2Name}</h3>
 				</div>

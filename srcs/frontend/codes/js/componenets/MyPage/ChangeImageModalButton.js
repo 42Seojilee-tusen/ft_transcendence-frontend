@@ -24,8 +24,7 @@ export default class ChangeImageModalButton extends Component {
 				`
 			: `
 				<div class="btn" data-bs-toggle="modal" data-bs-target="#changeImageModal">
-					<img src="https://${HOST}/api${profile.profile_image}" class="img-fluid w-75" alt="${profile.username}">
-					<br>
+					<img src="https://${HOST}/api${profile.profile_image}" class="img-fluid w-100 profile-img" alt="${profile.username}">
 					<i class="bi bi-pencil"></i>
 				</div>
 				<div class="modal fade" id="changeImageModal" tabindex="-1" aria-labelledby="changeImageModalLabel" aria-hidden="true">

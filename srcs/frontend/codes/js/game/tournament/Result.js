@@ -27,7 +27,7 @@ export default class Result extends Component {
 						id="player1Image"
 						src=${this.$state.player1Image}
 						alt="Sample Image"
-						class="img-fluid mb-2"
+						class="img-fluid mb-2 profile-img"
 					/>
 					<h3 class="text-white mb-0">${this.$state.player1Name}</p>
 				</div>
@@ -37,7 +37,7 @@ export default class Result extends Component {
 						id="player2Image"
 						src=${this.$state.player2Image}
 						alt="Sample Image"
-						class="img-fluid mb-2"
+						class="img-fluid mb-2 profile-img"
 					/>
 					<h3 class="text-white mb-0">${this.$state.player2Name}</p>
 				</div>
