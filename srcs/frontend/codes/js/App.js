@@ -66,34 +66,14 @@ export default class App extends Component {
 	}
 
 	connectOnline() {
-		let token = sessionStorage.getItem("accessToken");
-		if (token == null) {
-			requestApi(`https://${HOST}/api/users/me/`, { // 임시 api => 이걸 이용해서 로그인 시간 유지
-				method: "GET",
-				credentials: "include",  // 🔥 쿠키 포함하여 요청
-				headers: {
-					"Content-Type": "application/json",
-				},
-			}).then(() => {
-				token = sessionStorage.getItem("accessToken")
-				if (this.$state.socket !== null) {
-					return ;
-				}
-				console.log("websocket 생성");
-				this.$state.socket = new WebSocket(
-					WSS_PROTOCOL + HOST + `/api/ws/online/?token=${token}`
-				);
-
-				this.$state.socket.onopen = () => {
-					console.log("connect WebSocket connection established");
-				};
-
-				this.$state.socket.onclose = (e) => {
-					console.log("connect WebSocket connection closed", e);
-					this.$state.socket = null;
-				};
-			});
-		} else {
+		requestApi(`https://${HOST}/api/users/me/`, { // 임시 api => 이걸 이용해서 로그인 시간 유지
+			method: "GET",
+			credentials: "include",  // 🔥 쿠키 포함하여 요청
+			headers: {
+				"Content-Type": "application/json",
+			},
+		}).then(() => {
+			const token = sessionStorage.getItem("accessToken")
 			if (this.$state.socket !== null) {
 				return ;
 			}
@@ -110,6 +90,8 @@ export default class App extends Component {
 				console.log("connect WebSocket connection closed", e);
 				this.$state.socket = null;
 			};
-		}
+		}).catch(() => {
+			console.log("websocket error");
+		});
 	}
 }

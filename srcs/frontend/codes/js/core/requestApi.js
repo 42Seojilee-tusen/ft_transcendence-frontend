@@ -13,7 +13,9 @@ async function refreshAccessToken() {
         });
 
         if (!response.ok) {
-            throw new Error(`리프레시 토큰 요청 실패: ${response.status}`);
+            const error = new Error(`리프레시 토큰 요청 실패: ${response.status}`);
+            error.name = "401Error"; // 직접 name 변경
+            throw error;
         }
 
         const data = await response.json();
@@ -62,11 +64,18 @@ export async function requestApi(url, options = {}) {
         }
         if (response.status === 403) {
             console.warn("⚠️ 2FA 인증 실패. 로그인 재시도");
-            throw new Error(`2FA 인증 실패: ${response.status}`);
+            const error = new Error(`2FA 인증 실패: ${response.status}`);
+            error.name = "403Error";
+            throw error;
         }
         return response;
     } catch (error) {
         console.error("❌ api 요청 실패:", error);
-        window.location.hash = "#/login";
+        if (error.name === "403Error") {
+            window.location.hash = "#/twofa";    
+        } else if (error.name === "401Error") {
+            window.location.hash = "#/login";
+        }
+        throw error;
     }
 }
