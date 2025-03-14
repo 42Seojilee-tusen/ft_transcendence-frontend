@@ -230,7 +230,13 @@ canvas {
     height: auto; /* 화면 높이에 맞춤 */
     max-height: 80%;
     display: block; /* 공백 제거 */
+}
 
+canvas#myBattleChart, canvas#myTournamentChart {
+    width: 100%;  /* 부모 요소에 맞게 자동 조절 */
+    height: auto; /* 화면 높이에 맞춤 */
+    max-height: 30dvh;
+    display: block; /* 공백 제거 */
 }
 
 
