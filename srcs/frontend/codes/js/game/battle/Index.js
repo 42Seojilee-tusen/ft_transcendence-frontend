@@ -13,7 +13,7 @@ export default class Index extends Component {
 
 	template() {
 		return `
-		<div class="container vh-100 d-flex flex-column">
+		<div class="container d-flex flex-column" style="height: 100dvh;">
 			<div class="row d-flex flex-grow-1">
 				<h1 class="col text-white d-flex align-items-center justify-content-center">Battle</h1>
 			</div>

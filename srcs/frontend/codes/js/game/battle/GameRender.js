@@ -7,7 +7,7 @@ import Game from "./Game.js";
 export default class GameRender extends Component {
 	template() {
 		return `
-		<div id="gameState" class="container-xxl vh-100 d-flex flex-column justify-content-center"></div>
+		<div id="gameState" class="container-xxl d-flex flex-column justify-content-center" style="height: 100dvh;"></div>
 		`;
 	}
 

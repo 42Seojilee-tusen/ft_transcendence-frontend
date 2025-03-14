@@ -5,7 +5,7 @@ import ModalButton from "../componenets/ModalButton.js";
 export default class HomePage extends Component {
 	template() {
 		return `
-		<div class="container-xxl vh-100 d-flex flex-column justify-content-center">
+		<div class="container-xxl d-flex flex-column justify-content-center" style="height: 100dvh;">
 			<div class="row">
 				<div class="col"></div>
 				<div class="col-6">

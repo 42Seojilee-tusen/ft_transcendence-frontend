@@ -6,11 +6,11 @@
 body {
     position: relative;
     margin: 0;
-    height: 100vh;
+    height: 100dvh;
     background-image: url("../img/background.png");
     background-size: cover;
     background-position: center;
-    background-repeat: no-repeat;
+    background-repeat: repeat;
 }
 
 body::before {
@@ -228,8 +228,9 @@ body::before {
 canvas {
     width: 100%;  /* 부모 요소에 맞게 자동 조절 */
     height: auto; /* 화면 높이에 맞춤 */
-    max-height: 30vh;
+    max-height: 80%;
     display: block; /* 공백 제거 */
+
 }
 
 
