@@ -24,7 +24,7 @@ export default class Index extends Component {
 						alt="Sample Image"
 						class="img-fluid mb-2 profile-img"
 					/>
-					<h3 class="text-white mb-0">${this.$state.player1Name}</p>
+					<h4 class="text-white mb-0">${this.$state.player1Name}</h4>
 				</div>
 				<div class="col d-flex align-items-center justify-content-center"><h1 class="text-white" style="font-size: clamp(1rem, 5vw, 4rem);">VS</h1></div>
 				<div class="col d-flex flex-column align-items-center justify-content-center">
@@ -33,7 +33,7 @@ export default class Index extends Component {
 						alt="Sample Image"
 						class="img-fluid mb-2 profile-img"
 					/>
-					<h3 class="text-white mb-0">${this.$state.player2Name}</p>
+					<h4 class="text-white mb-0">${this.$state.player2Name}</h4>
 				</div>
 			</div>
 			<div class="row d-flex flex-grow-1">

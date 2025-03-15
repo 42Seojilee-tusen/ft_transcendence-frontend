@@ -252,3 +252,27 @@ div[data-component="MyPage-MyProfile"] img, div[data-component="AdditionalInfo"]
     object-fit: cover;
 }
 
+.responsive-heading {
+    font-size: clamp(1rem, 5vw, 2rem); /* 화면 크기에 따라 자동 조정 */
+}
+
+/* 작은 화면 (모바일)에서 더 작게 표시 */
+@media (max-width: 768px) {
+    .responsive-heading {
+        font-size: 0.7rem;
+    }
+}
+
+/* 중간 화면 (태블릿) */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .responsive-heading {
+        font-size: 1.5rem;
+    }
+}
+
+/* 큰 화면 (데스크톱) */
+@media (min-width: 1025px) {
+    .responsive-heading {
+        font-size: 2rem;
+    }
+}

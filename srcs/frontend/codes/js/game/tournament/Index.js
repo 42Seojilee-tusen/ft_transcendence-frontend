@@ -47,44 +47,44 @@ export default class Index extends Component {
 			</div>
 			<div class="row d-flex">
 				<div class="col d-flex flex-column align-items-center justify-content-center">
-					<h3 class="text-white mb-2"></h3>
+					<h3 class="text-white mb-2 responsive-heading"></h3>
 					<img
 						id="player1Image"
 						src=${this.$state.player1Image}
 						alt="Sample Image1"
 						class="img-fluid mb-2 profile-img"
 					/>
-					<h3 class="text-white mb-2">${this.$state.player1Name}</h3>
+					<h3 class="text-white mb-2 responsive-heading">${this.$state.player1Name}</h3>
 				</div>
 				<div class="col d-flex flex-column align-items-center justify-content-center">
-					<h3 class="text-white mb-2"></h3>
+					<h3 class="text-white mb-2 responsive-heading"></h3>
 					<img
 						id="player2Image"
 						src=${this.$state.player2Image}
 						alt="Sample Image2"
 						class="img-fluid mb-2 profile-img"
 					/>
-					<h3 class="text-white mb-2">${this.$state.player2Name}</h3>
+					<h3 class="text-white mb-2 responsive-heading">${this.$state.player2Name}</h3>
 				</div>
 				<div class="col d-flex flex-column align-items-center justify-content-center">
-					<h3 class="text-white mb-2"></h3>
+					<h3 class="text-white mb-2 responsive-heading"></h3>
 					<img
 						id="player3Image"
 						src=${this.$state.player3Image}
 						alt="Sample Image3"
 						class="img-fluid mb-2 profile-img"
 					/>
-					<h3 class="text-white mb-2">${this.$state.player3Name}</h3>
+					<h3 class="text-white mb-2 responsive-heading">${this.$state.player3Name}</h3>
 				</div>
 				<div class="col d-flex flex-column align-items-center justify-content-center">
-					<h3 class="text-white mb-2"></h3>
+					<h3 class="text-white mb-2 responsive-heading"></h3>
 					<img
 						id="player4Image"
 						src=${this.$state.player4Image}
 						alt="Sample Image4"
 						class="img-fluid mb-2 profile-img"
 					/>
-					<h3 class="text-white mb-2">${this.$state.player4Name}</h3>
+					<h3 class="text-white mb-2 responsive-heading">${this.$state.player4Name}</h3>
 				</div>
 			</div>
 			<div class="row d-flex flex-grow-1">

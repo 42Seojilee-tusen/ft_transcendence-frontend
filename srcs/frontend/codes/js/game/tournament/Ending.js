@@ -25,7 +25,7 @@ export default class Ending extends Component {
 						alt="Sample Image"
 						class="img-fluid mb-2 now-play profile-img"
 					/>
-					<h3 class="text-white mb-0">${this.$state.playerName}</h3>
+					<h4 class="text-white mb-0">${this.$state.playerName}</h4>
 				</div>
 				<div class="col d-flex flex-column align-items-center justify-content-center"></div>
 			</div>
