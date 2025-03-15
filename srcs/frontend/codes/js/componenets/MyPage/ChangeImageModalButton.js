@@ -23,7 +23,7 @@ export default class ChangeImageModalButton extends Component {
 				</div>
 				`
 			: `
-				<div class="btn" data-bs-toggle="modal" data-bs-target="#changeImageModal">
+				<div class="btn d-flex flex-column justify-content-center align-content-center" data-bs-toggle="modal" data-bs-target="#changeImageModal">
 					<img src="https://${HOST}/api${profile.profile_image}" class="img-fluid w-100 profile-img" alt="${profile.username}">
 					<i class="bi bi-pencil"></i>
 				</div>
