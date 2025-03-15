@@ -12,7 +12,7 @@ export default class CallbackPage extends Component {
 
 	template() {
 		return `
-		<div class="container-xxl vh-100 d-flex flex-column justify-content-center">
+		<div class="container-xxl d-flex flex-column justify-content-center" style="height: 100dvh;">
 			<div class="row d-flex flex-grow-1">
 				<div class="col d-flex align-items-center justify-content-center"></div>
 				<div class="col d-flex align-items-center justify-content-center">

@@ -16,10 +16,13 @@ export default class BattlePage extends Component {
 	
 	setup() {
 		this.keysPressed = {};
+		this.startY = null;
+		this.touchPressed = null;
 	}
+
 	template() {
 		return `
-			<div id="battle-render"></div>
+			<div id="battle-render" style: "touch-action: none;"></div>
 		`;
 	}
 
@@ -38,6 +41,8 @@ export default class BattlePage extends Component {
 			$parent.setAttribute("tabindex", "0");
 			$parent.addEventListener("keydown", (e) => this.handleKeyDown(e));
 			$parent.addEventListener("keyup", (e) => this.handleKeyUp(e));
+			$parent.addEventListener("touchmove", (e) => this.onTouchMove(e));
+			$parent.addEventListener("touchend", (e) => this.onTouchEnd(e));
 			$parent.addEventListener("blur", () => this.handleFocusOut());
 			$parent.focus();
 		}).catch(() => {
@@ -85,6 +90,50 @@ export default class BattlePage extends Component {
 			delete this.keysPressed[e.key];
 			this.sendMovePaddle(false);
 		}
+	}
+
+	onTouchMove(e) {
+		e.preventDefault();
+		const touch = e.changedTouches[0];
+  		const currentY = touch.clientY;
+		const THRESHOLD = 5;
+		if (this.startY !== null) {
+			const diffY = currentY - this.startY;
+			if (Math.abs(diffY) > THRESHOLD) {
+				if (diffY > 0) {
+					  this.touchPressed = "s"
+				} else if (diffY < 0) {
+					  this.touchPressed = "w"
+				}
+			} else {
+				if (this.keysPressed[this.touchPressed]) {
+					delete this.keysPressed[this.touchPressed];
+					this.sendMovePaddle(false);
+				}
+				this.touchPressed = null;
+			}
+		} else {
+			this.startY = currentY;
+		}
+		if (this.touchPressed === null) {
+			return ;
+		}
+		if (this.keysPressed[this.touchPressed]) {
+			return ;
+		}
+		this.keysPressed = {};
+		this.keysPressed[this.touchPressed] = true;
+		this.sendMovePaddle(true);
+	}
+
+	onTouchEnd(e) {
+		e.preventDefault();
+		if (this.keysPressed[this.touchPressed]) {
+			delete this.keysPressed[this.touchPressed];
+			this.sendMovePaddle(false);
+		}
+		this.startY = null;
+		this.touchPressed = null;
 	}
 
 	handleFocusOut() {

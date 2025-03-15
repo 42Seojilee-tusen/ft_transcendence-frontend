@@ -6,11 +6,11 @@
 body {
     position: relative;
     margin: 0;
-    height: 100vh;
+    height: 100dvh;
     background-image: url("../img/background.png");
     background-size: cover;
     background-position: center;
-    background-repeat: no-repeat;
+    background-repeat: repeat;
 }
 
 body::before {
@@ -89,12 +89,12 @@ body::before {
 }
 
 [data-component="MyPage-MyProfile"] {
-    height: 50vh;
+    height: 60dvh;
     overflow-y: auto;
 }
 
 [data-component="MyPage-MyFollows"] {
-    height: 40vh;
+    height: 30dvh;
     overflow-y: auto;
 }
 
@@ -228,7 +228,14 @@ body::before {
 canvas {
     width: 100%;  /* 부모 요소에 맞게 자동 조절 */
     height: auto; /* 화면 높이에 맞춤 */
-    max-height: 30vh;
+    max-height: 80%;
+    display: block; /* 공백 제거 */
+}
+
+canvas#myBattleChart, canvas#myTournamentChart {
+    width: 100%;  /* 부모 요소에 맞게 자동 조절 */
+    height: auto; /* 화면 높이에 맞춤 */
+    max-height: 30dvh;
     display: block; /* 공백 제거 */
 }
 
@@ -245,3 +252,27 @@ div[data-component="MyPage-MyProfile"] img, div[data-component="AdditionalInfo"]
     object-fit: cover;
 }
 
+.responsive-heading {
+    font-size: clamp(1rem, 5vw, 2rem); /* 화면 크기에 따라 자동 조정 */
+}
+
+/* 작은 화면 (모바일)에서 더 작게 표시 */
+@media (max-width: 768px) {
+    .responsive-heading {
+        font-size: 0.7rem;
+    }
+}
+
+/* 중간 화면 (태블릿) */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .responsive-heading {
+        font-size: 1.5rem;
+    }
+}
+
+/* 큰 화면 (데스크톱) */
+@media (min-width: 1025px) {
+    .responsive-heading {
+        font-size: 2rem;
+    }
+}

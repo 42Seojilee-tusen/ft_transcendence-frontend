@@ -12,11 +12,12 @@ export default class Ending extends Component {
 
 	template() {
 		return `
-		<div class="container vh-100 d-flex flex-column">
+		<div class="container d-flex flex-column" style="height: 100dvh;">
 			<div class="row d-flex flex-grow-1">
 				<h1 class="col text-white d-flex align-items-center justify-content-center">Winner</h1>
 			</div>
 			<div class="row d-flex flex-grow-1">
+				<div class="col d-flex flex-column align-items-center justify-content-center"></div>
 				<div class="col d-flex flex-column align-items-center justify-content-center">
 					<img
 						id="playerImage"
@@ -24,8 +25,9 @@ export default class Ending extends Component {
 						alt="Sample Image"
 						class="img-fluid mb-2 now-play profile-img"
 					/>
-					<h3 class="text-white mb-0">${this.$state.playerName}</p>
+					<h4 class="text-white mb-0">${this.$state.playerName}</h4>
 				</div>
+				<div class="col d-flex flex-column align-items-center justify-content-center"></div>
 			</div>
 			<div class="row d-flex flex-grow-1">
 				<div class="col d-flex align-items-center justify-content-center"></div>
