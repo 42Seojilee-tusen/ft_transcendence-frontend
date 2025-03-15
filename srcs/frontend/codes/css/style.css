@@ -88,8 +88,13 @@ body::before {
     transition: transform 0.1s;
 }
 
+[data-component="MyPage-MyProfile"] {
+    height: 60dvh;
+    overflow-y: auto;
+}
+
 [data-component="MyPage-MyFollows"] {
-    height: 40dvh;
+    height: 30dvh;
     overflow-y: auto;
 }
 

@@ -22,8 +22,8 @@ export default class FriendProfile extends Component {
 		const profile = this.$state.profile;
 		return `
 		<!-- image -->
-		<div class="d-flex justify-content-center align-content-center my-1 my-md-1 my-lg-2">
-			${profile ? `<img src="https://${HOST}/api${profile.profile_image}" class="img-fluid w-100 profile-img" alt="${profile.username}">` : '<div>Loading image...</div>'}
+		<div class="my-1 my-md-1 my-lg-2">
+			${profile ? `<img src="https://${HOST}/api${profile.profile_image}" class="w-100 profile-img" alt="${profile.username}">` : '<div>Loading image...</div>'}
 		</div>
 
 		<!-- name -->
