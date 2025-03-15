@@ -32,8 +32,8 @@ export default class AdditionalMyInfo extends Component {
 
 	mounted() {
 		if (this.$state.histories !== null) {
-			makeChart("battle");
-			makeChart("tournament");
+			this.makeChart("battle");
+			this.makeChart("tournament");
 		}
 	}
 
@@ -58,7 +58,7 @@ export default class AdditionalMyInfo extends Component {
 		let renderLocation;
 		let winData, loseData;
 		let labelName;
-
+		
 		if (type === "battle") {
 			renderLocation = document.querySelector('#myBattleChart');
 			winData = $simpleHistory[0].win;
@@ -70,37 +70,47 @@ export default class AdditionalMyInfo extends Component {
 			loseData = $simpleHistory[1].lose;
 			labelName = "My Tournament History";
 		}
-
+		
+		// 데이터와 색상 설정
+		let chartData, chartColors, chartLabels;
+		
+		// 승패가 모두 0인지 확인
+		if (winData === 0 && loseData === 0) {
+			// 데이터가 없는 경우 회색 도넛 표시
+			chartData = [1]; // 더미 데이터 1개
+			chartColors = ['rgb(180, 180, 180)']; // 회색
+			chartLabels = ['No Data'];
+		} else {
+			// 데이터가 있는 경우 승/패 표시
+			chartData = [winData, loseData];
+			chartColors = ['rgb(255, 99, 132)', 'rgb(54, 162, 235)'];
+			chartLabels = ['Win', 'Lose'];
+		}
+		
 		new Chart(renderLocation, {
 			type: 'doughnut',
 			data: {
-				labels: [
-					'Win',
-					'Lose',
-				],
+				labels: chartLabels,
 				datasets: [{
 					label: labelName,
-					data: [winData, loseData], // 여기다 noData로 1값을 넣어줄까..
-					backgroundColor: [
-					'rgb(255, 99, 132)',
-					'rgb(54, 162, 235)'
-					],
+					data: chartData,
+					backgroundColor: chartColors,
 					hoverOffset: 4
 				}]
 			},
 			options: {
 				plugins: {
-				  legend: {
-					labels: {
-					  // 텍스트 색상 변경
-					  color: '#FFFFFF',
-					  // 텍스트 크기 및 스타일 변경
-					  font: {
-						size: 18,
-						family: 'Arial'
-					  }
+					legend: {
+						labels: {
+							// 텍스트 색상
+							color: '#FFFFFF',
+							// 텍스트 폰트
+							font: {
+								size: 18,
+								family: 'Arial'
+							}
+						}
 					}
-				  }
 				}
 			}
 		});
